@@ -7,7 +7,6 @@ ul {
     margin: 0;
     padding: 0;
     font-family: "Lato", sans-serif;
-
 }
 
 .custom-shadow {
@@ -155,4 +154,10 @@ mdc-button__label{
 }
 .header2{
     color: #1b69a7;
+}
+.mat-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000; // Ensure it's above other content
+    background: white; // Ensure visibility
 }
