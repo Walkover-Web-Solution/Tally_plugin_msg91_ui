@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+@use 'assets/scss/layout/_display.scss';
+@use 'assets/scss/layout/_flex.scss';
+@use 'assets/scss/layout/_grid.scss';
+@use 'assets/scss/layout/_positions.scss';
+@use 'assets/scss/layout/_sizing.scss';
+@use 'assets/scss/layout/_spacing.scss';
+@use 'assets/scss/layout/_text.scss';
