@@ -1,0 +1,26 @@
+.mat-right-dialog-container {
+    padding: 20px;
+  }
+  
+  .dialog-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .dialog-content {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .amount-field {
+    width: 70%; /* Adjust width as needed */
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
