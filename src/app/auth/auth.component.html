@@ -1,0 +1,51 @@
+<div class="content">
+    <div class="login-left">
+        <div>
+              Welcome Back!
+        </div>
+        <p>Start Managing your finance better and faster</p>
+        <button mat-flat-button color="primary" (click)="otpsend()">Login with otp</button>
+
+     
+       <form [formGroup]="loginform">
+        <div *ngIf="islogin">
+            <mat-form-field appearance="outline">
+              <mat-label>Mobile</mat-label>
+              <input matInput formControlName="mobileNumber" placeholder="Enter the mobile number">
+              <mat-error *ngIf="loginform.get('mobileNumber')?.invalid">Valid mobile number required</mat-error>
+            </mat-form-field>
+            <button mat-flat-button color="accent" (click)="sendOtp()">Send OTP</button>
+          </div>
+          
+          <div *ngIf="isOtpSent">
+            <mat-form-field appearance="outline">
+              <mat-label>OTP</mat-label>
+              <input matInput formControlName="otp" placeholder="Enter OTP">
+              <mat-error *ngIf="loginform.get('otp')?.invalid">Enter a valid OTP</mat-error>
+            </mat-form-field>
+            <button mat-flat-button color="primary" (click)="verifyOtp()">Verify OTP</button>
+          </div>
+       </form> 
+       <p>Doesn't have an account? <a (click)="register()" class="cursor-pointer">Register Here</a></p>
+       
+    </div>
+    
+   
+   
+   
+   <div>
+       <mat-card class="card">
+           <mat-card-header>
+               <mat-card-title>Tally Plugin By MSG91</mat-card-title>
+           </mat-card-header>
+       
+           <mat-card-content>
+                   <p>Send Invoices on Whatsapp and Email <br> Via Tally</p>
+                   <mat-divider></mat-divider>
+                   <p>Automate your financial processes effortlessly with Tally. </p>
+                   <p>Streamline invoicing, effortlessly share ledgers, and efficiently recover</p>
+                   <p> outstanding amounts, all within the Tally platform.</p>
+           </mat-card-content>
+       </mat-card>
+   </div>
+</div>

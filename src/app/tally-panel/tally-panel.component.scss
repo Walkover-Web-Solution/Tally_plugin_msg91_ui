@@ -1,0 +1,163 @@
+body,
+h1,
+h2,
+h3,
+p,
+ul {
+    margin: 0;
+    padding: 0;
+    font-family: "Lato", sans-serif;
+}
+
+.custom-shadow {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+.mat-toolbar {
+    height: 65px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+}
+
+.img{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.image{
+     width: 380px;
+}
+.content{
+    max-width: 650px;
+    z-index: 1;
+}
+.main-content{
+    height: 72vh;
+}
+.heading{
+     font-size: 48px;
+     font-weight: bold;
+}
+.paragraph{
+     font-size: 1.2rem;
+     line-height: 1.6;
+     color: grey;
+}
+.super{
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+}
+.headline{
+    color: #1b69a7;
+}
+.description{
+    font-size: 18px;
+    color: #666;
+    line-height: 1.6;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.image1{
+    width: 435px;
+    margin-left: 240px;
+    margin-top: 24px;
+    /* // margin-right: 165px; */
+}
+.container{
+     width: 378px;
+     margin-left: 200px;
+}
+.heading{
+    font-size: 36px;
+    font-weight: 600;
+    color: #1c1c1c;
+    margin-bottom: 30px;
+}
+.image-container{
+    margin-right: 220px;
+}
+.video-section{
+    padding: 50px 20px;
+    background-color: #f1f1f1;
+}
+.video-heading{
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.video-container{
+    max-width: 100%;
+    margin: 0 auto;
+}
+.video{
+    width: 80%;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.video-description{
+    font-size: 18px;
+    margin-top: 20px;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.6;
+    font-weight: bold;
+}
+.requirement {
+    padding: 21px 29px 22px 10px;
+    line-height: 42px;
+}
+.para {
+    font-size: 25px;
+}
+.para1 {
+    font-size: 25px;
+    font-weight: bold;
+}
+.feature-card {
+    border-radius: 8px;
+    padding: 20px;
+    width: 340px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+.card-text {
+    font-weight: 100;
+    color: #141313;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.card-text p {
+    font-size: 1rem;
+    color: #777;
+}
+.card-para{
+    margin-left: 28px;
+    color: grey;
+    font-size: 14px;
+}
+.btn{
+    background-color: #1b69a7;
+}
+mdc-button__label{
+    color: white;
+}
+.header2{
+    color: #1b69a7;
+}
+.mat-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: white;
+}
