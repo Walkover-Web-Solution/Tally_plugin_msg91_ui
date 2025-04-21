@@ -8,6 +8,7 @@ import { ServicesProxyLogsService } from '../services/services-proxy-logs.servic
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogRef } from '@angular/material/dialog';
 
 
 @Component({
@@ -30,7 +31,9 @@ export class WalletRechargeDialogComponent {
   error$: Observable<any>;
   paymentUrl: string = ''
   showPaymentPopup: boolean = false;
-  constructor(private store:Store,  private service: ServicesProxyLogsService){
+  constructor(private store:Store,  private service: ServicesProxyLogsService,
+              private dialogRef: MatDialogRef<WalletRechargeDialogComponent>
+  ){
     this.paymentUrl$ = this.store.select(selectPaymentUrl);
     this.loading$ = this.store.select(selectWalletLoading);
     this.error$ = this.store.select(selectWalletError);
@@ -62,6 +65,10 @@ export class WalletRechargeDialogComponent {
                   }
           })
       }
+  }
+
+  public closeDialog() {
+      this.dialogRef.close();
   }
 
 

@@ -43,7 +43,7 @@ export class AuthComponent {
     
     public loginform = new FormGroup({
           mobileNumber: new FormControl('',[Validators.required]),
-          otp: new FormControl('',[Validators.required])
+          otp: new FormControl('')
     })
 
     register() {
