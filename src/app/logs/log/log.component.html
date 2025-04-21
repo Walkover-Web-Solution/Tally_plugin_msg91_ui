@@ -10,7 +10,7 @@
             <span class="cursor-pointer">
                 <div class="d-flex flex-row gap-3">
                     <mat-icon class="mt-1">account_balance_wallet</mat-icon>
-                    <p class="mt-2">{{walletBalance$}}</p>
+                    <p class="mt-2">{{walletBalance$ | async}}</p>
                 </div>
             </span>
             <button mat-raised-button color="primary" (click)="rechargewallet()">

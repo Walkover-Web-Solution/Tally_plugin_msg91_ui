@@ -98,21 +98,17 @@ const _otpReducer = createReducer(
         error: null,
       })),
     
-      on(otpActions.getOtpVerifyActionComplete, (state, { response }) => {
-    console.log('Reducer Response:', response);  
+      on(otpActions.getOtpVerifyActionComplete, (state, { response }) => { 
     const isOtpVerified = response.status === 'success' && !response.hasError;
-    
-    console.log('OTP Verified:', isOtpVerified); // Should now be `true`
   
     return {
       ...state,
       loading: false,
-      otpVerified: isOtpVerified, // Set `true` only if OTP is verified
+      otpVerified: isOtpVerified, 
     };
 }),
     
       on(otpActions.getOtpVerifyActionError, (state, { errors }) => {
-        console.log("Error", errors)
        return {
         ...state,
         loading: false,
@@ -131,11 +127,8 @@ const _otpReducer = createReducer(
       })),
     
     on(otpActions.existOtpVerifyActionComplete, (state, { response }) => {
-    console.log('Reducer Response:', response);  
     const isExistOtpVerified = response.status === 'success' && !response.hasError;
-    
-    console.log('OTP Verified:', isExistOtpVerified); // Should now be `true`
-  
+
     return {
       ...state,
       loading: false,
@@ -144,7 +137,6 @@ const _otpReducer = createReducer(
 }),
     
       on(otpActions.existOtpVerifyActionError, (state, { errors }) => {
-        console.log("Error", errors)
        return {
         ...state,
         loading: false,

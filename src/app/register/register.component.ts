@@ -32,18 +32,14 @@ export class RegisterComponent {
   public balance:number = 0;
   public otpVerified$: Observable<any>;
   public otpNotVerified$: Observable<any>;
-  // verifyOtpError$: Observable<any>;
   registerUser$: Observable<any>;
   walletbalance$: Observable<any>;
-  // verifyOtpError$: Observable<any>
 
   constructor(private store: Store<any>,
               private router: Router,
               // private toastr: ToastrService
   ) {
     this.otpVerified$ = this.store.pipe(select(selectOtpVerified));
-    // this.verifyOtpError$ = this.store.pipe(select(verifyOtpError));
-    // this.verifyOtpError$ = this.store.pipe(select(verifyOtpErrorResponse));
     this.registerUser$ = this.store.pipe(select(registerSuccess));
     this.walletbalance$ = this.store.pipe(select(getWalletBalanceSuccess));
     this.otpNotVerified$ = this.store.pipe(select(selectOtpVerifiedError))
@@ -79,9 +75,7 @@ export class RegisterComponent {
     if(mobile){
         this.store.dispatch(sendOtpAction({ mobile }));
         this.otpSent = true;
-        // this.toastr.info("OTP Sent!", "Info");
     }
-    console.log("OTP Sent!");
   }
 
   public  verifyOtp() {
@@ -96,26 +90,20 @@ export class RegisterComponent {
     this.store.dispatch(getOtpVerifyActionComplete({ response: { success: true } }));
 
     this.otpVerified$.subscribe((res)=> {
-      console.log("response",res)
 })
 
   }
 
   public submit() {
-    console.log("hello")
     const name = this.registrationForm.get("user.fname")?.value ?? "";
     const email = this.registrationForm.get("user.email")?.value ?? "";
     const mobile = this.registrationForm.get("user.mobile")?.value ?? "";
 
-    // if(!name || !email || !mobile) {
-    //     //toast show krana h 
-    //     return;
-    // }
     this.store.dispatch(registerAction({name,email,mobile}));
 
     this.registerUser$.subscribe((token) => {
         if(token) {
-            this.router.navigate(['/app/logs'])
+            this.router.navigate(['/layout/logs'])
             this.store.dispatch(getWalletBalanceAction())
 
         }

@@ -14,6 +14,7 @@ import { getWalletBalanceAction, rechargeWalletAction } from '../../otp/send-otp
 import { WalletRechargeDialogComponent } from '../../wallet-recharge-dialog/wallet-recharge-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ServicesProxyLogsService } from '../../services/services-proxy-logs.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-log',
@@ -26,7 +27,8 @@ import { ServicesProxyLogsService } from '../../services/services-proxy-logs.ser
       MatDialogModule,
       MatFormFieldModule,
       MatInputModule,
-      MatIconModule
+      MatIconModule,
+      CommonModule
   ],
   providers: []
 })
@@ -61,30 +63,11 @@ export class LogComponent {
 
     this.walletBalance$.subscribe(balance => {
       if (balance !== null && balance !== undefined) {
-        console.log("Wallet Balance from Store:", balance);
         this.balance = balance;
-      } else {
-        console.warn("Balance is null or undefined, check Store!");
       }
     });
 
   }
-
-  // public getwalletbalance(): void {
-  //   this.service.getWalletBalance().subscribe({
-  //     next: (balance) => {
-  //       console.log("Wallet Balance API Response:", balance);
-  //       if (balance !== null && balance !== undefined) {
-  //         this.balance = balance;
-  //       } else {
-  //         console.warn("Balance is null or undefined, check API response!");
-  //       }
-  //     },
-  //     error: (error) => {
-  //       console.error("Error fetching wallet balance:", error);
-  //     }
-  //   });
-  // }
   public getWalletbalance(): void{
        this.store.dispatch(getWalletBalanceAction());
   }

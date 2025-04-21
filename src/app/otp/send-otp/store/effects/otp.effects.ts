@@ -18,50 +18,17 @@ export class OtpEffects {
         this.actions$.pipe(
             ofType(otpActions.sendOtpAction),
             switchMap(({ mobile }) => {
-                console.log("Effect triggered: sendOtpAction", mobile);
                 return this.service.sendOtp(mobile).pipe(
                     map((response) => {
-                        console.log("Effect received API response:", response);
                         return otpActions.sendOtpSuccess({ response });
                     }),
                     catchError((error) => {
-                        console.error("Effect error: sendOtpFailure", error);
                         return of(otpActions.sendOtpFailure({ error }));
                     })
                 );
             })
         )
     );
-    
-    // verifyOtp$ = createEffect(() =>
-    //   this.actions$.pipe(
-    //     ofType(otpActions.getOtpVerifyAction),
-    //     switchMap(({ request }) =>
-    //       this.otpService.verfiyOtp(request.mobile, request.otp).pipe(
-    //         map((res: any) => {
-    //           console.log("OTP API Response:", res); // Check API response here
-    //           if (res.type === 'success') {
-    //             console.log("Dispatching getOtpVerifyActionComplete");
-    //             return otpActions.getOtpVerifyActionComplete({ response: res });
-    //           }
-    //           return otpActions.getOtpVerifyActionError({
-    //             errors: [res.message],
-    //             errorResponse: res,
-    //           });
-    //         }),
-    //         catchError((err) => {
-    //           console.error("OTP Verification Error:", err);
-    //           return of(
-    //             otpActions.getOtpVerifyActionError({
-    //               errors: [err.message || 'Something went wrong'],
-    //               errorResponse: err,
-    //             })
-    //           );
-    //         })
-    //       )
-    //     )
-    //   )
-    // );
 
     verifyOtp$ = createEffect(() =>
   this.actions$.pipe(
@@ -69,10 +36,7 @@ export class OtpEffects {
     switchMap(({ request }) =>
       this.service.verfiyOtp(request.mobile, request.otp).pipe(
         map((res: any) => {
-          console.log("OTP API Response:", res); // Log API response
-
           if (res.status === 'success' && !res.hasError) {
-            console.log("Dispatching getOtpVerifyActionComplete");
             return otpActions.getOtpVerifyActionComplete({ response: res });
           }
 
@@ -82,7 +46,6 @@ export class OtpEffects {
           });
         }),
         catchError((err) => {
-          console.error("OTP Verification Error:", err);
           return of(
             otpActions.getOtpVerifyActionError({
               errors: [err.message || 'Something went wrong'],
@@ -101,10 +64,7 @@ existinguser$ = createEffect(() =>
     switchMap(({ request }) =>
       this.service.existinguser(request.mobile, request.otp).pipe(
         map((res: any) => {
-          console.log("OTP API Response:", res); // Log API response
-
           if (res.status === 'success' && !res.hasError) {
-            console.log("Dispatching getOtpVerifyActionComplete");
             return otpActions.existOtpVerifyActionComplete({ response: res });
           }
 
@@ -114,7 +74,6 @@ existinguser$ = createEffect(() =>
           });
         }),
         catchError((err) => {
-          console.error("OTP Verification Error:", err);
           return of(
             otpActions.existOtpVerifyActionError({
               errors: [err.message || 'Something went wrong'],

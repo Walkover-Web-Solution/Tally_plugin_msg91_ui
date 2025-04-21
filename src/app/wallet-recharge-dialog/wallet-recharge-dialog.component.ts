@@ -9,7 +9,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 
-declare var Razorpay: any;
 
 @Component({
   selector: 'app-wallet-recharge-dialog',
@@ -65,49 +64,5 @@ export class WalletRechargeDialogComponent {
       }
   }
 
-
-//   public extractOrderId(url: string): string {
-//     const match = url.match(/order_id=([^&]*)/);
-//     return match ? match[1] : "";
-//   }
-
-//   public handlePaymentSuccess(response: any) {
-//     console.log("Payment Successful:", response);
-//     this.store.dispatch(rechargeWalletAction({
-//         token: response.razorpay_payment_id,
-//         amount: this.walletForm.get('amount')?.value
-//     }));
-// }
-
-//   public openRazorpay(paymentUrl: string) {
-//        const options = {
-//             description: "Wallet Recharge",
-//             order_id: this.extractOrderId(paymentUrl),
-//             handler: (response:any) => {
-//                   this.handlePaymentSuccess(response)
-//             }
-//        };
-
-//        const razorpay = new Razorpay(options)
-//        razorpay.open();
-//   }
-
-//   public loadRazorpayScript() {
-//     if (document.getElementById('razorpay-script')) {
-//         return; // Prevents loading the script multiple times
-//     }
-
-//     const script = document.createElement('script');
-//     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-//     script.id = 'razorpay-script';
-//     script.onload = () => {
-//         console.log("Razorpay script loaded successfully.");
-//     };
-//     script.onerror = () => {
-//         console.error("Failed to load Razorpay script.");
-//     };
-
-//     document.body.appendChild(script);
-// }
 
 } 

@@ -91,10 +91,6 @@ export class ServicesProxyLogsService {
 
   getWalletBalance(): Observable<any> {
     const token = this.getAuthToken(); 
-    if (!token) {
-      console.warn("No auth token found, wallet balance API won't be called!");
-      return throwError(() => new Error("No auth token available"));
-    }
   
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -102,20 +98,12 @@ export class ServicesProxyLogsService {
     });
   
     return this.http.get(this.walletUrl, { headers }).pipe(
-      tap(response => console.log("Wallet Balance API Response:", response)),
-      catchError(error => {
-        console.error("Wallet Balance API Error:", error);
-        return throwError(() => error);
-      })
     );
   }
   
 
   rechargeWallet(amount:string): Observable<string | any> {
     const token = this.getAuthToken();
-    if(!token) {
-        console.warn("No auth Token Found")
-    }
 
     const headers = new HttpHeaders({
           'Content-Type': 'application/json',
@@ -128,7 +116,10 @@ export class ServicesProxyLogsService {
     return this.http.post(this.rechargeWalletUrl, body, {headers})
   }
   
-  private getAuthToken():any {
-        return sessionStorage.getItem('proxy_auth_token') || localStorage.getItem('proxy_auth_token') || null;
+  private getAuthToken(): any {
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem('proxy_auth_token') || localStorage.getItem('proxy_auth_token') || null;
+    }
+    return null;
   }
 }
