@@ -1,54 +1,25 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { otpActions } from "../actions/index";
 import { catchError, map, mergeMap, of, switchMap } from "rxjs";
 import {Actions, createEffect, ofType} from '@ngrx/effects'
-import { OtpService } from "src/app/services/otp.service";
-// import { environment } from "src/environments/environment";
-// import { OtpUtilityService } from "src/app/services/urls/otp-utility.service";
-import { ISendOtpReq, OtpResModel } from "src/app/models/otp";
-import { ServicesProxyLogsService } from "src/app/services/services-proxy-logs.service";
+import { ServicesProxyLogsService } from "../../../../services/services-proxy-logs.service";
 import { getWalletBalanceAction, getWalletBalanceFailure, getWalletBalanceSuccess, rechargeWalletAction, rechargeWalletError, rechargeWalletSuccess, registerAction, registerFailure, registerSuccess } from "../actions/otp.action";
 
 
 
 @Injectable()
 export class OtpEffects {
-      constructor(
-        private actions$: Actions,
-        private otpService: ServicesProxyLogsService,
-        // private otpUtilityService: OtpUtilityService
-      ) {}
-    
-    //   getWidgetData$ = createEffect(() =>
-    //     this.actions$.pipe(
-    //         ofType(otpActions.getWidgetData),
-    //         switchMap((p) => {
-    //             return this.otpService.getWidgetData(p.referenceId, p.payload).pipe(
-    //                 map((res: any) => {
-                        
-    //                         return otpActions.getWidgetDataComplete({
-    //                             response: true
-    //                         });
-    //                 }),
-    //                 catchError((err) => {
-    //                     return of(
-    //                         otpActions.getWidgetDataError({
-    //                             errors: err(err.errors),
-    //                             errorResponse: err,
-    //                         })
-    //                     );
-    //                 })
-    //             );
-    //         })
-    //     )
-    // );
+     constructor( ) {}
+
+     actions$ = inject(Actions)
+     service: ServicesProxyLogsService = inject(ServicesProxyLogsService)
     
     sendOtp$ = createEffect(() =>
         this.actions$.pipe(
             ofType(otpActions.sendOtpAction),
             switchMap(({ mobile }) => {
                 console.log("Effect triggered: sendOtpAction", mobile);
-                return this.otpService.sendOtp(mobile).pipe(
+                return this.service.sendOtp(mobile).pipe(
                     map((response) => {
                         console.log("Effect received API response:", response);
                         return otpActions.sendOtpSuccess({ response });
@@ -96,7 +67,7 @@ export class OtpEffects {
   this.actions$.pipe(
     ofType(otpActions.getOtpVerifyAction),
     switchMap(({ request }) =>
-      this.otpService.verfiyOtp(request.mobile, request.otp).pipe(
+      this.service.verfiyOtp(request.mobile, request.otp).pipe(
         map((res: any) => {
           console.log("OTP API Response:", res); // Log API response
 
@@ -128,7 +99,7 @@ existinguser$ = createEffect(() =>
   this.actions$.pipe(
     ofType(otpActions.existOtpVerify),
     switchMap(({ request }) =>
-      this.otpService.existinguser(request.mobile, request.otp).pipe(
+      this.service.existinguser(request.mobile, request.otp).pipe(
         map((res: any) => {
           console.log("OTP API Response:", res); // Log API response
 
@@ -160,7 +131,7 @@ existinguser$ = createEffect(() =>
         this.actions$.pipe(
           ofType(registerAction),
           mergeMap((action) =>
-            this.otpService.registerUser(action.name, action.email, action.mobile).pipe(
+            this.service.registerUser(action.name, action.email, action.mobile).pipe(
               map((response) => {
                 const token = response.data.proxy_auth_token;
                 return registerSuccess({token});
@@ -175,7 +146,7 @@ existinguser$ = createEffect(() =>
         this.actions$.pipe(
           ofType(getWalletBalanceAction),
           switchMap((action) =>
-            this.otpService.getWalletBalance().pipe(
+            this.service.getWalletBalance().pipe(
               map((balance) => getWalletBalanceSuccess({ balance })),
               catchError((error) => of(getWalletBalanceFailure({ error })))
             )
@@ -187,7 +158,7 @@ existinguser$ = createEffect(() =>
         this.actions$.pipe(
           ofType(rechargeWalletAction),
           switchMap((action) =>
-            this.otpService.rechargeWallet(action.amount).pipe(
+            this.service.rechargeWallet(action.amount).pipe(
               map((response) => {
                 if (response.data?.['Payment URL']) {
                   return rechargeWalletSuccess({ paymentUrl: response.data['Payment URL'] });

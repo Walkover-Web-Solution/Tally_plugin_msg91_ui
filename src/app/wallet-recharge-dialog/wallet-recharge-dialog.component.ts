@@ -1,16 +1,27 @@
 import { Component } from '@angular/core';
 import { rechargeWalletAction, rechargeWalletSuccess } from '../otp/send-otp/store/actions/otp.action';
 import { Store } from '@ngrx/store';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { registerSuccess, selectPaymentUrl, selectWalletError, selectWalletLoading } from '../otp/send-otp/store/selectors';
 import { ServicesProxyLogsService } from '../services/services-proxy-logs.service';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 
 declare var Razorpay: any;
 
 @Component({
   selector: 'app-wallet-recharge-dialog',
   templateUrl: './wallet-recharge-dialog.component.html',
+  imports: [
+       ReactiveFormsModule,
+       MatInputModule,
+       MatFormFieldModule,
+       ReactiveFormsModule,
+       MatInputModule,
+       MatIconModule
+  ],
   styleUrls: ['./wallet-recharge-dialog.component.css']
 })
 export class WalletRechargeDialogComponent {

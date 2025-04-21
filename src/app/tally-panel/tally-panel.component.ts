@@ -1,18 +1,24 @@
-import { Component } from "@angular/core";
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import { footerComponent } from "../footer/footer.component";
-@Component({
-    selector: 'app-tally-panel',
-    imports:[
-        MatToolbarModule,
-        MatIconModule,
-        MatButtonModule,
-        footerComponent
-    ],
-    templateUrl: './tally-panel.component.html',
-    styleUrls: ['./tally-panel.component.scss'],
-})
+import { Component, Injector } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { footerComponent } from '../footer/footer.component';
 
-export class TallyPanelComponent {}
+@Component({
+  selector: 'app-tally-panel',
+  imports: [
+    MatIconModule,
+    MatToolbarModule,
+    footerComponent
+  ],
+  templateUrl: './tally-panel.component.html',
+  styleUrls: ['./tally-panel.component.scss']
+})
+export class TallyPanelComponent {
+
+  constructor(private router: Router) { }
+
+  redirectTologin() {
+    this.router.navigate(['/login'])
+  }
+}

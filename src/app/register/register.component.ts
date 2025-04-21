@@ -5,12 +5,26 @@ import { sendOtpAction, getOtpVerifyAction, registerAction, getWalletBalanceActi
 import { registerSuccess, getWalletBalanceSuccess, selectOtpVerified, selectOtpVerifiedError } from "../otp/send-otp/store/selectors";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
 // import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.css"],
+  styleUrls: ["./register.component.scss"],
+  imports: [
+    MatFormFieldModule,
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+  ]
 })
 export class RegisterComponent {
   public otpSent = false;

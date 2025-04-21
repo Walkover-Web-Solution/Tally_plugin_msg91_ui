@@ -22,10 +22,10 @@
               <input matInput formControlName="otp" placeholder="Enter OTP">
               <mat-error *ngIf="loginform.get('otp')?.invalid">Enter a valid OTP</mat-error>
             </mat-form-field>
-            <button mat-flat-button color="primary" (click)="verifyOtp()">Verify OTP</button>
+            <button mat-flat-button color="primary" (click)="verifyOtp()">Login</button>
           </div>
        </form> 
-       
+        <p>Doesn't have an account? <a (click)="register()" class="cursor-pointer">Register Here</a></p>
     </div>
     <div>
          <!-- <p>Doesn't have an account? <a>Register Here</a></p> -->

@@ -63,7 +63,7 @@ ul {
     width: 435px;
     margin-left: 240px;
     margin-top: 24px;
-    // margin-right: 165px;
+    /* // margin-right: 165px; */
 }
 .container{
      width: 378px;
@@ -158,6 +158,6 @@ mdc-button__label{
 .mat-toolbar {
     position: sticky;
     top: 0;
-    z-index: 1000; // Ensure it's above other content
-    background: white; // Ensure visibility
+    z-index: 1000;
+    background: white;
 }

@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { ISendOtpReq } from 'src/app/models/otp';
 
 export const getWidgetData = createAction(
     '[Auth] Get Widget Data',

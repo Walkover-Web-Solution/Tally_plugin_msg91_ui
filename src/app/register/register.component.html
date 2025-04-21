@@ -126,8 +126,8 @@
                             <input matInput formControlName="otp" placeholder="Enter OTP" />
                         </mat-form-field>
                         <button mat-button (click)="verifyOtp()">Verify OTP</button>
-                        <p *ngIf="otpVerified$ | async">✅ OTP Verified!</p>
-                        <p *ngIf="otpNotVerified$ | async">❌ OTP Verification Failed</p>
+                        <p *ngIf="otpVerified$ | async">OTP Verified!</p>
+                        <p *ngIf="otpNotVerified$ | async">OTP Verification Failed</p>
                     </div>
     
                     <button mat-raised-button type="submit" [disabled]="!(otpVerified$ | async)" (click)="submit()">Submit</button>
