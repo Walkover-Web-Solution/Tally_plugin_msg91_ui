@@ -118,7 +118,7 @@
     gap: 32px;
 }
 
-// Row Spacing
+ /* Row Spacing */
 .row-gap-1 {
     row-gap: 4px;
 }
@@ -135,7 +135,7 @@
     row-gap: 32px;
 }
 
-// Column Spacing
+/* Column Spacing */
 .col-gap-1 {
     column-gap: 4px;
 }

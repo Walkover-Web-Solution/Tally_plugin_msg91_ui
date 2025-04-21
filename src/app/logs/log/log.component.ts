@@ -1,17 +1,36 @@
 import { Component } from '@angular/core';
-import {ProxyLogsComponentStore} from '../log/logs.store'
+// import {ProxyLogsComponentStore} from '../log/logs.store'
 import { Observable } from 'rxjs';
-import { getWalletBalanceSuccess, registerSuccess, selectPaymentUrl } from 'src/app/otp/send-otp/store/selectors';
+import {MatButtonModule} from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import { getWalletBalanceSuccess, registerSuccess, selectPaymentUrl } from '../../otp/send-otp/store/selectors/otp.selector';
 import { select, Store } from '@ngrx/store';
-import { getWalletBalanceAction, rechargeWalletAction } from 'src/app/otp/send-otp/store/actions/otp.action';
-import { WalletRechargeDialogComponent } from 'src/app/wallet-recharge-dialog/wallet-recharge-dialog.component';
+import { getWalletBalanceAction, rechargeWalletAction } from '../../otp/send-otp/store/actions/otp.action';
+import { WalletRechargeDialogComponent } from '../../wallet-recharge-dialog/wallet-recharge-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ServicesProxyLogsService } from 'src/app/services/services-proxy-logs.service';
+import { ServicesProxyLogsService } from '../../services/services-proxy-logs.service';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-log',
   templateUrl: './log.component.html',
-  styleUrls: ['./log.component.css'],
-  providers: [ProxyLogsComponentStore]
+  styleUrls: ['./log.component.scss'],
+  imports: [
+      MatButtonModule,
+      MatTableModule,
+      MatCardModule,
+      MatDialogModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatIconModule,
+      CommonModule
+  ],
+  providers: []
 })
 export class LogComponent {
 
@@ -28,12 +47,10 @@ export class LogComponent {
   public params: any = {};
   public walletBalance$: Observable<number>
   public rechargeWallet$: Observable<any>
-  public logs$: Observable<any> = this.componentStore.logsData$;
   public balance:number = 0;
   public registerUser$: Observable<any>
-  isLoading$ = this.componentStore.isLoading$;
 
-  constructor( private componentStore: ProxyLogsComponentStore, private store:Store<any>,
+  constructor(private store:Store<any>,
                private dialog:MatDialog, private service: ServicesProxyLogsService
   ) {
       this.walletBalance$ = this.store.pipe(select(getWalletBalanceSuccess)),
@@ -42,39 +59,15 @@ export class LogComponent {
   }
 
   ngOnInit(): void {
-    this.getLogs();
     this.getWalletbalance()
 
     this.walletBalance$.subscribe(balance => {
       if (balance !== null && balance !== undefined) {
-        console.log("Wallet Balance from Store:", balance);
         this.balance = balance;
-      } else {
-        console.warn("Balance is null or undefined, check Store!");
       }
     });
 
   }
-
-  public getLogs(): void {
-    this.componentStore.getLogs({ ...this.params });
-  }
-
-  // public getwalletbalance(): void {
-  //   this.service.getWalletBalance().subscribe({
-  //     next: (balance) => {
-  //       console.log("Wallet Balance API Response:", balance);
-  //       if (balance !== null && balance !== undefined) {
-  //         this.balance = balance;
-  //       } else {
-  //         console.warn("Balance is null or undefined, check API response!");
-  //       }
-  //     },
-  //     error: (error) => {
-  //       console.error("Error fetching wallet balance:", error);
-  //     }
-  //   });
-  // }
   public getWalletbalance(): void{
        this.store.dispatch(getWalletBalanceAction());
   }

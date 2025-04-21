@@ -2,7 +2,7 @@
     <h2 mat-dialog-title class="dialog-title">
       Add Funds
       <button mat-icon-button>
-        <mat-icon>close</mat-icon>
+        <mat-icon  (click)="closeDialog()">close</mat-icon>
       </button>
     </h2>
   
@@ -17,6 +17,5 @@
       <button mat-raised-button color="primary" (click)="add()">Proceed to pay</button>
     </div>
   
-    
   </div>
   

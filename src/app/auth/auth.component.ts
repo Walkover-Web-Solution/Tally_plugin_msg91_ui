@@ -1,21 +1,41 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
-import { existOtpVerify, existOtpVerifyActionComplete, getOtpVerifyAction, getWalletBalanceAction, sendOtpAction } from '../otp/send-otp/store/actions/otp.action';
-import { selectexistOtpVerified } from '../otp/send-otp/store/selectors';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { selectexistOtpVerified } from '../otp/send-otp/store/selectors/otp.selector';
+import { Store } from '@ngrx/store';
+import { existOtpVerify, getWalletBalanceAction, sendOtpAction } from '../otp/send-otp/store/actions/otp.action';
+import { MatToolbarModule } from "@angular/material/toolbar";
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { CommonModule } from "@angular/common";
+import { MatIconModule } from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-auth',
+  imports: [
+    CommonModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatDividerModule,
+    MatInputModule,
+    MatIconModule,
+    ReactiveFormsModule,
+ ],
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css']
+  styleUrl: './auth.component.scss',
 })
+
 export class AuthComponent {
-    public existotpverify$: Observable<any>
     islogin = false;
     isOtpSent = false;
     mobileNumber = ''
+    existotpverify$: any;
 
     constructor(private store:Store, private router:Router) {
         this.existotpverify$ = this.store.select(selectexistOtpVerified)
@@ -23,18 +43,21 @@ export class AuthComponent {
     
     public loginform = new FormGroup({
           mobileNumber: new FormControl('',[Validators.required]),
-
           otp: new FormControl('')
     })
+
+    register() {
+       this.router.navigate(['/register'])
+    }
 
     otpsend(){
        this.islogin=true;
     }
 
     sendOtp() {
-        const mobile = this.loginform.get('mobileNumber')?.value ?? ''
-        this.store.dispatch(sendOtpAction({mobile}));
-        this.isOtpSent = true;
+      const mobile = this.loginform.get('mobileNumber')?.value ?? '';
+      this.store.dispatch(sendOtpAction({ mobile }));
+      this.isOtpSent = true;
     }
 
     verifyOtp() {
@@ -47,10 +70,9 @@ export class AuthComponent {
   
       this.store.dispatch(existOtpVerify({ request: { mobile, otp } }));
 
-      this.existotpverify$.subscribe((res)=> {
-            console.log({res})
+      this.existotpverify$.subscribe((res:any)=> {
             if(res) {
-                  this.router.navigate(['/app/logs'])
+                  this.router.navigate(['/layout/logs'])
                   this.store.dispatch(getWalletBalanceAction())
             }
       })
