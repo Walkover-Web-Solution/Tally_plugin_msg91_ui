@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-log',
   templateUrl: './log.component.html',
-  styleUrls: ['./log.component.css'],
+  styleUrls: ['./log.component.scss'],
   imports: [
       MatButtonModule,
       MatTableModule,

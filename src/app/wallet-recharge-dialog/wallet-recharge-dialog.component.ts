@@ -21,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
        MatInputModule,
        MatIconModule
   ],
-  styleUrls: ['./wallet-recharge-dialog.component.css']
+  styleUrls: ['./wallet-recharge-dialog.component.scss']
 })
 export class WalletRechargeDialogComponent {
 

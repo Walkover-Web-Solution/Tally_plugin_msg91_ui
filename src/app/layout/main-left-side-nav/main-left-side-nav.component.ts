@@ -15,7 +15,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
     MatListModule,
     RouterModule,
   ],
-  styleUrls: ['./main-left-side-nav.component.css']
+  styleUrls: ['./main-left-side-nav.component.scss']
 })
 export class MainLeftSideNavComponent {
   @Input() public isSideNavOpen!: boolean;

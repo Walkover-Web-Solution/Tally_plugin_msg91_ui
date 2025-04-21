@@ -11,7 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
-// import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-register",
@@ -37,7 +36,7 @@ export class RegisterComponent {
 
   constructor(private store: Store<any>,
               private router: Router,
-              // private toastr: ToastrService
+
   ) {
     this.otpVerified$ = this.store.pipe(select(selectOtpVerified));
     this.registerUser$ = this.store.pipe(select(registerSuccess));

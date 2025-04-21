@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { selectexistOtpVerified } from '../otp/send-otp/store/selectors/otp.selector';
 import { Store } from '@ngrx/store';
@@ -32,7 +32,6 @@ import { MatIconModule } from '@angular/material/icon';
 })
 
 export class AuthComponent {
-    // public existotpverify$: Observable<any>
     islogin = false;
     isOtpSent = false;
     mobileNumber = ''
@@ -44,8 +43,7 @@ export class AuthComponent {
     
     public loginform = new FormGroup({
           mobileNumber: new FormControl('',[Validators.required]),
-
-          otp: new FormControl('')
+          otp: new FormControl('',[Validators.required])
     })
 
     register() {
@@ -57,8 +55,6 @@ export class AuthComponent {
     }
 
     sendOtp() {
-      const mobileControl = this.loginform.get('mobileNumber');
-  
       const mobile = this.loginform.get('mobileNumber')?.value ?? '';
       this.store.dispatch(sendOtpAction({ mobile }));
       this.isOtpSent = true;
