@@ -1,50 +1,70 @@
 <div class="content">
-    <div class="login-left">
-        <div>
-              Welcome Back!
-        </div>
-        <p>Start Managing your finance better and faster</p>
-        <button mat-flat-button color="primary" (click)="otpsend()">Login with otp</button>
+  <div class="align-items-center first">
+     <div class="align-items-center">
+        <p class="ml-5 login-content">Welcome Back!</p> 
+        <p class="login-content1">Start Managing your finance better and faster</p>
+     </div>
 
-       <form [formGroup]="loginform">
-        <div *ngIf="islogin">
-            <mat-form-field appearance="outline">
-              <mat-label>Mobile</mat-label>
-              <input matInput formControlName="mobileNumber" placeholder="Enter the mobile number">
-              <mat-error *ngIf="loginform.get('mobileNumber')?.invalid">Valid mobile number required</mat-error>
-            </mat-form-field>
-            <button mat-flat-button color="accent" (click)="sendOtp()">Send OTP</button>
-          </div>
-          
-          <div *ngIf="isOtpSent">
-            <mat-form-field appearance="outline">
-              <mat-label>OTP</mat-label>
-              <input matInput formControlName="otp" placeholder="Enter OTP">
-              <mat-error *ngIf="loginform.get('otp')?.invalid">Enter a valid OTP</mat-error>
-            </mat-form-field>
-            <button mat-flat-button color="primary" (click)="verifyOtp()">Login</button>
-          </div>
-       </form> 
-        <p>Doesn't have an account? <a (click)="register()" class="cursor-pointer">Register Here</a></p>
-    </div>
-    <div>
-         <!-- <p>Doesn't have an account? <a>Register Here</a></p> -->
-    </div>
+     <div class="ml-6">
+        <button mat-flat-button color="primary" (click)="otpsend()">Login with otp</button>
+     </div>
    
+        <div class="mt-3">
+             <form [formGroup]="loginform">
+              <div *ngIf="islogin" class="d-flex flex-col gap-3">
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Mobile</mat-label>
+                        <input matInput formControlName="mobileNumber" placeholder="Enter the mobile number">
+                        <mat-error *ngIf="loginform.get('mobileNumber')?.invalid">Valid mobile number required</mat-error>
+                    </mat-form-field>
+                </div>
+
+                 <div class="mt-2">
+                    <button mat-flat-button color="primary" (click)="sendOtp()">Send OTP</button>
+                 </div>
+              </div>
    
-   <div>
-       <mat-card class="card">
-           <mat-card-header>
-               <mat-card-title>Tally Plugin By MSG91</mat-card-title>
-           </mat-card-header>
-       
-           <mat-card-content>
-                   <p>Send Invoices on Whatsapp and Email <br> Via Tally</p>
-                   <mat-divider></mat-divider>
-                   <p>Automate your financial processes effortlessly with Tally. </p>
-                   <p>Streamline invoicing, effortlessly share ledgers, and efficiently recover</p>
-                   <p> outstanding amounts, all within the Tally platform.</p>
-           </mat-card-content>
-       </mat-card>
-   </div>
+              <div *ngIf="isOtpSent" class="d-flex flex-col gap-3">
+                 
+                <div>
+                  <mat-form-field appearance="outline">
+                    <mat-label>OTP</mat-label>
+                    <input matInput formControlName="otp" placeholder="Enter OTP">
+                    <mat-error *ngIf="loginform.get('otp')?.invalid">Enter a valid OTP</mat-error>
+                 </mat-form-field>
+                </div>
+
+                 <div class="mt-2">
+                    <button mat-flat-button color="primary" (click)="verifyOtp()">Login</button>
+                 </div>
+
+               </div>
+             </form>
+        </div>
+
+        <div class="mt-5">
+          <p class="ml-4 account">Doesn't have an account? <a (click)="register()" class="cursor-pointer text-underline link">Register Here</a></p>
+        </div>
+  </div>
+
+
+
+
+  <div>
+      <mat-card class="card">
+        <mat-card-header>
+          <mat-card-title>Tally Plugin By MSG91</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <p class="card-content">Send Invoices on Whatsapp and Email <br> Via Tally</p>
+              <mat-divider></mat-divider>
+            <p class="highlight">Automate your financial processes effortlessly with Tally. </p>
+            <p>Streamline invoicing, effortlessly share ledgers, and efficiently recover</p>
+            <p> outstanding amounts, all within the Tally platform.</p>
+        </mat-card-content>
+      </mat-card>
+  </div>
+
 </div>

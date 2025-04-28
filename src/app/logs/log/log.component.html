@@ -8,7 +8,7 @@
         </div>
         <div class="d-flex flex-row gap-5 mr-5">
             <span class="cursor-pointer">
-                <div class="d-flex flex-row gap-3">
+                <div class="d-flex flex-row gap-3 balance-wallet">
                     <mat-icon class="mt-1">account_balance_wallet</mat-icon>
                     <p class="mt-2">{{walletBalance$ | async}}</p>
                 </div>
@@ -21,7 +21,7 @@
 
     <mat-card class="p-0 outline-card responsive-card flex-grow-1">
         <mat-card-content>
-            <div class="table-scroll" >
+            <div class="table-scroll" style="height: calc(100vh - 180px)">
                 <table mat-table  class="default-table responsive-table">
                     <!-- Time Column -->
                     <ng-container matColumnDef="created_at">
@@ -82,7 +82,7 @@
 
                     <tr *matNoDataRow>
                         <td class="mat-cell border-none" [attr.colspan]="displayedColumns.length">
-
+                            <app-no-record-found [title]="'logs'" [showBtn]="false"></app-no-record-found>   
                         </td>
                     </tr>
                 </table>

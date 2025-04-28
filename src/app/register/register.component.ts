@@ -16,6 +16,7 @@ import {MatButtonModule} from '@angular/material/button';
   selector: "app-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
+  standalone: true,
   imports: [
     MatFormFieldModule,
     CommonModule,

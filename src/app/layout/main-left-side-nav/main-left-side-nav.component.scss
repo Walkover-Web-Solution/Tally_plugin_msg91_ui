@@ -1,0 +1,36 @@
+default-drawer .mat-nav-list {
+    padding-top: 0px;
+  }
+  
+  default-drawer .mat-nav-list .mat-list-item {
+    height: 40px !important;
+    cursor: pointer !important;
+    color: #6c757d !important; /* Replace with actual --color-common-slate */
+  }
+  
+  default-drawer .mat-nav-list .mat-list-item .mat-list-item-content {
+    padding: 0px 0px 0px 16px;
+  }
+  
+  default-drawer .mat-nav-list .mat-list-item.mat-list-item-disabled {
+    background-color: #c0c0c0; /* Replace with --color-common-silver */
+    pointer-events: none;
+    opacity: 0.7;
+  }
+  
+  default-drawer .mat-nav-list .mat-list-item .mat-line {
+    font-size: 14px !important;
+    font-weight: 400;
+  }
+  
+  default-drawer .mat-nav-list .mat-list-item .mat-line.menu-svg-icon svg path {
+    fill: #6c757d; /* Replace with --color-common-slate */
+  }
+  
+  /* You’ll need to replace this with real CSS since mixins don’t exist in pure CSS */
+  default-drawer .mat-nav-list .mat-list-item:hover,
+  default-drawer .mat-nav-list .mat-list-item:active {
+    background-color: #d1e9ff; /* Replace with --color-common-primary-light */
+    color: #ffffff; /* Replace with --color-common-white */
+  }
+  

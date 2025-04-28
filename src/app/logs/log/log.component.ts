@@ -15,6 +15,7 @@ import { WalletRechargeDialogComponent } from '../../wallet-recharge-dialog/wall
 import { MatDialog } from '@angular/material/dialog';
 import { ServicesProxyLogsService } from '../../services/services-proxy-logs.service';
 import { CommonModule } from '@angular/common';
+import { NoRecordFoundComponent } from '../../no-record/no-record-found.component';
 
 @Component({
   selector: 'app-log',
@@ -28,7 +29,8 @@ import { CommonModule } from '@angular/common';
       MatFormFieldModule,
       MatInputModule,
       MatIconModule,
-      CommonModule
+      CommonModule,
+      NoRecordFoundComponent
   ],
   providers: []
 })

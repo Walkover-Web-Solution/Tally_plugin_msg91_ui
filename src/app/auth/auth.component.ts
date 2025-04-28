@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-auth',
+  standalone:true,
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -32,10 +33,10 @@ import { MatIconModule } from '@angular/material/icon';
 })
 
 export class AuthComponent {
-    islogin = false;
-    isOtpSent = false;
-    mobileNumber = ''
-    existotpverify$: any;
+   public islogin = false;
+   public isOtpSent = false;
+   public mobileNumber = ''
+   public existotpverify$: any;
 
     constructor(private store:Store, private router:Router) {
         this.existotpverify$ = this.store.select(selectexistOtpVerified)
@@ -46,21 +47,21 @@ export class AuthComponent {
           otp: new FormControl('')
     })
 
-    register() {
+    public register() {
        this.router.navigate(['/register'])
     }
 
-    otpsend(){
+    public otpsend(){
        this.islogin=true;
     }
 
-    sendOtp() {
+    public sendOtp() {
       const mobile = this.loginform.get('mobileNumber')?.value ?? '';
       this.store.dispatch(sendOtpAction({ mobile }));
       this.isOtpSent = true;
     }
 
-    verifyOtp() {
+    public verifyOtp() {
       const mobile = this.loginform.get("mobileNumber")?.value ?? "";
       const otp = this.loginform.get("otp")?.value ?? "";
   

@@ -1,6 +1,10 @@
-.app-content {
-    background-color: var(--color-common-app-bg);
+body{
     height: 100vh;
+    margin: 0px;
+    background-color: aquamarine;
+}
+.app-content {
+    background-color: #ffffff;
 }
 
 button {
@@ -9,18 +13,22 @@ button {
 }
 
 .reg-form {
-    min-width: 750px;
-    background-color: #ffffffb8;
-    box-shadow: #fff;
-    height: 400px;
-    width: 400px;
-    margin-top: 60px;
+    min-width: 520px;
+    background-color: #ffffff;
+    box-shadow: #ffff;
+    height: 640px;
+    width: 300px;
+    margin-top: 30px;
+}
+
+.field{
+    display: flex;
+    flex-direction: column;
 }
 
 .input-wrapper{
-    width: 60%;
+    width: 100%;
 }
-
 @media (max-width: 768px) { 
     .reg-form {
         min-width: 80%;
