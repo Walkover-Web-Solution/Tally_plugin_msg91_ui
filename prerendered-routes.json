@@ -1,9 +1,0 @@
-{
-  "routes": {
-    "/Tally_plugin_msg91_ui": {},
-    "/Tally_plugin_msg91_ui/app": {},
-    "/Tally_plugin_msg91_ui/layout": {},
-    "/Tally_plugin_msg91_ui/login": {},
-    "/Tally_plugin_msg91_ui/register": {}
-  }
-}
