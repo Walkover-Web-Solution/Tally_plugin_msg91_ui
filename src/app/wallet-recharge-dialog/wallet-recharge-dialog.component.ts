@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { rechargeWalletAction, rechargeWalletSuccess } from '../otp/send-otp/store/actions/otp.action';
 import { Store } from '@ngrx/store';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -8,20 +8,25 @@ import { ServicesProxyLogsService } from '../services/services-proxy-logs.servic
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialogRef } from '@angular/material/dialog';
-
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-wallet-recharge-dialog',
   templateUrl: './wallet-recharge-dialog.component.html',
+  standalone: true,
   imports: [
        ReactiveFormsModule,
        MatInputModule,
        MatFormFieldModule,
        ReactiveFormsModule,
        MatInputModule,
-       MatIconModule
+       MatIconModule,
+       MatDividerModule,
+       MatButtonModule
   ],
+  providers: [],
   styleUrls: ['./wallet-recharge-dialog.component.scss']
 })
 export class WalletRechargeDialogComponent {
@@ -32,7 +37,8 @@ export class WalletRechargeDialogComponent {
   paymentUrl: string = ''
   showPaymentPopup: boolean = false;
   constructor(private store:Store,  private service: ServicesProxyLogsService,
-              private dialogRef: MatDialogRef<WalletRechargeDialogComponent>
+              private dialogRef: MatDialogRef<WalletRechargeDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any 
   ){
     this.paymentUrl$ = this.store.select(selectPaymentUrl);
     this.loading$ = this.store.select(selectWalletLoading);

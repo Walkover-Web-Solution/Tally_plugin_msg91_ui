@@ -8,13 +8,17 @@ import { provideEffects } from '@ngrx/effects';
 import { OtpEffects } from '../app/otp/send-otp/store/effects/otp.effects';
 import { otpReducer } from './otp/send-otp/store/reducers/otp.reducer';
 import { provideStoreDevtools } from '@ngrx/store-devtools'
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { ProxyLogsComponentStore } from './logs/log/logs.store';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(withEventReplay()),
               provideHttpClient(),
               provideStore({otp:otpReducer}),
               provideEffects([OtpEffects]),
-              provideStoreDevtools()
+              provideStoreDevtools(),
+              provideAnimations(),
+              ProxyLogsComponentStore
   ]
 };
 

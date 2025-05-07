@@ -1,0 +1,21 @@
+
+.active-list-item {
+        background-color: #4a58a8;
+        color: #ffff;
+}
+
+.active-list-item .mat-icon,
+.active-list-item .menu-label {
+  color: #ffffff !important;
+}
+
+/* Inactive/default state */
+.mat-list-item {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+.mat-list-item .mat-icon,
+.mat-list-item .menu-label {
+  color: #000000 !important;
+}

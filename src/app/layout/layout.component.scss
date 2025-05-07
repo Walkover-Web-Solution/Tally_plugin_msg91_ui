@@ -108,6 +108,22 @@
     overflow: auto;
 }
 
+.toggleicon{
+    border: none;
+    background-color: #fff;
+    min-width: 0;
+    border-radius: 50%;
+}
+
+.toggleicon :hover{
+     color: #1111af;
+}
+
+.toggle-icon{
+    color: #666;
+}
+
+
 /* Media Query for smaller screens */
 @media (max-width: 1024px) { /* Adjust breakpoint if needed */
     .app-main-container {

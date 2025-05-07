@@ -17,10 +17,6 @@ export const routes: Routes = [
     },
     {
         path: 'layout',
-        loadComponent: () => import('./layout/layout.component').then(m => m.LayoutComponent)
-    },
-    {
-        path: 'layout',
         loadComponent: () => import('./layout/layout.component').then(m => m.LayoutComponent),
         children: [
           {
@@ -33,5 +29,8 @@ export const routes: Routes = [
             loadComponent: () => import('./logs/log/log.component').then((p) => p.LogComponent)
           }
         ]
+      },
+      {
+        path:'**', redirectTo: 'app', pathMatch: 'full'
       }
 ];
