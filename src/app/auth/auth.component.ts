@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { selectexistOtpVerified } from '../otp/send-otp/store/selectors/otp.selector';
@@ -12,11 +12,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { CommonModule } from "@angular/common";
 import { MatIconModule } from '@angular/material/icon';
-
+import { PHONE_NUMBER_REGEX } from '../regex';
 
 @Component({
   selector: 'app-auth',
-  standalone:true,
+  standalone:true, 
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -37,13 +37,23 @@ export class AuthComponent {
    public isOtpSent = false;
    public mobileNumber = ''
    public existotpverify$: any;
+   public mobilefield: boolean = true;
 
+   @ViewChild('mobileInput') mobileInput!: ElementRef<HTMLInputElement>;
+   
     constructor(private store:Store, private router:Router) {
         this.existotpverify$ = this.store.select(selectexistOtpVerified)
     }
+
+    ngAfterViewInit(): void {
+      // Delay focus to ensure the DOM is fully rendered
+      setTimeout(() => {
+        this.mobileInput?.nativeElement.focus();
+      });
+    }
     
     public loginform = new FormGroup({
-          mobileNumber: new FormControl('',[Validators.required]),
+          mobileNumber: new FormControl('',[Validators.required,Validators.pattern(PHONE_NUMBER_REGEX)]),
           otp: new FormControl('')
     })
 
@@ -51,22 +61,24 @@ export class AuthComponent {
        this.router.navigate(['/register'])
     }
 
-    public otpsend(){
+    public otpsend() {
        this.islogin=true;
     }
 
     public sendOtp() {
-      const mobile = this.loginform.get('mobileNumber')?.value ?? '';
+      const mobile = this.loginform.get('mobileNumber')?.value ?? "";
+      if(!mobile && mobile.length==12) return;
       this.store.dispatch(sendOtpAction({ mobile }));
       this.isOtpSent = true;
+      this.mobilefield = false;
     }
 
     public verifyOtp() {
       const mobile = this.loginform.get("mobileNumber")?.value ?? "";
       const otp = this.loginform.get("otp")?.value ?? "";
   
-      if (!otp || otp.length !== 4) {
-        return;
+      if (!otp || otp.length !== 4) { 
+          return;
       }
   
       this.store.dispatch(existOtpVerify({ request: { mobile, otp } }));
@@ -77,5 +89,10 @@ export class AuthComponent {
                   this.store.dispatch(getWalletBalanceAction())
             }
       })
+    }
+
+    backtoMobile() {
+         this.isOtpSent = false;
+         this.mobilefield = true;
     }
 }

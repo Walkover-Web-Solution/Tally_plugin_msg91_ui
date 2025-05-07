@@ -15,7 +15,7 @@
                     #clientsMenuTrigger="matMenuTrigger"
                 >
                     <span class="font-16 fw-bolder text-dark overflow-dotted" style="max-width: 145px">
-                                Name
+                                Tally Plugin
                     </span>
                     <mat-icon class="mat-icon-18" *ngIf="isSideNavOpen | async"> name</mat-icon>
                     <mat-menu #clientsMenu="matMenu" class="profile-sub-dropdown" xPosition="before">
@@ -46,53 +46,29 @@
                     </mat-menu>
                 </div>
             </div>
-            <button
+           <div class="main-left-sidenav" >
+                <button
                 mat-icon-button
                 color="primary"
-                class="mat-drawer-toggle-btn icon-btn-md mr-1"
+                class="mat-drawer-toggle-btn icon-btn-md mr-1 sidenav-toggle-btn"
                 [matTooltip]="(isSideNavOpen | async) ? 'Collapse Menu' : 'Expand Menu'"
                 matTooltipPosition="right"
                 type="button"
                 (click)="toggleSideNav()"
+                class="toggleicon cursor-pointer"
+                [ngClass]="{ 'visible': showToggle }"
             >
-                <mat-icon matListIcon class="mat-icon-20 material-icons-outlined p-0" aria-hidden="false">{{
-                    (isSideNavOpen | async) ? 'arrow_forward' : 'arrow_back'
+                <mat-icon matListIcon class="mat-icon-20 material-icons-outlined p-0 toggle-icon" aria-hidden="false">{{
+                    (isSideNavOpen | async) ? 'keyboard_double_arrow_left' : 'keyboard_double_arrow_right'
                 }}</mat-icon>
             </button>
+           </div>
         </div>
         <!-- Proxy Sidenav::START -->
         <app-main-left-side-nav
             class="mat-drawer-nav proxy-left-menu"
             [isSideNavOpen]="!(isSideNavOpen | async)"
         ></app-main-left-side-nav>
-        <!-- Proxy Sidenav::END -->
-        <!-- <div class="mat-drawer-footer">
-            <button mat-button [matMenuTriggerFor]="menu">
-                <div class="d-flex align-items-center">
-                    <img
-                        alt="No Image"
-                        class="profile-avatar"
-                        loading="lazy"
-                    />
-                    <mat-icon  aria-hidden="false" class="mr-3 text-grey material-icons-outlined">
-                        account_circle</mat-icon
-                    >
-                    <div class="d-flex flex-column" style="width: 140px">
-                        <h6 class="username m-0 text-secondary">User Display name</h6>
-                    </div>
-                    <mat-icon class="mx-1 text-secondary material-icons-outlined">keyboard_arrow_up</mat-icon>
-                </div>
-            </button>
-            <mat-menu #menu="matMenu" class="profile-menu ml-1">
-                <h4 class="m-0 py-2 px-3 text-dark fw-bold">User Display name</h4>
-                <a
-                    mat-menu-item
-                    class="d-flex align-items-center justify-content-between text-danger"
-                >
-                    Logout <mat-icon class="mat-icon-18 text-danger mr-0">logout</mat-icon>
-                </a>
-            </mat-menu>
-        </div> -->
     </div>
 
     <div class="app-main-container">

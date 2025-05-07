@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
-// import {MatButtonModule} from '@angular/material/button';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-wallet-recharge-dialog',
@@ -24,7 +24,7 @@ import {MatDividerModule} from '@angular/material/divider';
        MatInputModule,
        MatIconModule,
        MatDividerModule,
-      //  MatButtonModule
+       MatButtonModule
   ],
   providers: [],
   styleUrls: ['./wallet-recharge-dialog.component.scss']

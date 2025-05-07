@@ -9,5 +9,5 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class NoRecordFoundComponent {
     @Input() showBtn: boolean = false;
-    @Input() title!: string
+    @Input() title: string = ""
 }
