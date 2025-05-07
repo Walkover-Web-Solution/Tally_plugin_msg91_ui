@@ -5,7 +5,7 @@
             <form [formGroup]="registrationForm">
                 <div formGroupName="user">
                     <div class="d-flex gap-2 flex-column">
-                        <mat-form-field appearance="outline" class="w-100" color="primary">
+                        <mat-form-field class="w-100" color="primary">
                             <mat-label>First Name</mat-label>
                             <input matInput formControlName="fname" placeholder="Enter First Name" />
                             <mat-error *ngIf="registrationForm.get('user.fname')?.hasError('pattern')">
