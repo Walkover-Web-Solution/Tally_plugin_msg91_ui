@@ -6,7 +6,7 @@
                 <div formGroupName="user">
                     <div class="d-flex gap-2 flex-column">
                         <mat-form-field class="w-100" color="primary" appearance="outline">
-                            <mat-label>First Name</mat-label>
+                           
                             <input matInput formControlName="fname" placeholder="Enter First Name" />
                             <mat-error *ngIf="registrationForm.get('user.fname')?.hasError('pattern')">
                                 Only alphabets are allowed
@@ -14,7 +14,7 @@
                         </mat-form-field>
 
                         <mat-form-field class="w-100" appearance="outline">
-                            <mat-label>Last Name</mat-label>
+                           
                             <input matInput formControlName="lname" placeholder="Enter Last Name" />
                             <mat-error *ngIf="registrationForm.get('user.lname')?.hasError('pattern')">
                                 Only alphabets are allowed
@@ -22,7 +22,7 @@
                         </mat-form-field>
 
                         <mat-form-field class="w-100" appearance="outline">
-                            <mat-label>Email</mat-label>
+                         
                             <input matInput formControlName="email" placeholder="Enter Email" />
                             <mat-error *ngIf="registrationForm.get('user.email')?.hasError('pattern')">
                                 Invalid email format
@@ -52,7 +52,6 @@
 
                         <div *ngIf="otpSent" class="d-flex flex-column mt-2">
                             <mat-form-field  class="w-100" appearance="outline">
-                                <mat-label>Enter OTP</mat-label>
                                 <input matInput formControlName="otp" placeholder="Enter OTP" />
                             </mat-form-field>
                             <button mat-button (click)="verifyOtp()">Verify</button>
