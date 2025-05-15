@@ -1,12 +1,9 @@
 .content {
     display: flex;
-    justify-content: space-between; /* Space between left and right sections */
-    align-items: center; /* Align content vertically */
-    width: 100vw; /* Full width of the viewport */
-    height: 100vh; /* Full height of the viewport */
-    padding: 20px; /* Add some padding */
+    justify-content: space-between;
+    align-items: center; 
     box-sizing: border-box;
-    background-color: #f5f5f5; /* Light gray background */
+    background-color: #f5f5f5;
 }
 
 .login-left {
@@ -37,6 +34,43 @@
     border-radius: 10px;
 }
 
+.first{
+     margin-left: 300px;
+}
+
+.login-content {
+     font-weight: bold;
+     font-size: xx-large;
+
+}
+
+.login-content1{
+     font-size: large;
+     font-weight:500;
+}
+
+.account{
+     font-size: medium;
+     font-weight: 600;
+}
+.link{
+    color: #1b69a7;
+}
+.mat-mdc-card-title{
+     font-weight: 400;
+     font-size: 35px;
+}
+
+.highlight{
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.card-content{
+     font-weight: bold;
+     font-size: 15px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .content {
@@ -48,3 +82,4 @@
         text-align: center;
     }
 }
+  

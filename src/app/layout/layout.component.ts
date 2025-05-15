@@ -25,7 +25,7 @@ import { RouterOutlet } from '@angular/router';
   ]
 })
 export class LayoutComponent extends Component implements OnInit {
-
+    public showToggle = false;
     public isSideNavOpen = new BehaviorSubject<boolean>(true);
   
     ngOnInit(): void {

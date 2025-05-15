@@ -6,7 +6,6 @@ import { ServicesProxyLogsService } from "../../../../services/services-proxy-lo
 import { getWalletBalanceAction, getWalletBalanceFailure, getWalletBalanceSuccess, rechargeWalletAction, rechargeWalletError, rechargeWalletSuccess, registerAction, registerFailure, registerSuccess } from "../actions/otp.action";
 
 
-
 @Injectable()
 export class OtpEffects {
      constructor( ) {}

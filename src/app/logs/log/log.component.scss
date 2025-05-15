@@ -1,0 +1,29 @@
+.balance-wallet{
+    padding: 0px 30px 0px 21px;
+    background-color: rgb(122 126 130 / 10%);
+    border-radius: var(--border-common-radius-4);
+    font-weight: 500;
+    font-size: 14px;
+
+}
+
+table{
+    width: 100%;
+}
+
+.table-scroll {
+    height: calc(100vh - 170px);
+    max-height: calc(100vh - 170px);
+    overflow-y: auto;
+    display: block;
+    border-top: 0px !important;
+}
+
+.table-scroll .mat-table  {
+    border-top: 0px !important;
+}
+
+
+.default-table .mat-header-row {
+    background-color: #d5d9dc !important;
+}

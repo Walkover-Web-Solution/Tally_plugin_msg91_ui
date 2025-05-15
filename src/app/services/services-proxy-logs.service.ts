@@ -6,24 +6,24 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class ServicesProxyLogsService {
-  private readonly logsUrl = 'https://apitest.msg91.com/api/proxyLogs';
-  private readonly otpUrl = 'https://routes.msg91.com/api/117230g173934031967ac3a1f486b4/otp/send';
+  readonly otpUrl = 'https://routes.msg91.com/api/117230g173934031967ac3a1f486b4/otp/send';
   readonly verifyurl = 'https://routes.msg91.com/api/117230g173934031967ac3a1f486b4/otp/verify';
   readonly registerUrl = 'https://routes.msg91.com/api/clientUsers?action=login';
   readonly walletUrl = 'https://routes.msg91.com/api/proxy/117230/37kxrfv2/walletBalance';
   readonly rechargeWalletUrl = 'https://routes.msg91.com/api/proxy/117230/37kxrfv2/rechargeWallet';
-  readonly existingurl = 'https://routes.msg91.com/api/117230g173934031967ac3a1f486b4/otp/verify?action=login'
-
+  readonly existingurl = 'https://routes.msg91.com/api/117230g173934031967ac3a1f486b4/otp/verify?action=login';
+  readonly getLogs = 'https://routes.msg91.com/api/c/proxyLogs';
+  readonly getLogsById = 'https://apitest.msg91.com/api/c/proxyLogDetails/:id'
   constructor(private http: HttpClient) { }
 
   getProxyLogs(params?: Record<string, string | number>): Observable<any> {
-    const httpParams = new HttpParams({ fromObject: params || {} });
+      const httpParams = new HttpParams({ fromObject: params || {} });
+      return this.http.get<any>(this.getLogs, { params: httpParams });
+  }
 
-    const headers = new HttpHeaders({
-      Authorization: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7ImlkIjo2NywiZW1haWwiOiJhbGlhc2dhckB3aG96emF0LmNvbSIsImNyZWF0ZWRfYXQiOiIyMDI1LTAzLTAzVDA0OjA1OjEwLjAwMDAwMFoifX0.G34ZrQKaPX4v-tvOVqiRBPZQTEiLPe8Apqs1UdPhooI` // Replace with actual token
-    });
-
-    return this.http.get<any>(this.logsUrl, { params: httpParams, headers });
+  getProxyLogsById(id: string): Observable<any> {
+    const url = this.getLogsById.replace(':id', id);
+      return this.http.get<any>(url);
   }
 
   sendOtp(mobile: string): Observable<any> {
@@ -52,8 +52,9 @@ export class ServicesProxyLogsService {
       'Content-Type': 'application/json',
       'authkey': 'dbc2b79e90d5ee493948fcf6556c2c9a'
     });
-      
-    const body = {mobile,otp};
+    
+    const mobileNumber = mobile.startsWith('+') ? mobile.slice(1) : mobile;
+    const body = {mobile: mobileNumber,otp};
       return this.http.post<{data:{proxy_auth_token:string}}>(this.existingurl, body, {headers}).pipe(
             tap((response)=> {
                   const token = response?.data?.proxy_auth_token;

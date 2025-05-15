@@ -12,6 +12,7 @@
   .dialog-content {
     display: flex;
     justify-content: center;
+    margin-top: 10px;
   }
   
   .amount-field {
@@ -24,3 +25,8 @@
     margin-top: 20px;
   }
   
+  .close{
+     border: none;
+     background-color: #fff;
+     min-width: 0;
+  }

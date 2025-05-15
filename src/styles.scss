@@ -1,8 +1,46 @@
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
-@import 'assets/scss/layout/_display.css';
-@import 'assets/scss/layout/_flex.css';
-@import 'assets/scss/layout/_grid.css';
-@import 'assets/scss/layout/_positions.css';
-@import 'assets/scss/layout/_sizing.css';
-@import 'assets/scss/layout/_spacing.css';
-@import 'assets/scss/layout/_text.css';
+// @import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+// Components
+@use 'assets/component/table' as table;
+@use 'assets/component/card' as card;
+@use 'assets/component/form-field' as form-field;
+@use 'assets/component/buttons' as buttons;
+@use 'assets/component/animation' as animation;
+@use 'assets/component/icon' as icon;
+@use 'assets/component/text-style' as text-style;
+@use 'assets/component/side-dialog' as side-dialog;
+@use 'assets/component/sidenav' as sidenav;
+@use 'assets/component/mat-list' as mat-list;
+
+
+//Layout
+@use 'assets/scss/layout/display' as display;
+@use 'assets/scss/layout/flex' as flex;
+@use 'assets/scss/layout/grid' as grid;
+@use 'assets/scss/layout/positions' as positions;
+@use 'assets/scss/layout/sizing' as sizing;
+@use 'assets/scss/layout/spacing' as spacing;
+@use 'assets/scss/layout/text' as text;
+
+//Theme
+@use 'assets/scss/theme/default-theme'  as default-theme;
+@use 'assets/scss/theme/theme-colors' as theme-colors;
+@use 'assets/scss/theme/typography' as typography;
+
+@use 'assets/scss/utils/bg-colors' as bg-colors;
+@use 'assets/scss/utils/common-classes' as common-classes;
+@use 'assets/scss/utils/placeholder' as placeholder;
+
+@use 'assets/scss/base/dark-theme' as dark-theme;
+@use 'assets/scss/base/default-variables' as default-variables;
+@use 'assets/scss/base/fonts' as fonts;
+@use 'assets/scss/base/light-theme' as light-theme;
+@use 'assets/scss/base/reset' as reset;
+
+@use 'assets/scss/utils/mixins/common-utils' as common-utils;
+
+.iti__country-list{
+    top: 42px !important;
+    margin-left: -16px !important;
+    width: 360px !important;
+}
