@@ -13,6 +13,7 @@ import {MatInputModule} from '@angular/material/input';
 import { CommonModule } from "@angular/common";
 import { MatIconModule } from '@angular/material/icon';
 import { PHONE_NUMBER_REGEX } from '../regex';
+import { IntlPhoneLib } from '../../libs/intl-phone-lib.class';
 
 @Component({
   selector: 'app-auth',
@@ -38,18 +39,32 @@ export class AuthComponent {
    public mobileNumber = ''
    public existotpverify$: any;
    public mobilefield: boolean = true;
+   public intlPhone: any;
 
-   @ViewChild('mobileInput') mobileInput!: ElementRef<HTMLInputElement>;
+
+  //  @ViewChild('mobileInput', { static: false }) mobileInputRef!: ElementRef;
    
     constructor(private store:Store, private router:Router) {
         this.existotpverify$ = this.store.select(selectexistOtpVerified)
     }
 
     ngAfterViewInit(): void {
-      // Delay focus to ensure the DOM is fully rendered
-      setTimeout(() => {
-        this.mobileInput?.nativeElement.focus();
-      });
+          if (this.mobilefield) {
+              setTimeout(() => {
+                this.initIntlPhone();
+              });
+          }   
+    }
+
+    initIntlPhone() {
+      const parentDom = document.querySelector('app-root')?.shadowRoot;
+      const input = document?.getElementById('mobile-input-wrapper');
+      const customCssStyleURL = 'assets/util/intl-tel-input-custom.css';
+    
+      if (input) {
+        this.intlPhone = new IntlPhoneLib(input,parentDom,customCssStyleURL, true,                                        
+        );
+      }
     }
     
     public loginform = new FormGroup({
@@ -65,8 +80,10 @@ export class AuthComponent {
        this.islogin=true;
     }
 
+
     public sendOtp() {
-      const mobile = this.loginform.get('mobileNumber')?.value ?? "";
+      const mobileNumber = this.intlPhone?.phoneNumber || '';
+      const mobile = mobileNumber.startsWith('+') ? mobileNumber.slice(1) : mobileNumber;
       if(!mobile && mobile.length==12) return;
       this.store.dispatch(sendOtpAction({ mobile }));
       this.isOtpSent = true;
@@ -91,8 +108,13 @@ export class AuthComponent {
       })
     }
 
-    backtoMobile() {
+   public backtoMobile() {
          this.isOtpSent = false;
          this.mobilefield = true;
-    }
+
+         setTimeout(() => {     
+            this.initIntlPhone();
+        }, 100);
+  }
+  
 }

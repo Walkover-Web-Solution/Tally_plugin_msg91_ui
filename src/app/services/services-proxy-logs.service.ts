@@ -52,8 +52,9 @@ export class ServicesProxyLogsService {
       'Content-Type': 'application/json',
       'authkey': 'dbc2b79e90d5ee493948fcf6556c2c9a'
     });
-      
-    const body = {mobile,otp};
+    
+    const mobileNumber = mobile.startsWith('+') ? mobile.slice(1) : mobile;
+    const body = {mobile: mobileNumber,otp};
       return this.http.post<{data:{proxy_auth_token:string}}>(this.existingurl, body, {headers}).pipe(
             tap((response)=> {
                   const token = response?.data?.proxy_auth_token;
