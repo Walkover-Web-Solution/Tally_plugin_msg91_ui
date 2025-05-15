@@ -5,7 +5,7 @@
             <form [formGroup]="registrationForm">
                 <div formGroupName="user">
                     <div class="d-flex gap-2 flex-column">
-                        <mat-form-field class="w-100" color="primary">
+                        <mat-form-field class="w-100" color="primary" appearance="outline">
                             <mat-label>First Name</mat-label>
                             <input matInput formControlName="fname" placeholder="Enter First Name" />
                             <mat-error *ngIf="registrationForm.get('user.fname')?.hasError('pattern')">
@@ -13,7 +13,7 @@
                             </mat-error>
                         </mat-form-field>
 
-                        <mat-form-field class="w-100">
+                        <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Last Name</mat-label>
                             <input matInput formControlName="lname" placeholder="Enter Last Name" />
                             <mat-error *ngIf="registrationForm.get('user.lname')?.hasError('pattern')">
@@ -21,7 +21,7 @@
                             </mat-error>
                         </mat-form-field>
 
-                        <mat-form-field class="w-100">
+                        <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Email</mat-label>
                             <input matInput formControlName="email" placeholder="Enter Email" />
                             <mat-error *ngIf="registrationForm.get('user.email')?.hasError('pattern')">
@@ -32,16 +32,26 @@
 
                     <div class="d-flex flex-column gap-2" style="width:250px">
                         <div class="input-wrapper d-flex gap-3">
-                            <mat-form-field  class="w-100">
-                                <mat-label>Mobile</mat-label>
-                                <input matInput type="tel" formControlName="mobile" placeholder="Enter Mobile" />
+                            <mat-form-field appearance="outline" class="w-100" style="position: relative; z-index: 2;">
+                                <input matInput type="tel" formControlName="mobile" placeholder="Enter Mobile Number" 
+                                     id="mobile-input-wrapper"
+                                     (keydown.enter)="!intlPhone?.isRequiredValidNumber ? null : sendotp()"
+                                    (keypress)="intlPhone?.onlyPhoneNumber($event)"
+                                    (input)="registrationForm.get('user.mobile')?.setValue(intlPhone.phoneNumber);
+                                    !intlPhone?.isValidNumber ? registrationForm.get('user.mobile')?.setErrors({ 'invalidNumber': true }) : null
+                                    "
+                                    (blur)="registrationForm.get('user.mobile')?.markAsTouched()"
+                                    [ngClass]="{
+                                    'invalid-input': registrationForm.get('user.mobile')?.touched && !intlPhone?.isRequiredValidNumber
+                                    }"
+                                />
                             </mat-form-field>
                         </div>
 
                         <button mat-flat-button (click)="sendotp()">Send</button>
 
                         <div *ngIf="otpSent" class="d-flex flex-column mt-2">
-                            <mat-form-field  class="w-100">
+                            <mat-form-field  class="w-100" appearance="outline">
                                 <mat-label>Enter OTP</mat-label>
                                 <input matInput formControlName="otp" placeholder="Enter OTP" />
                             </mat-form-field>

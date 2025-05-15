@@ -14,9 +14,9 @@ export class AppComponent {
   constructor(private router:Router) {}
 
   ngOnInit() {
-      const token = localStorage.getItem('proxy_auth_token') && sessionStorage.getItem('proxy_auth_token');
-      if(!token) {
-            this.router.navigate(['/login'])
-      }
+      // const token = localStorage.getItem('proxy_auth_token') && sessionStorage.getItem('proxy_auth_token');
+      // if(!token) {
+      //       this.router.navigate(['/login'])
+      // }
   }
 }

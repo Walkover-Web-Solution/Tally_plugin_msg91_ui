@@ -5,12 +5,13 @@ import { sendOtpAction, getOtpVerifyAction, registerAction, getWalletBalanceActi
 import { registerSuccess, getWalletBalanceSuccess, selectOtpVerified, selectOtpVerifiedError } from "../otp/send-otp/store/selectors";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { IntlPhoneLib } from "../../libs/intl-phone-lib.class";
 
 @Component({
   selector: "app-register",
@@ -29,14 +30,15 @@ import {MatButtonModule} from '@angular/material/button';
 export class RegisterComponent {
   public otpSent = false;
   public otpVerified = false;
-  public balance:number = 0;
+  public balance: number = 0;
   public otpVerified$: Observable<any>;
   public otpNotVerified$: Observable<any>;
-  registerUser$: Observable<any>;
-  walletbalance$: Observable<any>;
+  public registerUser$: Observable<any>;
+  public walletbalance$: Observable<any>;
+  public intlPhone: any;
 
   constructor(private store: Store<any>,
-              private router: Router,
+    private router: Router,
 
   ) {
     this.otpVerified$ = this.store.pipe(select(selectOtpVerified));
@@ -44,7 +46,11 @@ export class RegisterComponent {
     this.walletbalance$ = this.store.pipe(select(getWalletBalanceSuccess));
     this.otpNotVerified$ = this.store.pipe(select(selectOtpVerifiedError))
   }
-
+  
+    ngAfterViewInit() {
+        this.initIntl();
+    }
+    
   public registrationForm = new FormGroup({
     user: new FormGroup({
       fname: new FormControl<string>("", [
@@ -59,7 +65,7 @@ export class RegisterComponent {
       ]),
 
       email: new FormControl<string>("", [
-         Validators.required
+        Validators.required
       ]),
       mobile: new FormControl<string>("", [Validators.required]),
       otp: new FormControl<string>("", [
@@ -69,16 +75,28 @@ export class RegisterComponent {
     }),
   });
 
-  public sendotp() {
-    const mobile = this.registrationForm.get("user.mobile")?.value ?? "";
-    
-    if(mobile){
-        this.store.dispatch(sendOtpAction({ mobile }));
-        this.otpSent = true;
+
+  public initIntl() {
+    const parentDom = document.querySelector('app-root')?.shadowRoot;
+    const input = document?.getElementById('mobile-input-wrapper');
+    const customCssStyleURL = 'assets/util/intl-tel-input-custom.css';
+
+    if (input) {
+      this.intlPhone = new IntlPhoneLib(input, parentDom, customCssStyleURL, true,
+      );
     }
   }
 
-  public  verifyOtp() {
+  public sendotp() {
+    const mobile = this.registrationForm.get("user.mobile")?.value ?? "";
+
+    if (mobile) {
+      this.store.dispatch(sendOtpAction({ mobile }));
+      this.otpSent = true;
+    }
+  }
+
+  public verifyOtp() {
     const mobile = this.registrationForm.get("user.mobile")?.value ?? "";
     const otp = this.registrationForm.get("user.otp")?.value ?? "";
 
@@ -89,8 +107,8 @@ export class RegisterComponent {
     this.store.dispatch(getOtpVerifyAction({ request: { mobile, otp } }));
     this.store.dispatch(getOtpVerifyActionComplete({ response: { success: true } }));
 
-    this.otpVerified$.subscribe((res)=> {
-})
+    this.otpVerified$.subscribe((res) => {
+    })
 
   }
 
@@ -99,21 +117,21 @@ export class RegisterComponent {
     const email = this.registrationForm.get("user.email")?.value ?? "";
     const mobile = this.registrationForm.get("user.mobile")?.value ?? "";
 
-    this.store.dispatch(registerAction({name,email,mobile}));
+    this.store.dispatch(registerAction({ name, email, mobile }));
 
     this.registerUser$.subscribe((token) => {
-        if(token) {
-            this.router.navigate(['/layout/logs'])
-            this.store.dispatch(getWalletBalanceAction())
+      if (token) {
+        this.router.navigate(['/layout/logs'])
+        this.store.dispatch(getWalletBalanceAction())
 
-        }
+      }
     })
     this.walletbalance$.subscribe((res) => {
-        if(res && res.balance) {
-             this.balance = res.balance;
-        }
+      if (res && res.balance) {
+        this.balance = res.balance;
+      }
     })
   }
- 
+
 
 }
