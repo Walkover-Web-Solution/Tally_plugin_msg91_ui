@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
+import { BaseResponse, Flow, IPaginatedResponse } from '../models/root-models';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,11 @@ export class ServicesProxyLogsService {
   readonly rechargeWalletUrl = 'https://routes.msg91.com/api/proxy/117230/37kxrfv2/rechargeWallet';
   readonly existingurl = 'https://routes.msg91.com/api/117230g173934031967ac3a1f486b4/otp/verify?action=login';
   readonly getLogs = 'https://routes.msg91.com/api/c/proxyLogs';
-  readonly getLogsById = 'https://apitest.msg91.com/api/c/proxyLogDetails/:id'
+  readonly getLogsById = 'https://apitest.msg91.com/api/c/proxyLogDetails/:id';
+  readonly getUserDetails = 'https://routes.msg91.com/api/c/getDetails';
+  readonly getAllCampaignFlow = '/api/v5/campaign/api/campaigns';
+  readonly getCampaignFields = '/api/v5/campaign/api/campaigns/:slug/fields';  
+
   constructor(private http: HttpClient) { }
 
   getProxyLogs(params?: Record<string, string | number>): Observable<any> {
@@ -98,8 +103,7 @@ export class ServicesProxyLogsService {
       'proxy_auth_token': token,  
     });
   
-    return this.http.get(this.walletUrl, { headers }).pipe(
-    );
+    return this.http.get(this.walletUrl, { headers })
   }
   
 
@@ -116,6 +120,40 @@ export class ServicesProxyLogsService {
     }
     return this.http.post(this.rechargeWalletUrl, body, {headers})
   }
+
+  public getUserDetailsData(): Observable<any> {
+        const token = this.getAuthToken();
+
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'proxy_auth_token': token
+       });
+       return this.http.get(this.getUserDetails, {headers})
+  }
+
+  public getAllCampaignFlowFromApi(param:any,authkey:string): Observable<BaseResponse<IPaginatedResponse<Flow[]>, void>> {
+
+    // const httpParams = new HttpParams({ fromObject: param || {} });
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'authkey': authkey,
+    });
+
+    return this.http.get<BaseResponse<IPaginatedResponse<Flow[]>,void>>(this.getAllCampaignFlow, {headers, params:param})
+  }
+  
+
+  public getCampaignAllFields(request: { slug: string; sync?: boolean }, authkey:string): Observable<BaseResponse<any, string>> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'authkey': authkey
+        })
+        const param = request.sync !== undefined ? { sync: request.sync } : undefined;
+        return this.http.get<BaseResponse<any, string>>(
+            this.getCampaignFields.replace(':slug', request.slug),
+            {headers, params:param}
+        );
+    }
   
   private getAuthToken(): any {
     if (typeof window !== 'undefined') {

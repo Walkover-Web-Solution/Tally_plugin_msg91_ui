@@ -4,8 +4,6 @@ import { IAppState } from "../app.state";
 
 export const selectState = (state: IAppState) => state;
 
-export const selectRootState = createSelector(selectState, (p) => p.otp);
-export const selectWidgetData = createSelector(selectRootState, (p) => p.widgetData);
 
 export const selectOtpState = createFeatureSelector<any>('otp');
 
@@ -83,6 +81,11 @@ export const registerFailure = createSelector(
      (state)=> state.error
 );
 
+export const getWalletBalanceLoading = createSelector(
+      selectOtpState,
+      (state) => state.walletBalanceLoading
+)
+
 export const getWalletBalanceSuccess = createSelector(
     selectOtpState,
     (state) => state?.walletBalance?.data?.meta?.balance ?? 0
@@ -106,4 +109,39 @@ export const selectWalletLoading = createSelector(
 export const selectWalletError = createSelector(
   selectOtpState,
   (state) => state.error
+);
+
+export const selectUser = createSelector(
+  selectOtpState,
+  (state) => state.data
+);
+
+export const selectUserLoading = createSelector(
+  selectOtpState,
+  (state) => state.loading
+);
+
+export const selectAllFlowInProcess = createSelector(
+     selectOtpState,
+     (state) => state.getAllFlowInProcess
+)
+
+export const selectAllFlow = createSelector(
+    selectOtpState,
+    (state) => state.campaigns
+);
+
+export const selectCampaignFields = createSelector(
+  selectOtpState,
+  (state) => state.campaignFields
+);
+
+export const selectCampaignFieldsLoading = createSelector(
+  selectOtpState,
+  (state) => state.getCampaignFieldInProcess
+);
+
+export const selectCampaignFieldsError = createSelector(
+  selectOtpState,
+  (state) => state.campaignFieldsError
 );

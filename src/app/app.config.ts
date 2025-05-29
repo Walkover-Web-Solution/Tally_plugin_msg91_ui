@@ -10,6 +10,10 @@ import { otpReducer } from './otp/send-otp/store/reducers/otp.reducer';
 import { provideStoreDevtools } from '@ngrx/store-devtools'
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { ProxyLogsComponentStore } from './logs/log/logs.store';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { providePrimeNG } from 'primeng/config';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(withEventReplay()),
@@ -18,7 +22,12 @@ export const appConfig: ApplicationConfig = {
               provideEffects([OtpEffects]),
               provideStoreDevtools(),
               provideAnimations(),
-              ProxyLogsComponentStore
+              ProxyLogsComponentStore,
+              MessageService,
+              ToastModule,
+              providePrimeNG({ ripple: true})
   ]
 };
+
+
 

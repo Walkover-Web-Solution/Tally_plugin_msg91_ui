@@ -38,6 +38,168 @@
 .text-line-through {
     text-decoration: line-through;
 }
+
+.text-none {
+    text-decoration: none !important;
+}
 .white-space-pre {
     white-space: pre !important;
+}
+.white-space-pre-line {
+    white-space: pre-line !important;
+}
+
+/* Font Weight */
+.fw-thin {
+    font-weight: 100 !important;
+}
+.fw-regular {
+    font-weight: 400 !important;
+}
+.fw-bold {
+    font-weight: 500 !important;
+}
+.fw-bolder {
+    font-weight: 600 !important;
+}
+.fw-normal {
+    font-weight: normal !important;
+}
+
+// Line-height
+.lh-1 {
+    line-height: 20px !important;
+}
+.lh-2 {
+    line-height: 22px !important;
+}
+.lh-3 {
+    line-height: 28px !important;
+}
+
+/* Text Color */
+.text-muted {
+    color: var(--color-common-grey);
+}
+.text-white {
+    color: var(--color-common-white) !important;
+}
+.text-dark {
+    color: var(--color-common-text) !important;
+}
+.text-dark-light {
+    color: var(--color-common-text-2) !important;
+}
+.text-grey {
+    color: var(--color-common-grey) !important;
+}
+.text-secondary {
+    color: var(--color-common-dark) !important;
+}
+.theme-primary {
+    color: var(--color-common-primary) !important;
+}
+.text-success {
+    color: var(--color-whatsApp-primary) !important;
+}
+.text-danger {
+    color: var(--color-email-primary) !important;
+}
+.text-primary {
+    color: var(--color-common-primary) !important;
+}
+.text-pending {
+    color: var(--color-short-url-primary);
+}
+.text-warning {
+    color: var(--color-email-red);
+}
+.text-failed {
+    color: var(--color-email-primary) !important;
+}
+.text-verified {
+    color: var(--color-common-primary) !important;
+}
+.text-light {
+    color: var(--color-common-rock);
+}
+.text-report {
+    color: var(--color-report-primary);
+}
+.text-shorturl {
+    color: var(--color-short-url-primary);
+}
+.text-black {
+    color: var(--color-common-black);
+}
+.text-italic {
+    font-style: italic;
+}
+
+// Text hover state
+
+.text-hover-primary {
+    &:hover {
+        color: var(--color-common-primary) !important;
+    }
+}
+.text-hover-danger {
+    &:hover {
+        color: var(--color-email-primary) !important;
+    }
+}
+.text-hover-underline {
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+// Text size
+.font-10 {
+    font-size: 10px !important;
+}
+.font-11 {
+    font-size: 11px !important;
+}
+.font-12 {
+    font-size: 12px !important;
+}
+.font-13 {
+    font-size: 13px !important;
+}
+.font-14 {
+    font-size: var(--font-size-common-14) !important;
+}
+.font-20 {
+    font-size: var(--font-size-common-20) !important;
+}
+.font-24 {
+    font-size: var(--font-size-common-24) !important;
+}
+.font-32 {
+    font-size: 32px !important;
+}
+.font-40 {
+    font-size: 40px !important;
+}
+
+// Text Opacity
+.t-opacity-5 {
+    opacity: 0.5;
+}
+.t-opacity-6 {
+    opacity: 0.6;
+}
+.t-opacity-7 {
+    opacity: 0.7;
+}
+.t-opacity-8 {
+    opacity: 0.8;
+}
+.t-opacity-9 {
+    opacity: 0.9;
+}
+
+.mat-error {
+    font-size: var(--font-size-common-12);
 }

@@ -203,3 +203,8 @@ input[matinput]::-webkit-inner-spin-button {
 .mat-form-field-outside-error {
     height: 21.5px;
 }
+
+.mat-mdc-text-field-wrapper {
+    height: 45px;
+    flex: auto;
+}

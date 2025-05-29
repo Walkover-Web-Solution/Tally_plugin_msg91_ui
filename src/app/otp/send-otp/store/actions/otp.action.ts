@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { Flow } from '../../../../models/root-models';
 
 export const getWidgetData = createAction(
     '[Auth] Get Widget Data',
@@ -99,6 +100,55 @@ export const rechargeWalletError = createAction(
   props<{ error: any }>()
 );
 
+export const getUserAction = createAction('[Auth] Get User');
+export const getUserSuccess = createAction(
+  '[Auth] Get User Success',
+  props<{ data: any }>()
+);
 
+export const getUserFailure = createAction(
+  '[Auth] Get User Failure',
+  props<{ error: any }>()
+);
 
+export const getAllFlow = createAction(
+  '[Campaign] Load All Campaigns',
+  props<{
+    authkey: string;
+    param: { [key: string]: any }; 
+  }>()
+);
 
+export const getAllFlowSuccess = createAction(
+  '[Campaign] Load All Campaigns Success',
+  props<{
+    campaigns: Flow[], pagination?:any; 
+  }>()
+);
+export const getAllFlowFailure = createAction(
+  '[Campaign] Load All Campaigns Failure',
+  props<{
+    error: any;
+  }>()
+);
+
+export const getCampaignFields = createAction(
+    '[ Campaign Fields ] Load All Campaign Fields',
+    props<{
+          slug?:any; sync?:boolean; authkey:string
+    }>()
+)
+
+export const getCampaignFieldsSuccess = createAction(
+  '[ Campaign Fields ] Load All Campaign Fields',
+  props<{
+         data: any
+  }>()
+)
+
+export const getCampaignFieldsFailure = createAction(
+  '[ Campaign Fields ] Load All Campaign Fields',
+  props<{
+        error:any
+  }>()
+)

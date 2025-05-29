@@ -11,7 +11,8 @@
 @use 'assets/component/side-dialog' as side-dialog;
 @use 'assets/component/sidenav' as sidenav;
 @use 'assets/component/mat-list' as mat-list;
-
+@use 'assets/component/menu' as menu;
+@use 'assets/component/loader' as loader;
 
 //Layout
 @use 'assets/scss/layout/display' as display;

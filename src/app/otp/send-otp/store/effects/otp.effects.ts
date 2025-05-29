@@ -1,33 +1,38 @@
 import { inject, Injectable } from "@angular/core";
 import { otpActions } from "../actions/index";
-import { catchError, map, mergeMap, of, switchMap } from "rxjs";
+import { catchError, exhaustMap, map, mergeMap, of, switchMap } from "rxjs";
 import {Actions, createEffect, ofType} from '@ngrx/effects'
 import { ServicesProxyLogsService } from "../../../../services/services-proxy-logs.service";
-import { getWalletBalanceAction, getWalletBalanceFailure, getWalletBalanceSuccess, rechargeWalletAction, rechargeWalletError, rechargeWalletSuccess, registerAction, registerFailure, registerSuccess } from "../actions/otp.action";
+import { getAllFlow, getAllFlowFailure, getAllFlowSuccess, getCampaignFields, getCampaignFieldsFailure, getCampaignFieldsSuccess, getUserAction, getUserFailure, getUserSuccess, getWalletBalanceAction, getWalletBalanceFailure, getWalletBalanceSuccess, rechargeWalletAction, rechargeWalletError, rechargeWalletSuccess, registerAction, registerFailure, registerSuccess } from "../actions/otp.action";
+import { PrimeNgToastService } from "../../../../../libs/prime-ng-toast.service";
+import { BaseResponse } from "../../../../models/root-models";
 
 
 @Injectable()
 export class OtpEffects {
-     constructor( ) {}
+     constructor( private toast: PrimeNgToastService) {}
 
      actions$ = inject(Actions)
      service: ServicesProxyLogsService = inject(ServicesProxyLogsService)
     
-    sendOtp$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(otpActions.sendOtpAction),
-            switchMap(({ mobile }) => {
-                return this.service.sendOtp(mobile).pipe(
-                    map((response) => {
-                        return otpActions.sendOtpSuccess({ response });
-                    }),
-                    catchError((error) => {
-                        return of(otpActions.sendOtpFailure({ error }));
-                    })
-                );
+     sendOtp$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(otpActions.sendOtpAction),
+        switchMap(({ mobile }) =>
+          this.service.sendOtp(mobile).pipe(
+            map((response) => {
+              this.toast.success('OTP sent successfully'); 
+              return otpActions.sendOtpSuccess({ response });
+            }),
+            catchError((error) => {
+              this.toast.error(error); // ✅ toast error
+              return of(otpActions.sendOtpFailure({ error }));
             })
+          )
         )
+      )
     );
+    
 
     verifyOtp$ = createEffect(() =>
   this.actions$.pipe(
@@ -129,7 +134,70 @@ existinguser$ = createEffect(() =>
           )
         )
       );
+
+      getUser$ = createEffect(() =>
+        this.actions$.pipe(
+          ofType(getUserAction),
+          switchMap(() =>
+            this.service.getUserDetailsData().pipe(
+              map((response) => {
+                
+                const userData = response?.data?.[0] ?? null;
       
+                return getUserSuccess({ data: userData });
+              }),
+              catchError((error) => {
+                return of(getUserFailure({ error }));
+              })
+            )
+          )
+        )
+      );
+      
+
+      getCampaign$ = createEffect(() =>
+          this.actions$.pipe(
+            ofType(getAllFlow),
+            switchMap(({ param, authkey }) =>
+              this.service.getAllCampaignFlowFromApi( param, authkey ).pipe(
+                map((flow: BaseResponse<any, void>) => {
+                  return getAllFlowSuccess({
+                      campaigns: flow.data.data,
+                      pagination: {
+                          itemsPerPage: Number(flow.data.itemsPerPage),
+                          pageNo: flow.data.pageNo,
+                          totalEntityCount: flow.data.totalEntityCount,
+                          totalPageCount: flow.data.totalPageCount,
+                      },
+                  });
+              }),
+                catchError((error) => {
+                  return of(getAllFlowFailure({ error }));
+                })
+              )
+            )
+        )
+      );
+
+      getCampaignFields$ = createEffect(() =>
+        this.actions$.pipe(
+          ofType(getCampaignFields),
+          exhaustMap(({ slug, sync, authkey }) =>
+            this.service.getCampaignAllFields({ slug, sync }, authkey).pipe(
+              map((response) => {
+                if (response?.hasError) {
+                  return getCampaignFieldsFailure({ error: response.errors || ['Unknown error'] });
+                }
+                return getCampaignFieldsSuccess({ data: response.data });
+              }),
+              catchError((error) => {
+                return of(getCampaignFieldsFailure({ error: [error?.message || 'Something went wrong'] }));
+              })
+            )
+          )
+        )
+      );
+    
       
 }
 

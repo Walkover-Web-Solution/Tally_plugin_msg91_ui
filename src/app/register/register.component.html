@@ -1,68 +1,88 @@
 <div class="d-flex justify-content-center align-items-center">
     <mat-card class="outline-card reg-form">
-        <h2 class="d-flex align-items-center justify-content-center">Login/Register Form</h2>
-        <div class="app-content d-flex justify-content-center align-items-center">
+            <div class="d-flex align-items-center">
+                <div (click)="login()" class="ml-4 cursor-pointer"  matTooltip="Go back" 
+                matTooltipPosition="below" matTooltip="Go back" 
+    matTooltipPosition="below"><mat-icon >arrow_back</mat-icon></div>
+                <div class="flex-grow-1">
+                    <h2 class="ml-10">Register Form</h2>
+                </div>
+            </div>
+        <div class="app-content d-flex justify-content-center align-items-center ">
             <form [formGroup]="registrationForm">
                 <div formGroupName="user">
-                    <div class="d-flex gap-2 flex-column">
+                    <div class="d-flex gap-2 flex-column mt-3">
                         <mat-form-field class="w-100" color="primary" appearance="outline">
-                           
-                            <input matInput formControlName="fname" placeholder="Enter First Name" />
+                            <mat-label>First Name</mat-label>
+                            <input matInput formControlName="fname" placeholder="First Name" />
                             <mat-error *ngIf="registrationForm.get('user.fname')?.hasError('pattern')">
-                                Only alphabets are allowed
+                                    Only alphabets are allowed
+                            </mat-error>
+                            <mat-error *ngIf="registrationForm.get('user.fname')?.touched">
+                                  This is a required field
                             </mat-error>
                         </mat-form-field>
 
                         <mat-form-field class="w-100" appearance="outline">
-                           
-                            <input matInput formControlName="lname" placeholder="Enter Last Name" />
+                            <mat-label>Last Name</mat-label>
+                            <input matInput formControlName="lname" placeholder="Last Name" />
                             <mat-error *ngIf="registrationForm.get('user.lname')?.hasError('pattern')">
                                 Only alphabets are allowed
                             </mat-error>
                         </mat-form-field>
 
                         <mat-form-field class="w-100" appearance="outline">
-                         
-                            <input matInput formControlName="email" placeholder="Enter Email" />
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email" placeholder="Email" />
                             <mat-error *ngIf="registrationForm.get('user.email')?.hasError('pattern')">
                                 Invalid email format
+                            </mat-error>
+                            <mat-error *ngIf="registrationForm.get('user.email')?.touched">
+                                This is a required field
                             </mat-error>
                         </mat-form-field>
                     </div>
 
-                    <div class="d-flex flex-column gap-2" style="width:250px">
-                        <div class="input-wrapper d-flex gap-3">
+                    <div class="d-flex flex-column gap-2" style="width:400px">
+                        <div class="input-wrapper d-flex gap-4 align-items-baseline">
                             <mat-form-field appearance="outline" class="w-100" style="position: relative; z-index: 2;">
-                                <input matInput type="tel" formControlName="mobile" placeholder="Enter Mobile Number" 
-                                     id="mobile-input-wrapper"
-                                     (keydown.enter)="!intlPhone?.isRequiredValidNumber ? null : sendotp()"
-                                    (keypress)="intlPhone?.onlyPhoneNumber($event)"
-                                    (input)="registrationForm.get('user.mobile')?.setValue(intlPhone.phoneNumber);
+                                <input matInput type="tel" formControlName="mobile" placeholder="Mobile Number"
+                                    id="mobile-input-wrapper"
+                                    (keydown.enter)="!intlPhone?.isRequiredValidNumber ? null : sendotp()"
+                                    (keypress)="intlPhone?.onlyPhoneNumber($event)" (input)="registrationForm.get('user.mobile')?.setValue(intlPhone.phoneNumber);
                                     !intlPhone?.isValidNumber ? registrationForm.get('user.mobile')?.setErrors({ 'invalidNumber': true }) : null
                                     "
-                                    (blur)="registrationForm.get('user.mobile')?.markAsTouched()"
+                                    (blur)="registrationForm.get('user.mobile')?.markAsTouched(); registrationForm.get('user.mobile')?.setValue(intlPhone?.phoneNumber?.replace('+', ''))"
                                     [ngClass]="{
                                     'invalid-input': registrationForm.get('user.mobile')?.touched && !intlPhone?.isRequiredValidNumber
-                                    }"
-                                />
+                                    }" />
+
+                                <div style="position: absolute; bottom: -23px;">
+                                    <mat-error
+                                        *ngIf="registrationForm.get('user.mobile')?.touched && intlPhone && !intlPhone?.isRequiredValidNumber">Please
+                                        Enter a valid mobile Number</mat-error>
+                                </div>
+
                             </mat-form-field>
+
+                            <button mat-flat-button (click)="sendotp()" color="primary">Send</button>
                         </div>
 
-                        <button mat-flat-button (click)="sendotp()">Send</button>
 
-                        <div *ngIf="otpSent" class="d-flex flex-column mt-2">
-                            <mat-form-field  class="w-100" appearance="outline">
-                                <input matInput formControlName="otp" placeholder="Enter OTP" />
+
+                        <div *ngIf="otpSent" class="d-flex gap-4 align-items-baseline">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <input matInput formControlName="otp" placeholder="OTP" />
                             </mat-form-field>
-                            <button mat-button (click)="verifyOtp()">Verify</button>
-                            <!-- <p *ngIf="otpVerified$ | async">OTP Verified!</p>
-                            <p *ngIf="otpNotVerified$ | async">OTP Verification Failed</p> -->
+                            <button mat-flat-button color="primary" (click)="verifyOtp()"
+                                [msg91ButtonLoader]="(verifyingloading$ | async)">Verify
+                            </button>
                         </div>
                     </div>
 
-                    <div class="mt-4">
-                        <button mat-raised-button type="submit" [disabled]="!(otpVerified$ | async)"
-                        (click)="submit()">Submit</button>
+                    <div class="mt-4 w-100">
+                        <button mat-flat-button type="submit" class="w-100" [disabled]="!(otpVerified$ | async)"
+                                color="primary" (click)="submit()">Submit</button>
                     </div>
                 </div>
             </form>

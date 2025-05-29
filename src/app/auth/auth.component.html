@@ -15,7 +15,7 @@
                 #mobileInput
                 matInput
                 formControlName="mobileNumber"
-                placeholder="Enter the mobile number"
+                placeholder="mobile number"
                 type="tel"
                 (keydown.enter)="!intlPhone?.isRequiredValidNumber ? null : sendOtp()"
                 (keypress)="intlPhone?.onlyPhoneNumber($event)"
@@ -30,11 +30,12 @@
               />
             <!-- </div> -->
             <div style="position: absolute; bottom: -23px;">
-              <mat-error *ngIf="loginform.get('mobileNumber')?.touched && intlPhone && !intlPhone?.isRequiredValidNumber">Please enter a valid mobile Number</mat-error>
+              <mat-error *ngIf="loginform.get('mobileNumber')?.touched && intlPhone && !intlPhone?.isRequiredValidNumber">Please enter a valid Mobile Number</mat-error>
             </div>
           </mat-form-field>
 
           <button mat-flat-button color="primary" (click)="sendOtp()"
+                class="w-100"
                 [disabled]="
                 !intlPhone?.isRequiredValidNumber ||
                 loginform.get('mobileNumber')?.invalid ||
@@ -52,19 +53,21 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>OTP</mat-label>
               <input matInput formControlName="otp" placeholder="Enter OTP">
-              <mat-error *ngIf="loginform.get('otp')?.invalid">Enter a valid OTP</mat-error>
             </mat-form-field>
           </div>
 
           <div class="justify-content-center">
-            <button mat-flat-button color="primary" (click)="verifyOtp()">Login</button>
+            <button mat-flat-button color="primary" (click)="verifyOtp()" class="w-100"
+                    [disabled]="loginform.get('otp')?.invalid"
+            >Verify</button>
           </div>
 
         </div>
       </form>
     </div>
-      <p class="ml-4 mt-4 account">Doesn't have an account? <a (click)="register()"
-          class="cursor-pointer text-underline link">Register Here</a></p>
+      <p  *ngIf="!isOtpSent" class="ml-4 mt-4 account">
+               Doesn't have an account? <a (click)="register()"
+               class="cursor-pointer text-underline link">Register Here</a></p>
   </div>
 
   <div>

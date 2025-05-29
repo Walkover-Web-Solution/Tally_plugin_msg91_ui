@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { selectexistOtpVerified } from '../otp/send-otp/store/selectors/otp.selector';
-import { Store } from '@ngrx/store';
-import { existOtpVerify, getWalletBalanceAction, sendOtpAction } from '../otp/send-otp/store/actions/otp.action';
+import { selectexistOtpVerified, selectexistOtpVerifiedLoading, selectOtpResponse } from '../otp/send-otp/store/selectors/otp.selector';
+import { select, Store } from '@ngrx/store';
+import { existOtpVerify, getWalletBalanceAction, sendOtpAction, sendOtpSuccess } from '../otp/send-otp/store/actions/otp.action';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
@@ -14,6 +14,11 @@ import { CommonModule } from "@angular/common";
 import { MatIconModule } from '@angular/material/icon';
 import { PHONE_NUMBER_REGEX } from '../regex';
 import { IntlPhoneLib } from '../../libs/intl-phone-lib.class';
+import { distinctUntilChanged, Observable, takeUntil } from 'rxjs';
+import { ToastModule } from 'primeng/toast';
+import { PrimeNgToastService } from '../../libs/prime-ng-toast.service';
+import { isEqual } from 'lodash-es';
+import { BaseComponent } from '../../libs/ui/base-component/base.component';
 
 @Component({
   selector: 'app-auth',
@@ -28,24 +33,36 @@ import { IntlPhoneLib } from '../../libs/intl-phone-lib.class';
     MatInputModule,
     MatIconModule,
     ReactiveFormsModule,
+    ToastModule,
  ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
 })
 
-export class AuthComponent {
+export class AuthComponent extends BaseComponent {
    public islogin = false;
    public isOtpSent = false;
    public mobileNumber = ''
-   public existotpverify$: any;
+   public existotpverify$: Observable<any>;
+   public otpLoading$: Observable<any>;
+   public sendOtpSuccess$: any;
    public mobilefield: boolean = true;
    public intlPhone: any;
 
-
   //  @ViewChild('mobileInput', { static: false }) mobileInputRef!: ElementRef;
    
-    constructor(private store:Store, private router:Router) {
-        this.existotpverify$ = this.store.select(selectexistOtpVerified)
+    constructor(private store:Store,
+                private router:Router,
+                private toast: PrimeNgToastService,
+               ) {
+         super();       
+        this.existotpverify$ = this.store.pipe(select(selectexistOtpVerified),distinctUntilChanged(isEqual),takeUntil(this.destroy$))
+        this.sendOtpSuccess$ = this.store.pipe(select(selectOtpResponse),distinctUntilChanged(isEqual),takeUntil(this.destroy$))
+        this.otpLoading$ = this.store.pipe(select(selectexistOtpVerifiedLoading),distinctUntilChanged(isEqual),takeUntil(this.destroy$))
+    }
+
+    ngOnInit(): void {
+       
     }
 
     ngAfterViewInit(): void {
@@ -69,7 +86,7 @@ export class AuthComponent {
     
     public loginform = new FormGroup({
           mobileNumber: new FormControl('',[Validators.required,Validators.pattern(PHONE_NUMBER_REGEX)]),
-          otp: new FormControl('')
+          otp: new FormControl('',[Validators.required,Validators.pattern(PHONE_NUMBER_REGEX)])
     })
 
     public register() {
@@ -86,6 +103,7 @@ export class AuthComponent {
       const mobile = mobileNumber.startsWith('+') ? mobileNumber.slice(1) : mobileNumber;
       if(!mobile && mobile.length==12) return;
       this.store.dispatch(sendOtpAction({ mobile }));
+      this.toast.success("Otp Sent Successfully")
       this.isOtpSent = true;
       this.mobilefield = false;
     }
@@ -116,5 +134,5 @@ export class AuthComponent {
             this.initIntlPhone();
         }, 100);
   }
-  
+
 }
