@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, inject, Input, Output, SimpleChanges, ViewChild } from "@angular/core";
-import { distinctUntilChanged, Observable, of, take, takeUntil } from "rxjs";
+import { Observable, of, take } from "rxjs";
 import { ServicesProxyLogsService } from "../../../app/services/services-proxy-logs.service";
-import { BaseResponse, ISegmentGetAllCampaignReqModel } from "../../../app/models/root-models";
+import { ISegmentGetAllCampaignReqModel } from "../../../app/models/root-models";
 import { UntypedFormControl, ValidatorFn, Validators } from "@angular/forms";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -9,9 +9,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { CDKScrollComponent } from "../../../libs/ui/cdk-scroll/cdk-scroll.component";
-import { select, Store } from "@ngrx/store";
-import { getCampaignFields } from "../../../app/otp/send-otp/store/actions/otp.action";
-import { isEqual } from "lodash-es";
+import { Store } from "@ngrx/store";
 import { BaseComponent } from '../base-component/base.component';
 
 @Component({
@@ -53,7 +51,7 @@ export class CampaignAutocompleteComponent extends BaseComponent  {
     ) 
     {
         super();
-        //  this.campaignFields$ = this.store.pipe(select(getCampaignFields),distinctUntilChanged(isEqual),takeUntil(this.destroy$))
+        //  this.campaignFields$ = this.store.pipe(select(getCampaignFields),distinctUntilChanged(isEqual),takeUntil(this.destroy$)) 
     }
     
     ngOnInit(): void {
@@ -77,7 +75,6 @@ export class CampaignAutocompleteComponent extends BaseComponent  {
       }
 
     public fetchNextCampaignPage(): void {
-        console.log("hello")
         this.campaigns$.pipe(take(1)).subscribe((res) => {
             if (res.length === this.params.itemsPerPage * this.params.pageNo) {
                 this.params.pageNo += 1;
