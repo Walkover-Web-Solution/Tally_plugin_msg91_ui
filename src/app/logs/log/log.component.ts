@@ -139,23 +139,5 @@ export class LogComponent {
             })
        
     }
-
-    // public refresh(): void {
-    //   this.isrotate = true;
-    //   this.cdr.detectChanges(); // Trigger change detection in case Angular skips it
-    
-    //   this.store.dispatch(getWalletBalanceAction());
-    
-    //   this.walletBalanceLoading$
-    //     .pipe(
-    //       // Wait until loading becomes false
-    //       filter(loading => loading === false),
-    //       take(1)
-    //     )
-    //     .subscribe(() => {
-    //       this.isrotate = false;
-    //       this.cdr.detectChanges();
-    //     });
-    // }
     
 }

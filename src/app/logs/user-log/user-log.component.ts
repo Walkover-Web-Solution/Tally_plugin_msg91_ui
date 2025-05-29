@@ -99,7 +99,6 @@ export class UserLogComponent extends BaseComponent {
 
   ngOnInit() {
     this.userData$.pipe(takeUntil(this.destroy$)).subscribe((res) => {
-      console.log("Respones", res)
       if (res) {
         this.userForm.get('name')?.setValue(res?.name);
         this.userForm.get('email')?.setValue(res?.email);
@@ -125,22 +124,11 @@ export class UserLogComponent extends BaseComponent {
       .pipe(takeUntil(this.destroy$))
       .subscribe((res: any) => {
         if (res?.variables?.length > 0) {
-          console.log("Hello")
           this.campaignFields = Array.isArray(res.variables) ? res.variables : [];
         }
-        console.log("Campaign Fields",this.campaignFields)
       });
     
   }
-
-  // public verify() {
-  //     const authkey = this.auth?.get('authkey')?.value as string; 
-  //     console.log("authkey",authkey)
-  //     const param = { getAll: true, itemsPerPage: 25, pageNo: 1 }; 
-
-  //     this.store.dispatch(getAllFlow({ authkey, param }));
-
-  // }
 
   get authkey(): string {
     return this.auth.get('authkey')?.value ?? '';
@@ -148,7 +136,6 @@ export class UserLogComponent extends BaseComponent {
 
   public onCampaignSelected(campaign: any): void {
     if (!campaign?.slug || !this.authkey) {
-      console.warn('Missing slug or authkey');
       return;
     }
 
