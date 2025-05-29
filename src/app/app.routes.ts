@@ -31,6 +31,21 @@ export const routes: Routes = [
         ]
       },
       {
+          path: 'user',
+          loadComponent: () => import('./user-layout/user-layout.component').then((p) => p.UserLayoutComponent),
+          children: [
+              {
+                  path: '',
+                  redirectTo: 'user-details',
+                  pathMatch: 'full'
+              },
+              {
+                 path: 'user-details',
+                 loadComponent:() => import('./logs/user-log/user-log.component').then((p) => p.UserLogComponent)
+              }
+          ] 
+      },
+      {
         path:'**', redirectTo: 'app', pathMatch: 'full'
       }
 ];

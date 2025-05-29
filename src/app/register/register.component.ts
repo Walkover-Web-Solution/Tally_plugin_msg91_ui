@@ -2,8 +2,8 @@ import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { select, Store } from "@ngrx/store";
 import { sendOtpAction, getOtpVerifyAction, registerAction, getWalletBalanceAction, getOtpVerifyActionComplete } from "../otp/send-otp/store/actions/otp.action";
-import { registerSuccess, getWalletBalanceSuccess, selectOtpVerified, selectOtpVerifiedError } from "../otp/send-otp/store/selectors";
-import { Observable } from "rxjs";
+import { registerSuccess, getWalletBalanceSuccess, selectOtpVerified, selectOtpVerifiedError, selectOtpVerifiedLoading } from "../otp/send-otp/store/selectors";
+import { Observable, take } from "rxjs";
 import { Router } from "@angular/router";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { IntlPhoneLib } from "../../libs/intl-phone-lib.class";
+import { LoaderButtonDirective } from "../../libs/loader-button/directives-loader-button.module";
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: "app-register",
@@ -25,6 +27,8 @@ import { IntlPhoneLib } from "../../libs/intl-phone-lib.class";
     MatInputModule,
     MatCardModule,
     MatButtonModule,
+    LoaderButtonDirective,
+    MatIconModule
   ]
 })
 export class RegisterComponent {
@@ -36,6 +40,7 @@ export class RegisterComponent {
   public registerUser$: Observable<any>;
   public walletbalance$: Observable<any>;
   public intlPhone: any;
+  public verifyingloading$: Observable<any>;
 
   constructor(private store: Store<any>,
     private router: Router,
@@ -45,10 +50,13 @@ export class RegisterComponent {
     this.registerUser$ = this.store.pipe(select(registerSuccess));
     this.walletbalance$ = this.store.pipe(select(getWalletBalanceSuccess));
     this.otpNotVerified$ = this.store.pipe(select(selectOtpVerifiedError))
+    this.verifyingloading$ = this.store.pipe(select(selectOtpVerifiedLoading))
   }
   
     ngAfterViewInit() {
+      setTimeout(() => {
         this.initIntl();
+      }, 100);
     }
     
   public registrationForm = new FormGroup({
@@ -97,6 +105,7 @@ export class RegisterComponent {
   }
 
   public verifyOtp() {
+   
     const mobile = this.registrationForm.get("user.mobile")?.value ?? "";
     const otp = this.registrationForm.get("user.otp")?.value ?? "";
 
@@ -105,10 +114,6 @@ export class RegisterComponent {
     }
 
     this.store.dispatch(getOtpVerifyAction({ request: { mobile, otp } }));
-    this.store.dispatch(getOtpVerifyActionComplete({ response: { success: true } }));
-
-    this.otpVerified$.subscribe((res) => {
-    })
 
   }
 
@@ -131,6 +136,10 @@ export class RegisterComponent {
         this.balance = res.balance;
       }
     })
+  }
+
+  public login() {
+     this.router.navigate(['/login'])
   }
 
 

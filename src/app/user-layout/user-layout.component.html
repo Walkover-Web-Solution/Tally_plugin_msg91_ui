@@ -1,0 +1,104 @@
+<div class="d-flex w-100 h-100 gap-2" [ngClass]="!(isSideNavOpen | async) ? 'collapsed-sidebar' : ''">
+    <div
+        class="d-flex flex-column mat-drawer mat-drawer-content"
+        [ngClass]="(isSideNavOpen | async) ? 'mat-drawer-toggle-btn-hover' : ''"
+    >
+        <div class="d-flex align-items-center mat-drawer-header">
+            <div
+                class="d-flex align-items-center flex-grow-1 gap-2 mat-drawer-header-title"
+                [ngStyle]="{ 'padding-right': (isSideNavOpen | async) ? '0px' : '12px' }"
+            >
+                <mat-icon class="mat-icon-22">apps</mat-icon>
+                <div
+                    class="d-flex align-items-center col-gap-1 mat-drawer-header-subtitle cursor-pointer"
+                    [matMenuTriggerFor]="clientsMenu"
+                    #clientsMenuTrigger="matMenuTrigger"
+                >
+                    <span class="font-16 fw-bolder text-dark overflow-dotted" style="max-width: 145px">
+                              User Details Section
+                    </span>
+                    <mat-icon class="mat-icon-18" *ngIf="isSideNavOpen | async"> name</mat-icon>
+                    <mat-menu #clientsMenu="matMenu" class="profile-sub-dropdown" xPosition="before">
+                        <!-- <mat-list >
+                            <proxy-cdk-scroll
+                                (fetchNextPage)="fetchClientsNextPage()"
+                                *ngIf="clientList.totalEntityCount > 25; else clientListRef"
+                            >
+                                <cdk-virtual-scroll-viewport
+                                    [itemSize]="40"
+                                    style="overflow: hidden overlay"
+                                    minBufferPx="400"
+                                    maxBufferPx="400"
+                                    id="scrollableWrapper"
+                                    style="height: 80vh; width: 280px"
+                                >
+                                    <ng-container *ngTemplateOutlet="clientListRef"></ng-container>
+                                </cdk-virtual-scroll-viewport>
+                            </proxy-cdk-scroll>
+                            <ng-template #clientListRef>
+                                <button
+                                    mat-menu-item
+                                >
+                                   Name
+                                </button>
+                            </ng-template>
+                        </mat-list> -->
+                    </mat-menu>
+                </div>
+            </div>
+           <div class="main-left-sidenav" >
+                <button
+                mat-icon-button
+                color="primary"
+                class="mat-drawer-toggle-btn icon-btn-md mr-1 sidenav-toggle-btn"
+                [matTooltip]="(isSideNavOpen | async) ? 'Collapse Menu' : 'Expand Menu'"
+                matTooltipPosition="right"
+                type="button"
+                (click)="toggleSideNav()"
+                class="toggleicon cursor-pointer"
+                [ngClass]="{ 'visible': showToggle }"
+                
+            >
+                <mat-icon matListIcon class="mat-icon-20 material-icons-outlined p-0 toggle-icon" aria-hidden="false">{{
+                    (isSideNavOpen | async) ? 'keyboard_double_arrow_left' : 'keyboard_double_arrow_right'
+                }}</mat-icon>
+            </button>
+           </div>
+        </div>
+        <!-- USER Sidenav::START -->
+        <app-user-left-side-nav
+            class="mat-drawer-nav proxy-left-menu"
+            [isSideNavOpen]="!(isSideNavOpen | async)"
+        ></app-user-left-side-nav>
+        <!-- USER Sidenav::END-->
+
+        <div class="mat-drawer-footer" *ngIf="logInData$ | async as user">
+            <button mat-button routerLink="['user-details']">
+                <div class="d-flex align-items-center">
+        
+                    <div class="d-flex flex-row gap-2">
+                        <mat-icon  aria-hidden="false" class=" text-grey material-icons-outlined">
+                            account_circle</mat-icon
+                        >
+                        <div class="d-flex flex-column" style="width: 140px">
+                            <h6 class="username m-0 text-secondary cursor-pointer">{{user.name}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div class="app-main-container">
+        <!-- Content::START -->
+
+        <div class="component-render-container">
+            <div class="component-render-container-inner">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+
+        <!-- Content::END -->
+    </div>
+</div>
+

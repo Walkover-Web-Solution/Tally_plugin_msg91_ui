@@ -1,6 +1,7 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import { otpActions } from "../actions";
 import { getWalletBalanceFailure, getWalletBalanceSuccess } from "../actions/otp.action";
+import { IUserModel } from "../../../../models/root-models";
 
 export interface IOtpState {
     widgetData: any;
@@ -15,6 +16,17 @@ export interface IOtpState {
     token: string | null;
     walletBalance: number;
     paymentUrl:string | null;
+    walletBalanceLoading: boolean,
+
+    user: IUserModel | null
+
+    campaigns: any
+    getAllFlowInProcess:boolean;
+    getAllFlowInError: null,
+
+    campaignFields: any;
+    getCampaignFieldInProcess: boolean;
+    campaignFieldsError: any | null;
 }
 
 export const initialState: IOtpState = {
@@ -22,14 +34,27 @@ export const initialState: IOtpState = {
     loading: false,
     otpResponse: null,
     error: null,
+
     verifyOtpData: null,
     verifyOtpInProcess: false,
     verifyOtpSuccess: false,
+
     errors: null,
     apiErrorResponse: null,
     token: null,
     walletBalance: 0,
-    paymentUrl: null
+    paymentUrl: null,
+    walletBalanceLoading: false,
+    user:null,
+
+    campaigns: [],
+    getAllFlowInProcess:false,
+    getAllFlowInError: null,
+
+    campaignFields: [],
+    getCampaignFieldInProcess: false,
+    campaignFieldsError: null
+    
 };
 
 export function otpReducer(state: IOtpState | undefined, action: Action) {
@@ -98,8 +123,8 @@ const _otpReducer = createReducer(
         error: null,
       })),
     
-      on(otpActions.getOtpVerifyActionComplete, (state, { response }) => { 
-    const isOtpVerified = response.status === 'success' && !response.hasError;
+    on(otpActions.getOtpVerifyActionComplete, (state, { response }) => { 
+     const isOtpVerified = response.status === 'success' && !response.hasError;
   
     return {
       ...state,
@@ -118,11 +143,10 @@ const _otpReducer = createReducer(
        
       }),
 
-
-
       on(otpActions.existOtpVerify, (state) => ({
         ...state,
         loading: true,
+        existotpVerified: false,
         error: null,
       })),
     
@@ -132,6 +156,7 @@ const _otpReducer = createReducer(
     return {
       ...state,
       loading: false,
+      otpVerified: true,
       existotpVerified: isExistOtpVerified, // Set `true` only if OTP is verified
     };
 }),
@@ -140,7 +165,7 @@ const _otpReducer = createReducer(
        return {
         ...state,
         loading: false,
-        otpVerified: false,
+        existotpVerified: false,
         error: errors.join(', '),
        }
        
@@ -157,13 +182,20 @@ const _otpReducer = createReducer(
             error,
     })),
 
+    on(otpActions.getWalletBalanceAction, (state) => ({
+          ...state,
+          walletBalanceLoading: true
+    })),
+
     on(otpActions.getWalletBalanceSuccess, (state, {balance}) => ({
             ...state,
+            walletBalanceLoading: false,
             walletBalance: balance,
             error: null
     })),
     on(otpActions.getWalletBalanceFailure, (state, {error}) => ({
             ...state,
+            walletBalanceLoading:false,
             error,
     })),
 
@@ -182,6 +214,63 @@ const _otpReducer = createReducer(
         ...state,
         loading: false,
         error
+      })),
+
+      on(otpActions.getUserAction, (state) => ({
+        ...state,
+        loading: true,
+        error: null
+      })),
+    
+      on(otpActions.getUserSuccess, (state, { data }) => ({
+     
+          ...state,
+          data,
+          loading: false
+      })),
+    
+      on(otpActions.getUserFailure, (state, { error }) => ({
+        ...state,
+        error,
+        loading: false
+      })),
+
+      on(otpActions.getAllFlow, (state) => ({
+           ...state,
+           getAllFlowError: null,
+           getAllFlowInProcess: true
+
+      })),
+      
+      on(otpActions.getAllFlowSuccess, (state, { campaigns, pagination }) => ({
+        ...state,
+        campaigns,pagination,
+        getAllFlowInProcess: false,
+        getAllFlowError: null
+      })),
+    
+      on(otpActions.getAllFlowFailure, (state, { error }) => ({
+        ...state,
+        getAllFlowInProcess: false,
+        getAllFlowError: error
+      })),
+
+      on(otpActions.getCampaignFields, (state) => ({
+          ...state,
+          getCampaignFieldInProcess: true,
+          campaignFieldsError:null
+      })),
+
+      on(otpActions.getCampaignFieldsSuccess, (state, {data}) => ({
+            ...state,
+            campaignFields: data,
+            getCampaignFieldInProcess: false,
+      })),
+
+      on(otpActions.getCampaignFieldsFailure, (state, { error }) => ({
+        ...state,
+        getCampaignFieldInProcess: false,
+        campaignFieldsError: error,
       }))
 
 );

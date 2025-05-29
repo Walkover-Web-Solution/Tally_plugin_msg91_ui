@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 // import {ProxyLogsComponentStore} from '../log/logs.store'
-import { Observable, take } from 'rxjs';
+import { filter, finalize, Observable, take } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
@@ -8,9 +8,9 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { getWalletBalanceSuccess, registerSuccess, selectPaymentUrl } from '../../otp/send-otp/store/selectors/otp.selector';
+import { getWalletBalanceLoading, getWalletBalanceSuccess, registerSuccess, selectPaymentUrl, selectUser } from '../../otp/send-otp/store/selectors/otp.selector';
 import { select, Store } from '@ngrx/store';
-import { getWalletBalanceAction, rechargeWalletAction } from '../../otp/send-otp/store/actions/otp.action';
+import {  getWalletBalanceAction, rechargeWalletAction } from '../../otp/send-otp/store/actions/otp.action';
 import { WalletRechargeDialogComponent } from '../../wallet-recharge-dialog/wallet-recharge-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ServicesProxyLogsService } from '../../services/services-proxy-logs.service';
@@ -18,8 +18,8 @@ import { CommonModule } from '@angular/common';
 import { NoRecordFoundComponent } from '../../no-record/no-record-found.component';
 import { ProxyLogsComponentStore } from './logs.store';
 import { LogsDetailsSideDialogComponent } from '../log-details-side-dialog/log-details-side-dialog.component';
-
-
+import { LoaderButtonDirective } from '../../../libs/loader-button/directives-loader-button.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-log',
   templateUrl: './log.component.html',
@@ -33,7 +33,9 @@ import { LogsDetailsSideDialogComponent } from '../log-details-side-dialog/log-d
     MatInputModule,
     MatIconModule,
     CommonModule,
-    NoRecordFoundComponent
+    NoRecordFoundComponent,
+    LoaderButtonDirective,
+    MatTooltipModule
   ],
   providers: []
 })
@@ -58,20 +60,26 @@ export class LogComponent {
   public balance: number = 0;
   public registerUser$: Observable<any>;
   public logs$: Observable<any>;
-  public reqLogs$: Observable<any>
-
+  public reqLogs$: Observable<any>;
+  public isrotate: boolean = false;
+  public walletBalanceLoading$: Observable<any>
+  public isLoading:boolean = false;
+ 
 
   constructor(
             private store: Store<any>,
             private dialog: MatDialog,
             private service: ServicesProxyLogsService,
-            private componentStore: ProxyLogsComponentStore
+            private componentStore: ProxyLogsComponentStore,
+            private cdr: ChangeDetectorRef 
   ) {
-    this.walletBalance$ = this.store.pipe(select(getWalletBalanceSuccess)),
+     this.walletBalance$ = this.store.pipe(select(getWalletBalanceSuccess)),
       this.rechargeWallet$ = this.store.pipe(select(selectPaymentUrl)),
       this.registerUser$ = this.store.pipe(select(registerSuccess)),
+      this.walletBalanceLoading$ = this.store.pipe(select(getWalletBalanceLoading)),
       this.logs$ = this.componentStore.logsData$,
       this.reqLogs$ = this.componentStore.reqLogs$
+      
   }
 
   ngOnInit(): void {
@@ -130,5 +138,24 @@ export class LogComponent {
                   
             })
        
-  }
+    }
+
+    // public refresh(): void {
+    //   this.isrotate = true;
+    //   this.cdr.detectChanges(); // Trigger change detection in case Angular skips it
+    
+    //   this.store.dispatch(getWalletBalanceAction());
+    
+    //   this.walletBalanceLoading$
+    //     .pipe(
+    //       // Wait until loading becomes false
+    //       filter(loading => loading === false),
+    //       take(1)
+    //     )
+    //     .subscribe(() => {
+    //       this.isrotate = false;
+    //       this.cdr.detectChanges();
+    //     });
+    // }
+    
 }

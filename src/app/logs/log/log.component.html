@@ -9,15 +9,28 @@
             </mat-form-field>
         </div>
         <div class="d-flex flex-row gap-5 mr-5">
-            <span class="cursor-pointer">
-                <div class="d-flex flex-row gap-3 balance-wallet">
-                    <mat-icon class="mt-1">account_balance_wallet</mat-icon>
-                    <p class="mt-2">{{walletBalance$ | async}}</p>
+            
+               <div class="d-flex flex-row gap-4">
+                    <div class="cursor-pointer">
+                        <div class="d-flex flex-row gap-3 balance-wallet">
+                            <mat-icon class="mt-1">account_balance_wallet</mat-icon>
+                            <p class="mt-2">{{walletBalance$ | async}}</p>
+                        </div>
+                    </div>
+                    <button mat-raised-button color="primary" (click)="rechargewallet()">
+                        Wallet Recharge
+                    </button>
                 </div>
-            </span>
-            <button mat-raised-button color="primary" (click)="rechargewallet()">
-                Wallet Recharge
-            </button>
+                <button mat-flat-button          
+                        class="refresh flat-icon-btn flat-default"
+                        [msg91ButtonLoader]="(walletBalanceLoading$ | async)"
+                        matTooltip="Refresh"
+                        matTooltipPosition="above" 
+                        (click)="getWalletbalance()"
+                        >
+                    <mat-icon class="mat-icon-18"                                     
+                    >refresh</mat-icon>
+                </button>
         </div>
     </div>
 
