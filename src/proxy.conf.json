@@ -1,8 +1,0 @@
-
-{
-  "/api": {
-    "target": "https://test.msg91.com",
-    "secure": false,
-    "changeOrigin": true
-  }
-}

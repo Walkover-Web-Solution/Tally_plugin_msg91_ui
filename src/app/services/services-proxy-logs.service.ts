@@ -16,8 +16,8 @@ export class ServicesProxyLogsService {
   readonly getLogs = 'https://routes.msg91.com/api/c/proxyLogs';
   readonly getLogsById = 'https://apitest.msg91.com/api/c/proxyLogDetails/:id';
   readonly getUserDetails = 'https://routes.msg91.com/api/c/getDetails';
-  readonly getAllCampaignFlow = '/api/v5/campaign/api/campaigns';
-  readonly getCampaignFields = '/api/v5/campaign/api/campaigns/:slug/fields';  
+  readonly getAllCampaignFlow = 'https://test.msg91.com/api/v5/campaign/api/campaigns';
+  readonly getCampaignFields = 'https://test.msg91.com/api/v5/campaign/api/campaigns/:slug/fields';  
 
   constructor(private http: HttpClient) { }
 
@@ -132,8 +132,7 @@ export class ServicesProxyLogsService {
   }
 
   public getAllCampaignFlowFromApi(param:any,authkey:string): Observable<BaseResponse<IPaginatedResponse<Flow[]>, void>> {
-
-    // const httpParams = new HttpParams({ fromObject: param || {} });
+  
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'authkey': authkey,
@@ -160,5 +159,10 @@ export class ServicesProxyLogsService {
       return sessionStorage.getItem('proxy_auth_token') || localStorage.getItem('proxy_auth_token') || null;
     }
     return null;
+  }
+
+  private getCookie(name: string): string | null {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
   }
 }
