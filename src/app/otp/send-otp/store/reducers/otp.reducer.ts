@@ -1,3 +1,5 @@
+// The reducer function handles state transitions for OTP and related features using NgRx
+// It responds to dispatched actions and returns new state based on the payload and action type
 import { Action, createReducer, on } from "@ngrx/store";
 import { otpActions } from "../actions";
 import { getWalletBalanceFailure, getWalletBalanceSuccess } from "../actions/otp.action";
@@ -61,218 +63,249 @@ export function otpReducer(state: IOtpState | undefined, action: Action) {
     return _otpReducer(state ?? initialState, action);
 }
 
+// The reducer function handles state transitions for OTP and related features using NgRx
+// It responds to dispatched actions and returns new state based on the payload and action type
+
 const _otpReducer = createReducer(
-    initialState,
-    on(otpActions.getWidgetData, (state) => {
-        return {
-            ...state,
-            widgetDataInProcess: true,
-            widgetDataSuccess: false,
-            errors: null,
-            closeWidgetApiFailed: false,
-        };
-    }),
-    on(otpActions.getWidgetDataComplete, (state, { response }) => {
-        return {
-            ...state,
-            widgetData: response,
-            widgetDataInProcess: false,
-            widgetDataSuccess: true,
-            closeWidgetApiFailed: false,
-        };
-    }),
-    on(otpActions.getWidgetDataError, (state, { errors, errorResponse }) => {
-        return {
-            ...state,
-            widgetDataInProcess: false,
-            widgetDataSuccess: false,
-            errors: errors,
-            apiErrorResponse: errorResponse,
-            closeWidgetApiFailed: true,
-        };
-    }),
+  initialState,
 
-    on(otpActions.sendOtpAction, (state) => {
-        return {
-            ...state,
-            loading: true,
-            otpResponse: null,
-            error: null,
-        };
-    }),
-    
-    on(otpActions.sendOtpSuccess, (state, { response }) => {
-        return {
-            ...state,
-            loading: false,
-            otpResponse: response,
-            error: null,
-        };
-    }),
-    
-      on(otpActions.sendOtpFailure, (state, { error }) => ({
-        ...state,
-        loading: false,
-        otpResponse: null,
-        error: error,
-      })),
+  // -------------------- Widget Data Actions --------------------
 
-      on(otpActions.getOtpVerifyAction, (state) => ({
-        ...state,
-        loading: true,
-        error: null,
-      })),
-    
-    on(otpActions.getOtpVerifyActionComplete, (state, { response }) => { 
-     const isOtpVerified = response.status === 'success' && !response.hasError;
-  
-    return {
+  // Triggered when widget data fetching starts
+  on(otpActions.getWidgetData, (state) => ({
+      ...state,
+      widgetDataInProcess: true,
+      widgetDataSuccess: false,
+      errors: null,
+      closeWidgetApiFailed: false,
+  })),
+
+  // Triggered when widget data is successfully fetched
+  on(otpActions.getWidgetDataComplete, (state, { response }) => ({
+      ...state,
+      widgetData: response,
+      widgetDataInProcess: false,
+      widgetDataSuccess: true,
+      closeWidgetApiFailed: false,
+  })),
+
+  // Triggered when fetching widget data fails
+  on(otpActions.getWidgetDataError, (state, { errors, errorResponse }) => ({
+      ...state,
+      widgetDataInProcess: false,
+      widgetDataSuccess: false,
+      errors,
+      apiErrorResponse: errorResponse,
+      closeWidgetApiFailed: true,
+  })),
+
+  // -------------------- Send OTP Actions --------------------
+
+  // When OTP request is initiated
+  on(otpActions.sendOtpAction, (state) => ({
+      ...state,
+      loading: true,
+      otpResponse: null,
+      error: null,
+  })),
+
+  // When OTP is successfully sent
+  on(otpActions.sendOtpSuccess, (state, { response }) => ({
       ...state,
       loading: false,
-      otpVerified: isOtpVerified, 
-    };
-}),
-    
-      on(otpActions.getOtpVerifyActionError, (state, { errors }) => {
-       return {
-        ...state,
-        loading: false,
-        otpVerified: false,
-        error: errors.join(', '),
-       }
-       
-      }),
+      otpResponse: response,
+      error: null,
+  })),
 
-      on(otpActions.existOtpVerify, (state) => ({
-        ...state,
-        loading: true,
-        existotpVerified: false,
-        error: null,
-      })),
-    
-    on(otpActions.existOtpVerifyActionComplete, (state, { response }) => {
-    const isExistOtpVerified = response.status === 'success' && !response.hasError;
+  // When OTP sending fails
+  on(otpActions.sendOtpFailure, (state, { error }) => ({
+      ...state,
+      loading: false,
+      otpResponse: null,
+      error,
+  })),
 
-    return {
+  // -------------------- OTP Verification for New User --------------------
+
+  // When OTP verification starts
+  on(otpActions.getOtpVerifyAction, (state) => ({
+      ...state,
+      loading: true,
+      error: null,
+  })),
+
+  // When OTP is successfully verified
+  on(otpActions.getOtpVerifyActionComplete, (state, { response }) => ({
+      ...state,
+      loading: false,
+      otpVerified: response.status === 'success' && !response.hasError,
+  })),
+
+  // When OTP verification fails
+  on(otpActions.getOtpVerifyActionError, (state, { errors }) => ({
+      ...state,
+      loading: false,
+      otpVerified: false,
+      error: errors.join(', '),
+  })),
+
+  // -------------------- OTP Verification for Existing User --------------------
+
+  // When existing user OTP verification starts
+  on(otpActions.existOtpVerify, (state) => ({
+      ...state,
+      loading: true,
+      existotpVerified: false,
+      error: null,
+  })),
+
+  // When OTP is successfully verified for existing user
+  on(otpActions.existOtpVerifyActionComplete, (state, { response }) => ({
       ...state,
       loading: false,
       otpVerified: true,
-      existotpVerified: isExistOtpVerified, // Set `true` only if OTP is verified
-    };
-}),
-    
-      on(otpActions.existOtpVerifyActionError, (state, { errors }) => {
-       return {
-        ...state,
-        loading: false,
-        existotpVerified: false,
-        error: errors.join(', '),
-       }
-       
-      }),
+      existotpVerified: response.status === 'success' && !response.hasError,
+  })),
 
-    on(otpActions.registerSuccess, (state, {token}) => ({
-            ...state,
-            token,
-            error:null,
-    })),
+  // When OTP verification fails for existing user
+  on(otpActions.existOtpVerifyActionError, (state, { errors }) => ({
+      ...state,
+      loading: false,
+      existotpVerified: false,
+      error: errors.join(', '),
+  })),
 
-    on(otpActions.registerFailure, (state, {error}) => ({
-            ...state,
-            error,
-    })),
+  // -------------------- Registration --------------------
 
-    on(otpActions.getWalletBalanceAction, (state) => ({
-          ...state,
-          walletBalanceLoading: true
-    })),
+  // On successful registration, save the token
+  on(otpActions.registerSuccess, (state, { token }) => ({
+      ...state,
+      token,
+      error: null,
+  })),
 
-    on(otpActions.getWalletBalanceSuccess, (state, {balance}) => ({
-            ...state,
-            walletBalanceLoading: false,
-            walletBalance: balance,
-            error: null
-    })),
-    on(otpActions.getWalletBalanceFailure, (state, {error}) => ({
-            ...state,
-            walletBalanceLoading:false,
-            error,
-    })),
+  // On registration failure
+  on(otpActions.registerFailure, (state, { error }) => ({
+      ...state,
+      error,
+  })),
 
-    on(otpActions.rechargeWalletAction, (state) => ({
-        ...state,
-        loading: true,
-        error: null
-      })),
-      on(otpActions.rechargeWalletSuccess, (state, { paymentUrl }) => ({
-        ...state,
-        loading: false,
-        paymentUrl
-      })),
+  // -------------------- Wallet Balance --------------------
 
-      on(otpActions.rechargeWalletError, (state, { error }) => ({
-        ...state,
-        loading: false,
-        error
-      })),
+  // When wallet balance fetch is triggered
+  on(otpActions.getWalletBalanceAction, (state) => ({
+      ...state,
+      walletBalanceLoading: true,
+  })),
 
-      on(otpActions.getUserAction, (state) => ({
-        ...state,
-        loading: true,
-        error: null
-      })),
-    
-      on(otpActions.getUserSuccess, (state, { data }) => ({
-     
-          ...state,
-          data,
-          loading: false
-      })),
-    
-      on(otpActions.getUserFailure, (state, { error }) => ({
-        ...state,
-        error,
-        loading: false
-      })),
+  // When wallet balance is successfully fetched
+  on(otpActions.getWalletBalanceSuccess, (state, { balance }) => ({
+      ...state,
+      walletBalanceLoading: false,
+      walletBalance: balance,
+      error: null,
+  })),
 
-      on(otpActions.getAllFlow, (state) => ({
-           ...state,
-           getAllFlowError: null,
-           getAllFlowInProcess: true
+  // When wallet balance fetch fails
+  on(otpActions.getWalletBalanceFailure, (state, { error }) => ({
+      ...state,
+      walletBalanceLoading: false,
+      error,
+  })),
 
-      })),
-      
-      on(otpActions.getAllFlowSuccess, (state, { campaigns, pagination }) => ({
-        ...state,
-        campaigns,pagination,
-        getAllFlowInProcess: false,
-        getAllFlowError: null
-      })),
-    
-      on(otpActions.getAllFlowFailure, (state, { error }) => ({
-        ...state,
-        getAllFlowInProcess: false,
-        getAllFlowError: error
-      })),
+  // -------------------- Wallet Recharge --------------------
 
-      on(otpActions.getCampaignFields, (state) => ({
-          ...state,
-          getCampaignFieldInProcess: true,
-          campaignFieldsError:null
-      })),
+  // When recharge request is initiated
+  on(otpActions.rechargeWalletAction, (state) => ({
+      ...state,
+      loading: true,
+      error: null,
+  })),
 
-      on(otpActions.getCampaignFieldsSuccess, (state, {data}) => ({
-            ...state,
-            campaignFields: data,
-            getCampaignFieldInProcess: false,
-      })),
+  // When recharge is successful and payment URL is received
+  on(otpActions.rechargeWalletSuccess, (state, { paymentUrl }) => ({
+      ...state,
+      loading: false,
+      paymentUrl,
+  })),
 
-      on(otpActions.getCampaignFieldsFailure, (state, { error }) => ({
-        ...state,
-        getCampaignFieldInProcess: false,
-        campaignFieldsError: error,
-      }))
+  // When recharge fails
+  on(otpActions.rechargeWalletError, (state, { error }) => ({
+      ...state,
+      loading: false,
+      error,
+  })),
 
+  // -------------------- User Profile --------------------
+
+  // When user profile fetch is triggered
+  on(otpActions.getUserAction, (state) => ({
+      ...state,
+      loading: true,
+      error: null,
+  })),
+
+  // When user profile is successfully fetched
+  on(otpActions.getUserSuccess, (state, { data }) => ({
+      ...state,
+      data,
+      loading: false,
+  })),
+
+  // When user profile fetch fails
+  on(otpActions.getUserFailure, (state, { error }) => ({
+      ...state,
+      error,
+      loading: false,
+  })),
+
+  // -------------------- Get All Campaign Flows --------------------
+
+  // When campaign flow fetching begins
+  on(otpActions.getAllFlow, (state) => ({
+      ...state,
+      getAllFlowError: null,
+      getAllFlowInProcess: true,
+  })),
+
+  // When campaign flows are successfully fetched
+  on(otpActions.getAllFlowSuccess, (state, { campaigns, pagination }) => ({
+      ...state,
+      campaigns,
+      pagination,
+      getAllFlowInProcess: false,
+      getAllFlowError: null,
+  })),
+
+  // When campaign flows fetching fails
+  on(otpActions.getAllFlowFailure, (state, { error }) => ({
+      ...state,
+      getAllFlowInProcess: false,
+      getAllFlowError: error,
+  })),
+
+  // -------------------- Campaign Field Mapping --------------------
+
+  // When fetching campaign fields starts
+  on(otpActions.getCampaignFields, (state) => ({
+      ...state,
+      getCampaignFieldInProcess: true,
+      campaignFieldsError: null,
+  })),
+
+  // When campaign fields are successfully fetched
+  on(otpActions.getCampaignFieldsSuccess, (state, { data }) => ({
+      ...state,
+      campaignFields: data,
+      getCampaignFieldInProcess: false,
+  })),
+
+  // When campaign fields fetch fails
+  on(otpActions.getCampaignFieldsFailure, (state, { error }) => ({
+      ...state,
+      getCampaignFieldInProcess: false,
+      campaignFieldsError: error,
+  }))
 );
 
 

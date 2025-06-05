@@ -18,7 +18,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   styleUrls: ['./main-left-side-nav.component.scss']
 })
 export class MainLeftSideNavComponent{
+  // Input property to determine whether the sidebar is expanded or collapsed.
+  // Used to dynamically show/hide menu labels or tooltips.
   @Input() public isSideNavOpen!: boolean;
-  constructor() {
-  }
 }

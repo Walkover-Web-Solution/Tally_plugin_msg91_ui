@@ -1,3 +1,9 @@
+/**
+ *   CDKScrollComponent
+ *   Wraps content inside a scrollable container with a fixed height.
+ *  Emits `fetchNextPage` when scrolled near the bottom (pagination trigger).
+ *  Emits `fetchFirstPage` when scrolled to the top (useful for refresh or reverse scrolling).
+ */
 import { Component, EventEmitter, Input, Output, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { CdkScrollable, ScrollDispatcher, ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';

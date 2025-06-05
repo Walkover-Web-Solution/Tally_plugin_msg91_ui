@@ -16,16 +16,20 @@ import { providePrimeNG } from 'primeng/config';
 
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(withEventReplay()),
-              provideHttpClient(),
-              provideStore({otp:otpReducer}),
-              provideEffects([OtpEffects]),
-              provideStoreDevtools(),
-              provideAnimations(),
-              ProxyLogsComponentStore,
-              MessageService,
-              ToastModule,
-              providePrimeNG({ ripple: true})
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),   // Optimize Change Detection
+    provideRouter(routes),                                   //   App Routing
+    provideClientHydration(withEventReplay()),                // SSR Hydration Support
+    provideHttpClient(),                                      // HTTP Client
+    provideStore({ otp: otpReducer }),                            //NGRX store setup
+    provideEffects([OtpEffects]),                             //NGRX store effects
+    provideStoreDevtools(),                                    //Devtools for debugging
+    provideAnimations(),                                       // provide animation
+    ProxyLogsComponentStore,                                   // Logs 
+    MessageService,                                            //Prime Ng Service
+    ToastModule,                                               // ToastModule
+    providePrimeNG({ ripple: true })                           // PrimeNg Config
+
   ]
 };
 

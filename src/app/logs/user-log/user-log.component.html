@@ -1,17 +1,22 @@
 <!-- User Section detail -- START  -->
 <ng-container>
+
+    <!-- User Info Form -->
   <form [formGroup]="userForm">
     <div class="d-flex flex-column mt-3">
+        <!-- Name Field -->
       <mat-form-field appearance="outline" class="w-25">
         <mat-label>name</mat-label>
         <input matInput placeholder="Enter name" formControlName="name">
       </mat-form-field>
 
+       <!-- Email Field -->
       <mat-form-field appearance="outline" class="w-25">
         <mat-label>email</mat-label>
         <input matInput placeholder="Enter email" formControlName="email">
       </mat-form-field>
 
+      <!-- Mobile Field -->
       <mat-form-field appearance="outline" class="w-25">
         <mat-label>mobile</mat-label>
         <input matInput placeholder="mobile number" formControlName="mobile">
@@ -20,6 +25,7 @@
   </form>
 </ng-container>
 
+<!-- Expandable Panel for Msg91 Custom Auth Setup -->
 <mat-accordion>
 
   <mat-expansion-panel>
@@ -33,16 +39,19 @@
 
     <mat-card appearance="outlined" class="responsive-card">
        <mat-card-content>
+         <!-- Auth Key Verification Form -->
         <form [formGroup]="auth">
           <div class="d-flex flex-row gap-4 align-items-baseline">
             <mat-form-field appearance="outline" class="w-25">
               <mat-label>Auth Key</mat-label>
               <input matInput placeholder="Enter Your Auth Key" formControlName="authkey">
             </mat-form-field>
+             <!-- Verify Button with loader -->
             <button mat-flat-button color="primary" [msg91ButtonLoader]="(getCampaign$ | async)">Verify</button>
           </div>
         </form>
 
+           <!-- Voucher Type Autocomplete Input -->
         <form class="example-form">
           <mat-form-field class="w-25" appearance="outline">
             <mat-label>Voucher Type</mat-label>
@@ -55,22 +64,31 @@
           </mat-form-field>
         </form>
 
+          <!-- Campaign Selection Autocomplete Component -->
         <app-campaign-autocomplete [campaignForm]="campaignForm"
           (fetchCampaignInProgressEmit)="fetchCampaignInProcess$ = $event" [authkey]="authkey"
           (campaignSelected)="onCampaignSelected($event)">
         </app-campaign-autocomplete>
 
+         <!-- Campaign Variable Mapping Section -->
         <ng-container *ngIf="campaignFields as fields">
           <div *ngIf="fields.length > 0; else noVariables" class=mt-4>
+            <!-- Headers for variable mapping -->
             <div class="d-flex flex-row gap-7">
               <div class="mb-2 font-12 fw-bolder ">Campaign Variable</div>
               <div class="mb-2 font-12 fw-bolder">Tally Variables</div>
             </div>
+
+             <!-- Loop through campaign fields and allow user to map tally variables -->
             <div class="d-flex flex-column gap-4">
               <div class="d-flex justify-content-between gap-7" *ngFor="let variable of campaignFields">
+
+                    <!-- Campaign Variable Name -->
                   <div class="ml-4 fw-bold">
                     {{ variable }}
                   </div>
+
+                   <!-- Tally Variable Selection -->
                 <div class="tally-variable flex-grow-1">
                   
                   <mat-form-field appearance="outline" class="w-full">
@@ -89,6 +107,7 @@
           </div>
         </ng-container>
 
+         <!--Message if the Variables are not found for the particular campaign list -->
         <ng-template #noVariables>
           <p *ngIf="campaignSelectedOnce" class="text-muted font-14 mt-3 ml-5">No variables found for this campaign.</p>
         </ng-template>

@@ -1,3 +1,4 @@
+// Represents the structure of a user model returned from authentication or user service
 export interface IUserModel {
     uid: string;
     displayName: string;
@@ -10,6 +11,7 @@ export interface IUserModel {
 
 export type errorType = string[] | string | { [key: string]: [] };
 
+// A generic class to standardize API responses
 export class BaseResponse<T, TRequest> {
     public data!: T;
     public status!: 'success' | 'fail';
@@ -19,7 +21,7 @@ export class BaseResponse<T, TRequest> {
     public queryString?: any;
 }
 
-
+// Interface to define paginated response structure
 export interface IPaginatedResponse<P> {
     data: P;
     itemsPerPage: number;
@@ -31,6 +33,7 @@ export interface IPaginatedResponse<P> {
     is_active?: boolean;
 }
 
+// Represents a flow object used in campaign builder
 export interface Flow {
     module_type: string;
     id: number;
@@ -46,18 +49,21 @@ export interface Flow {
     globalVariables: any;
 }
 
+// Defines the layout/positioning style for a flow component in the UI
 export interface FlowStyle {
     x: number;
     y: number;
     width: number;
 }
 
+// Request model for fetching all campaigns with optional filters
 export interface ISegmentGetAllCampaignReqModel {
     name?: string;
     is_active?: number | boolean;
     [key: string]: any;
 }
 
+// Utility function to normalize and resolve error messages into a string array
 export function errorResolver(params: string[] | string | { [key: string]: [] }): string[] {
     if (typeof params === 'string') {
         return [params];

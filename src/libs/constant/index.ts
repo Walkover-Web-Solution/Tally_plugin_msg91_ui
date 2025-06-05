@@ -1,3 +1,9 @@
+/**
+ * Configuration for the intl-tel-input library.
+ * - Enables national phone number formatting.
+ * - Loads a utility script for phone number formatting and validation.
+ * - Sets the initial country automatically using the user's IP address.
+ */
 import { ajax } from 'rxjs/ajax';
 
 export const INTL_INPUT_OPTION = {

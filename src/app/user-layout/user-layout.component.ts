@@ -30,11 +30,17 @@ import { getUserAction } from '../otp/send-otp/store/actions/otp.action';
   ]
 })
 export class UserLayoutComponent extends BaseComponent { 
+
+     // Flag to show/hide sidebar toggle button
     public showToggle = false;
+
+    // BehaviorSubject to track whether the sidebar is open or closed
     public isSideNavOpen = new BehaviorSubject<boolean>(true);
+
+     // Observable to hold logged-in user data from the store
     public logInData$: Observable<any>
     ngOnInit(): void {
-        this.name();
+        this.loadUserData();
     }
 
     constructor(private store: Store) 
@@ -43,9 +49,12 @@ export class UserLayoutComponent extends BaseComponent {
          this.logInData$ = this.store.pipe(select(selectUser),distinctUntilChanged(isEqual), takeUntil(this.destroy$))
     }
     
-    public name() {
+     // Dispatch action to fetch user data from API/store
+    public loadUserData() {
         this.store.dispatch(getUserAction())
     }
+
+      // Method to toggle the sidebar open/close state
     public toggleSideNav(): void {
         this.isSideNavOpen.next(!this.isSideNavOpen.getValue());
     }

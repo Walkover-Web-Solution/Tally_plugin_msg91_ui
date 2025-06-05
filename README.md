@@ -2,6 +2,18 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.1.
 
+## Setup Guide
+
+1. Clone https://github.com/Walkover-Web-Solution/Tally_plugin_msg91_ui.
+
+2. This project requires Node version 18+, install Node from [here](https://nodejs.org/en/).
+
+3. Go inside the cloned directory `Tally_plugin_msg91_ui` in any terminal and run these following commands in the terminal to install dependency and start local serve.
+
+4. Run `npm i` for installation of dependencies.
+
+5. Run `npm start` to local serve the project.
+
 ## Development server
 
 To start a local development server, run:

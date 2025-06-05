@@ -20,6 +20,7 @@ export class TallyPanelComponent {
 
   constructor(private router: Router) { }
 
+  // Method to navigate user to the login page when called
   redirectTologin() {
     this.router.navigate(['/login'])
   }

@@ -9,5 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class NoRecordFoundComponent {
     @Input() showBtn: boolean = false;
+
+    // Input property to customize the title (e.g., "Logs", "Users", etc.)
     @Input() title: string = ""
 }
