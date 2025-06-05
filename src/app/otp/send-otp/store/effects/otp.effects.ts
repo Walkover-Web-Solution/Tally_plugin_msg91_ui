@@ -12,8 +12,8 @@ import { BaseResponse } from "../../../../models/root-models";
 export class OtpEffects {
      constructor( private toast: PrimeNgToastService) {}
 
-     actions$ = inject(Actions)
-     service: ServicesProxyLogsService = inject(ServicesProxyLogsService)
+     actions$ = inject(Actions)       
+     service: ServicesProxyLogsService = inject(ServicesProxyLogsService)   // method to inject the service
     
      sendOtp$ = createEffect(() =>
       this.actions$.pipe(

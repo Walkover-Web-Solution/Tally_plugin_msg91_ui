@@ -1,4 +1,4 @@
-<div class="d-flex w-100 h-100 gap-2" [ngClass]="!(isSideNavOpen | async) ? 'collapsed-sidebar' : ''">
+<div class="d-flex w-100 h-100 gap-3" [ngClass]="!(isSideNavOpen | async) ? 'collapsed-sidebar' : ''">
     <div
         class="d-flex flex-column mat-drawer mat-drawer-content"
         [ngClass]="(isSideNavOpen | async) ? 'mat-drawer-toggle-btn-hover' : ''"
@@ -76,7 +76,7 @@
             <button mat-button routerLink="['user-details']">
                 <div class="d-flex align-items-center">
         
-                    <div class="d-flex flex-row gap-2">
+                    <div class="d-flex flex-row gap-3">
                         <mat-icon  aria-hidden="false" class=" text-grey material-icons-outlined">
                             account_circle</mat-icon
                         >

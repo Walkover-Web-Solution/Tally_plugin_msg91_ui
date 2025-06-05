@@ -1,3 +1,4 @@
+// INTL PHONE Library :: START
 import { INTL_INPUT_OPTION } from '../libs/constant/index';
 import { PHONE_NUMBER_REGEX } from '../app/regex/index';
 declare var window:any;

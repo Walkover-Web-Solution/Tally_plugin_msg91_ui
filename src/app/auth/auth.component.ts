@@ -73,6 +73,7 @@ export class AuthComponent extends BaseComponent {
           }   
     }
 
+    // intl function for displaying country codes and flags on otp input field
     initIntlPhone() {
       const parentDom = document.querySelector('app-root')?.shadowRoot;
       const input = document?.getElementById('mobile-input-wrapper');

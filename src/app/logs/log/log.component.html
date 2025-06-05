@@ -41,20 +41,12 @@
                        [dataSource]="(logs$ | async)?.data" 
                        class="default-table responsive-table"
                     >
-                    <!-- Time Column -->
-                    <ng-container matColumnDef="created_at">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Request type</th>
-                        <td mat-cell *matCellDef="let element" data-label="Time">
-                            <span>
-                               dsgd
-                            </span>
-                            <span>(sfd)</span>
-                        </td>
-                    </ng-container>
+                    <!-- Request Type Column -->
+                   
 
-                    <!-- Project name Column -->
-                    <ng-container matColumnDef="project_name">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Endpoint</th>
+                    <!-- Project Name Column -->
+                    <ng-container matColumnDef="request_type">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Request type</th>
                         <td mat-cell *matCellDef="let element" data-label="Project name">
                             sgd
                         </td>
@@ -66,24 +58,18 @@
                         <td mat-cell *matCellDef="let element" data-label="User IP">dsg</td>
                     </ng-container>
 
-                    <!-- Endpoint Column -->
+                    <!-- Response Time Column -->
                     <ng-container matColumnDef="endpoint">
-                        <th mat-header-cell *matHeaderCellDef>Reponse_time</th>
+                        <th mat-header-cell *matHeaderCellDef>Endpoint</th>
                         <td mat-cell *matCellDef="let element" class="w-b-hyphens" data-label="Endpoint">
                             sdg
                         </td>
                     </ng-container>
 
-                    <!-- Request Type Column -->
-                    <ng-container matColumnDef="request_type">
-                        <th mat-header-cell *matHeaderCellDef>Status Code</th>
-                        <td mat-cell *matCellDef="let element" data-label="Request type">dsg</td>
-                    </ng-container>
-
                     <!-- Status Code Column -->
                     <ng-container matColumnDef="status_code">
-                        <th mat-header-cell *matHeaderCellDef>Created_at</th>
-                        <td mat-cell *matCellDef="let element" data-label="Status code">dsg</td>
+                        <th mat-header-cell *matHeaderCellDef>Status Code</th>
+                        <td mat-cell *matCellDef="let element" data-label="Request type">dsg</td>
                     </ng-container>
 
                     <!-- Response Time Column -->
@@ -91,6 +77,16 @@
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>Response time</th>
                         <td mat-cell *matCellDef="let element" data-label="Response time">
                             dsg
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="created_at">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created at</th>
+                        <td mat-cell *matCellDef="let element" data-label="Time">
+                            <span>
+                               dsgd
+                            </span>
+                            <span>(sfd)</span>
                         </td>
                     </ng-container>
 

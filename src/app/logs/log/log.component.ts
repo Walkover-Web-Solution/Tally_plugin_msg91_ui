@@ -45,13 +45,13 @@ export class LogComponent {
 
   public logDetailDialogRef!: MatDialogRef<LogsDetailsSideDialogComponent>;
 
-  displayedColumns: string[] = ['created_at',
-          'project_name',
+  displayedColumns: string[] = [
+          'request_type',
           'user_ip',
           'endpoint',
-          'request_type',
           'status_code',
-          'response_time'
+          'response_time',
+          'created_at'
   ]
 
   public params: any = {};

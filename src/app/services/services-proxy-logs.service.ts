@@ -21,16 +21,19 @@ export class ServicesProxyLogsService {
 
   constructor(private http: HttpClient) { }
 
+  // logs
   getProxyLogs(params?: Record<string, string | number>): Observable<any> {
       const httpParams = new HttpParams({ fromObject: params || {} });
       return this.http.get<any>(this.getLogs, { params: httpParams });
   }
-
+  
+  // logs by id
   getProxyLogsById(id: string): Observable<any> {
     const url = this.getLogsById.replace(':id', id);
       return this.http.get<any>(url);
   }
-
+  
+  // send otp 
   sendOtp(mobile: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -42,6 +45,7 @@ export class ServicesProxyLogsService {
     return this.http.post<any>(this.otpUrl, body, { headers })
   }
 
+  // verify otp 
   verfiyOtp(mobile:string, otp:string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -52,6 +56,7 @@ export class ServicesProxyLogsService {
       return this.http.post<any>(this.verifyurl, body, {headers})
   }
 
+  // existing user
   existinguser(mobile:string, otp:string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -73,6 +78,7 @@ export class ServicesProxyLogsService {
       )
   }
 
+  // register user
   registerUser(name:string, email:string, mobile:string): Observable<any>{
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -94,7 +100,8 @@ export class ServicesProxyLogsService {
                 })       
        );
   }
-
+  
+  // get wallet balance
   getWalletBalance(): Observable<any> {
     const token = this.getAuthToken(); 
   
@@ -106,7 +113,7 @@ export class ServicesProxyLogsService {
     return this.http.get(this.walletUrl, { headers })
   }
   
-
+  // recharge wallet
   rechargeWallet(amount:string): Observable<string | any> {
     const token = this.getAuthToken();
 
@@ -121,6 +128,7 @@ export class ServicesProxyLogsService {
     return this.http.post(this.rechargeWalletUrl, body, {headers})
   }
 
+  // user details
   public getUserDetailsData(): Observable<any> {
         const token = this.getAuthToken();
 
@@ -131,6 +139,7 @@ export class ServicesProxyLogsService {
        return this.http.get(this.getUserDetails, {headers})
   }
 
+  // campaign list
   public getAllCampaignFlowFromApi(param:any,authkey:string): Observable<BaseResponse<IPaginatedResponse<Flow[]>, void>> {
   
     const headers = new HttpHeaders({
@@ -141,7 +150,7 @@ export class ServicesProxyLogsService {
     return this.http.get<BaseResponse<IPaginatedResponse<Flow[]>,void>>(this.getAllCampaignFlow, {headers, params:param})
   }
   
-
+  // campaign list fields
   public getCampaignAllFields(request: { slug: string; sync?: boolean }, authkey:string): Observable<BaseResponse<any, string>> {
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
@@ -154,15 +163,11 @@ export class ServicesProxyLogsService {
         );
     }
   
+  // getting auth token  
   private getAuthToken(): any {
     if (typeof window !== 'undefined') {
       return sessionStorage.getItem('proxy_auth_token') || localStorage.getItem('proxy_auth_token') || null;
     }
     return null;
-  }
-
-  private getCookie(name: string): string | null {
-    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    return match ? decodeURIComponent(match[2]) : null;
   }
 }

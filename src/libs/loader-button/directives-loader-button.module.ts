@@ -1,3 +1,4 @@
+//  Loader Button Directive:: START
 import {
     OnInit,
     Directive,
@@ -16,6 +17,11 @@ import {MatButtonModule} from '@angular/material/button';
 import { Platform } from '@angular/cdk/platform';
 import { NgIf, NgTemplateOutlet, NgSwitch, NgSwitchCase } from '@angular/common';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
+/**
+ * A loader wrapper component used to display different types of buttons (flat, icon, flat-icon)
+ * in a disabled state with a spinner and optional text while an operation is in progress.
+ */
 
 @Component({
     selector: 'msg91-loader-button-wrapper',
