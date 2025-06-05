@@ -42,9 +42,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 export class LogComponent {
-
+  // Reference for the side panel dialog displaying log details
   public logDetailDialogRef!: MatDialogRef<LogsDetailsSideDialogComponent>;
 
+  // Column identifiers used in the logs table
   displayedColumns: string[] = [
           'request_type',
           'user_ip',
@@ -55,12 +56,18 @@ export class LogComponent {
   ]
 
   public params: any = {};
+
+    // Observables for wallet balance, recharge, and logs
   public walletBalance$: Observable<number>;
   public rechargeWallet$: Observable<any>;
-  public balance: number = 0;
   public registerUser$: Observable<any>;
   public logs$: Observable<any>;
   public reqLogs$: Observable<any>;
+
+  // Current wallet balance value
+  public balance: number = 0;
+
+  // UI-related state flags
   public isrotate: boolean = false;
   public walletBalanceLoading$: Observable<any>
   public isLoading:boolean = false;
@@ -73,19 +80,24 @@ export class LogComponent {
             private componentStore: ProxyLogsComponentStore,
             private cdr: ChangeDetectorRef 
   ) {
+      // Subscribing to various pieces of state using selectors
      this.walletBalance$ = this.store.pipe(select(getWalletBalanceSuccess)),
       this.rechargeWallet$ = this.store.pipe(select(selectPaymentUrl)),
       this.registerUser$ = this.store.pipe(select(registerSuccess)),
       this.walletBalanceLoading$ = this.store.pipe(select(getWalletBalanceLoading)),
+
+      // Logs observables from component store
       this.logs$ = this.componentStore.logsData$,
       this.reqLogs$ = this.componentStore.reqLogs$
       
   }
 
   ngOnInit(): void {
+    // Fetch initial logs and wallet balance on component load
     this.getLogs();
     this.getWalletbalance()
 
+     // Get one-time balance value and store it in a local variable
     this.walletBalance$.pipe(take(1)).subscribe(balance => {
       if (balance !== null && balance !== undefined) {
         this.balance = balance;
@@ -93,10 +105,17 @@ export class LogComponent {
     });
 
   }
+
+   /**
+   * Dispatches an action to fetch the current wallet balance.
+   */
   public getWalletbalance(): void {
     this.store.dispatch(getWalletBalanceAction());
   }
 
+   /**
+   * Opens the Wallet Recharge dialog to allow users to add funds.
+   */
   public rechargewallet() {
     const dialogRef = this.dialog.open(WalletRechargeDialogComponent, {
       panelClass: ['mat-right-dialog', 'mat-dialog-lg'],
@@ -117,12 +136,21 @@ export class LogComponent {
     })
 
   }
+
+  /**
+   * Triggers fetching of log records via component store.
+   */
   public getLogs() {
     this.componentStore.getLogs({ ...this.params })
   }
 
+  /**
+   * Opens the side drawer with detailed log information.
+   * @param id Unique log entry ID to fetch and display
+   */
   public viewLogsDetail(id:string) {
        this.componentStore.getLogsById(id);
+       // Open the log detail dialog with observable data
            const logDetailDialogRef = this.dialog.open(LogsDetailsSideDialogComponent, {
             panelClass: ['mat-right-dialog', 'mat-dialog-lg'],
             data: {

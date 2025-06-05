@@ -42,12 +42,12 @@ import { BaseComponent } from '../../libs/ui/base-component/base.component';
 export class AuthComponent extends BaseComponent {
    public islogin = false;
    public isOtpSent = false;
-   public mobileNumber = ''
-   public existotpverify$: Observable<any>;
-   public otpLoading$: Observable<any>;
-   public sendOtpSuccess$: any;
-   public mobilefield: boolean = true;
-   public intlPhone: any;
+   public mobileNumber = ''                    // Stores the user's entered mobile number
+   public existotpverify$: Observable<any>;  // Observable for OTP verification result
+   public otpLoading$: Observable<any>;      // Observable for loading state during OTP verification
+   public sendOtpSuccess$: any;              // Observable to track OTP send success response
+   public mobilefield: boolean = true;        // Flag to toggle between mobile number input and OTP input
+   public intlPhone: any;                     // Instance of intl-tel-input wrapper class
 
   //  @ViewChild('mobileInput', { static: false }) mobileInputRef!: ElementRef;
    
@@ -55,10 +55,10 @@ export class AuthComponent extends BaseComponent {
                 private router:Router,
                 private toast: PrimeNgToastService,
                ) {
-         super();       
-        this.existotpverify$ = this.store.pipe(select(selectexistOtpVerified),distinctUntilChanged(isEqual),takeUntil(this.destroy$))
-        this.sendOtpSuccess$ = this.store.pipe(select(selectOtpResponse),distinctUntilChanged(isEqual),takeUntil(this.destroy$))
-        this.otpLoading$ = this.store.pipe(select(selectexistOtpVerifiedLoading),distinctUntilChanged(isEqual),takeUntil(this.destroy$))
+         super();  // Calls BaseComponent to setup destroy$ observable     
+        this.existotpverify$ = this.store.pipe(select(selectexistOtpVerified),distinctUntilChanged(isEqual),takeUntil(this.destroy$))        // Subscribes to OTP verification result from NgRx store 
+        this.sendOtpSuccess$ = this.store.pipe(select(selectOtpResponse),distinctUntilChanged(isEqual),takeUntil(this.destroy$))           // Subscribes to OTP send success data
+        this.otpLoading$ = this.store.pipe(select(selectexistOtpVerifiedLoading),distinctUntilChanged(isEqual),takeUntil(this.destroy$))    // Subscribes to OTP loading state
     }
 
     ngOnInit(): void {
@@ -66,6 +66,7 @@ export class AuthComponent extends BaseComponent {
     }
 
     ngAfterViewInit(): void {
+       // Initialize intl-tel-input only if mobile input is shown
           if (this.mobilefield) {
               setTimeout(() => {
                 this.initIntlPhone();
@@ -73,7 +74,10 @@ export class AuthComponent extends BaseComponent {
           }   
     }
 
-    // intl function for displaying country codes and flags on otp input field
+      /**
+    * Initializes the intl-tel-input plugin on the mobile input field
+    * Adds country flag, dial code, and formatting
+    */
     initIntlPhone() {
       const parentDom = document.querySelector('app-root')?.shadowRoot;
       const input = document?.getElementById('mobile-input-wrapper');
@@ -85,30 +89,37 @@ export class AuthComponent extends BaseComponent {
       }
     }
     
+     /**
+    * Reactive form with mobileNumber and OTP controls
+    */
     public loginform = new FormGroup({
           mobileNumber: new FormControl('',[Validators.required,Validators.pattern(PHONE_NUMBER_REGEX)]),
           otp: new FormControl('',[Validators.required,Validators.pattern(PHONE_NUMBER_REGEX)])
     })
 
+     /**
+    * Redirects the user to the registration page
+    */
     public register() {
        this.router.navigate(['/register'])
     }
 
-    public otpsend() {
-       this.islogin=true;
-    }
-
-
+    /**
+     * Dispatches send Otp action 
+     * Sends OTP to the entered mobile number  */ 
     public sendOtp() {
       const mobileNumber = this.intlPhone?.phoneNumber || '';
       const mobile = mobileNumber.startsWith('+') ? mobileNumber.slice(1) : mobileNumber;
       if(!mobile && mobile.length==12) return;
       this.store.dispatch(sendOtpAction({ mobile }));
-      this.toast.success("Otp Sent Successfully")
       this.isOtpSent = true;
       this.mobilefield = false;
     }
 
+      /**
+    * Verifies the entered OTP with the backend
+    * On success, navigates to logs layout and triggers wallet balance fetch
+    */
     public verifyOtp() {
       const mobile = this.loginform.get("mobileNumber")?.value ?? "";
       const otp = this.loginform.get("otp")?.value ?? "";
@@ -127,6 +138,9 @@ export class AuthComponent extends BaseComponent {
       })
     }
 
+     /**
+    * Switches UI back to mobile input view and re-initializes intl-tel-input
+    */
    public backtoMobile() {
          this.isOtpSent = false;
          this.mobilefield = true;

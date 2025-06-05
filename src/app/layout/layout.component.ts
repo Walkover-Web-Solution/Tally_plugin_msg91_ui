@@ -30,22 +30,31 @@ import { getUserAction } from '../otp/send-otp/store/actions/otp.action';
   ]
 })
 export class LayoutComponent  implements OnInit {
+  // Controls visibility of the side nav toggle button
     public showToggle = false;
+
+     // Observable state for whether the side nav is open (default: true)
     public isSideNavOpen = new BehaviorSubject<boolean>(true);
+
+    // Observable to hold current logged-in user data from the store
     public logInData$: Observable<any>
 
     constructor(private store:Store) {
       this.logInData$ = this.store.pipe(select(selectUser))
      
     }
+
+    // Dispatches the action to fetch the logged-in user info
     public log(){ 
        this.store.dispatch(getUserAction())
     }
+
+    // On component initialization, get user details
     ngOnInit(): void {
          this.log();
     }
    
-
+     // Toggles the sidebar open/closed state
     public toggleSideNav(): void {
         this.isSideNavOpen.next(!this.isSideNavOpen.getValue());
     }

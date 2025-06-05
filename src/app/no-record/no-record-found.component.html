@@ -1,6 +1,9 @@
+<!-- Card shown when no records/data are available -->
 <mat-card class="no-record-card h-100 w-100" style="box-shadow: none !important">
     <mat-card-content class="h-100">
         <div class="d-flex flex-column align-items-center justify-content-center h-100">
+
+             <!-- Placeholder image for "no records" state -->
             <img
                 src="../../assets/images/no_records_graphic.png"
                 width="200"
@@ -9,6 +12,8 @@
                 loading="lazy"
             />
             <p class="card-title">Nothing Here</p>
+
+              <!-- Subtitle with dynamic record title -->
             <div class="d-flex align-items-center">
                 <p class="card-subtitle my-0">
                     There are no <span>{{ title }}</span> to show.

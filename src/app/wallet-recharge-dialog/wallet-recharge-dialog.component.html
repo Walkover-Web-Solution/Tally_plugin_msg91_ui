@@ -1,25 +1,29 @@
-<!-- Wallet Recharge --START-- -->
+<!-- Wallet Recharge Dialog START -->
 <div class="mat-right-dialog-container">
-    <h2 mat-dialog-title class="dialog-title">
-      Add Funds
-      <button mat-icon-button class="cursor-pointer close" (click)="closeDialog()">
-        <mat-icon >close</mat-icon>
-      </button>
-    </h2>
 
-    <mat-divider></mat-divider>
-  
-    <div mat-dialog-content [formGroup]="walletForm" class="dialog-content">
-      <mat-form-field appearance="outline" class="w-100 amount-field">
-        <mat-label>Enter the amount</mat-label>
-        <input matInput placeholder="Enter the amount" formControlName="amount">
-      </mat-form-field>
-    </div>
-  
-    <div mat-dialog-actions class="dialog-actions">
-      <button mat-raised-button color="primary" (click)="add()">Proceed to pay</button>
-    </div>
-  
+  <!-- Dialog Title with Close Button -->
+  <h2 mat-dialog-title class="dialog-title">
+    Add Funds
+    <button mat-icon-button class="cursor-pointer close" (click)="closeDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </h2>
+
+  <!-- Divider below the title -->
+  <mat-divider></mat-divider>
+
+  <!-- Dialog Content: Form to enter amount -->
+  <div mat-dialog-content [formGroup]="walletForm" class="dialog-content">
+    <mat-form-field appearance="outline" class="w-100 amount-field">
+      <mat-label>Enter the amount</mat-label>
+      <input matInput placeholder="Enter the amount" formControlName="amount">
+    </mat-form-field>
   </div>
-  <!-- Wallet Recharge --END-- -->
-  
+
+  <!-- Dialog Actions: Button to proceed with payment -->
+  <div mat-dialog-actions class="dialog-actions">
+    <button mat-raised-button color="primary" (click)="add()">Proceed to pay</button>
+  </div>
+
+</div>
+<!-- Wallet Recharge Dialog END -->

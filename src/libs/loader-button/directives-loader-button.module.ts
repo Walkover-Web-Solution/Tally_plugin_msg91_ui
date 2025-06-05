@@ -65,21 +65,33 @@ export class LoaderButtonWrapperComponent {
     public wrapperClass: string = "";
 }
 
+/**
+ * Directive: LoaderButtonDirective
+ * 
+ * This directive replaces a standard button with a loader version when `msg91ButtonLoader` is true.
+ * It hides the original button and shows the loader wrapper instead.
+ */
+
 @Directive({
     selector: '[msg91ButtonLoader]',
     standalone: true,
 })
 export class LoaderButtonDirective implements OnInit, OnChanges {
-    @Input() public msg91ButtonLoader: boolean = false;
-    @Input() public buttonText: string = "";
-    @Input() public buttonStyle: 'lg' | 'md' | 'sm' = 'lg';
-    @Input() public buttonType: 'flat' | 'icon' | 'flat-icon' = 'flat';
-    @Input() public loaderSize: string = '18';
-    @Input() public wrapperClass: string = "";
+    @Input() public msg91ButtonLoader: boolean = false;   // Triggers the loader
+    @Input() public buttonText: string = "";               // Text to show inside loader button
+    @Input() public buttonStyle: 'lg' | 'md' | 'sm' = 'lg';   // Button height
+    @Input() public buttonType: 'flat' | 'icon' | 'flat-icon' = 'flat';   // Button type
+    @Input() public loaderSize: string = '18';                 // Spinner size
+    @Input() public wrapperClass: string = "";                   // Additional CSS class
+
+     // Used to check for platform type (for platform-specific rendering logic)
     public cdkPlatform = inject(Platform);
 
     constructor(private el: ElementRef, private viewContainerRef: ViewContainerRef) {}
-
+    
+     /**
+     * Detects the original button type based on its class (flat, icon, etc.)
+     */
     public ngOnInit(): void {
         const button = this.el.nativeElement;
         if (button.classList.contains('mat-flat-button')) {
@@ -93,21 +105,30 @@ export class LoaderButtonDirective implements OnInit, OnChanges {
         }
     }
 
+      /**
+     * Triggers when inputs change (esp. msg91ButtonLoader).
+     * Shows/hides the loader wrapper accordingly.
+     */
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes['msg91ButtonLoader']?.currentValue === changes['msg91ButtonLoader']?.previousValue) {
             return;
         }
         this.msg91ButtonLoader = changes['msg91ButtonLoader']?.currentValue;
         this.viewContainerRef.clear();
+         // Avoid rendering loader on Android/iOS (optional, platform specific handling)
         if (!this.cdkPlatform.ANDROID && !this.cdkPlatform.IOS) {
             if (this.msg91ButtonLoader) {
-                this.createButtonWrapper();
+                this.createButtonWrapper();  // Replace button with loader
             } else {
                 this.el.nativeElement.setAttribute('style', 'display: block');
             }
         }
     }
 
+     /**
+     * Creates and inserts the loader wrapper component into the view,
+     * hiding the original button.
+     */
     private createButtonWrapper() {
         this.el.nativeElement.setAttribute('style', 'display: none');
         const componentRef = this.viewContainerRef.createComponent(LoaderButtonWrapperComponent);

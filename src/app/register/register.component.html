@@ -1,6 +1,11 @@
+  <!-- Register Section  -->
 <div class="d-flex justify-content-center align-items-center">
     <mat-card class="outline-card reg-form">
+            
+             <!-- Header section with back button and title -->
             <div class="d-flex align-items-center">
+
+                <!-- Back arrow icon to navigate to login screen -->
                 <div (click)="login()" class="ml-4 cursor-pointer"  matTooltip="Go back" 
                 matTooltipPosition="below" matTooltip="Go back" 
     matTooltipPosition="below"><mat-icon >arrow_back</mat-icon></div>
@@ -9,41 +14,58 @@
                 </div>
             </div>
         <div class="app-content d-flex justify-content-center align-items-center ">
+
+             <!-- Reactive form bound to registrationForm -->
             <form [formGroup]="registrationForm">
+
+                  <!-- Nested form group 'user' for user details -->
                 <div formGroupName="user">
                     <div class="d-flex gap-2 flex-column mt-3">
+                        <!-- First Name Field -->
                         <mat-form-field class="w-100" color="primary" appearance="outline">
                             <mat-label>First Name</mat-label>
                             <input matInput formControlName="fname" placeholder="First Name" />
+
+                              <!-- Error shown if pattern validation fails -->
                             <mat-error *ngIf="registrationForm.get('user.fname')?.hasError('pattern')">
                                     Only alphabets are allowed
                             </mat-error>
+
+                            <!-- Error shown if field is touched and invalid -->
                             <mat-error *ngIf="registrationForm.get('user.fname')?.touched">
                                   This is a required field
                             </mat-error>
                         </mat-form-field>
 
+                          <!-- Last Name Field -->
                         <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Last Name</mat-label>
                             <input matInput formControlName="lname" placeholder="Last Name" />
+                             <!-- Error shown if pattern validation fails -->
                             <mat-error *ngIf="registrationForm.get('user.lname')?.hasError('pattern')">
                                 Only alphabets are allowed
                             </mat-error>
                         </mat-form-field>
 
+                          <!-- Email Field -->
                         <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Email</mat-label>
                             <input matInput formControlName="email" placeholder="Email" />
                             <mat-error *ngIf="registrationForm.get('user.email')?.hasError('pattern')">
                                 Invalid email format
                             </mat-error>
+
+                               <!-- Error shown if email field is touched and empty -->
                             <mat-error *ngIf="registrationForm.get('user.email')?.touched">
                                 This is a required field
                             </mat-error>
                         </mat-form-field>
                     </div>
 
+                     <!-- Mobile number and OTP section -->
                     <div class="d-flex flex-column gap-2" style="width:400px">
+
+                         <!-- Phone number input with custom validation logic using intlPhone instance -->
                         <div class="input-wrapper d-flex gap-4 align-items-baseline">
                             <mat-form-field appearance="outline" class="w-100" style="position: relative; z-index: 2;">
                                 <input matInput type="tel" formControlName="mobile" placeholder="Mobile Number"
@@ -57,6 +79,7 @@
                                     'invalid-input': registrationForm.get('user.mobile')?.touched && !intlPhone?.isRequiredValidNumber
                                     }" />
 
+                              <!-- Error message for invalid phone number -->
                                 <div style="position: absolute; bottom: -23px;">
                                     <mat-error
                                         *ngIf="registrationForm.get('user.mobile')?.touched && intlPhone && !intlPhone?.isRequiredValidNumber">Please
@@ -64,22 +87,27 @@
                                 </div>
 
                             </mat-form-field>
-
+                             
+                             <!-- Send OTP button -->
                             <button mat-flat-button (click)="sendotp()" color="primary">Send</button>
                         </div>
 
-
-
+                          <!-- OTP input shown only after OTP is sent -->
                         <div *ngIf="otpSent" class="d-flex gap-4 align-items-baseline">
+
+                              <!-- OTP Field -->
                             <mat-form-field class="w-100" appearance="outline">
                                 <input matInput formControlName="otp" placeholder="OTP" />
                             </mat-form-field>
+
+                             <!-- Verify button with loading state using msg91ButtonLoader directive -->
                             <button mat-flat-button color="primary" (click)="verifyOtp()"
                                 [msg91ButtonLoader]="(verifyingloading$ | async)">Verify
                             </button>
                         </div>
                     </div>
 
+                     <!-- Submit button enabled only after OTP is verified -->
                     <div class="mt-4 w-100">
                         <button mat-flat-button type="submit" class="w-100" [disabled]="!(otpVerified$ | async)"
                                 color="primary" (click)="submit()">Submit</button>

@@ -1,3 +1,7 @@
+/* 
+  CSS for intl-tel-input library.
+  This library is used to provide international telephone input formatting, 
+  flags, and validation in input fields. */
 .iti {
     position: relative;
     display: inline-block;
