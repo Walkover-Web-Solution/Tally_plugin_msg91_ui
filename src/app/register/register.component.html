@@ -1,14 +1,13 @@
   <!-- Register Section  -->
-<div class="d-flex justify-content-center align-items-center">
-    <mat-card class="outline-card reg-form">
+<div class="d-flex justify-content-center align-items-center w-100">
+    <mat-card class="outline-card reg-form" appearance="outlined">
             
              <!-- Header section with back button and title -->
             <div class="d-flex align-items-center">
 
                 <!-- Back arrow icon to navigate to login screen -->
-                <div (click)="login()" class="ml-4 cursor-pointer"  matTooltip="Go back" 
-                matTooltipPosition="below" matTooltip="Go back" 
-    matTooltipPosition="below"><mat-icon >arrow_back</mat-icon></div>
+                <div (click)="login()" class="ml-4 cursor-pointer"  matTooltip="Back" 
+                       matTooltipPosition="below"><mat-icon >arrow_back</mat-icon></div>
                 <div class="flex-grow-1">
                     <h2 class="ml-10">Register Form</h2>
                 </div>
@@ -20,11 +19,11 @@
 
                   <!-- Nested form group 'user' for user details -->
                 <div formGroupName="user">
-                    <div class="d-flex gap-2 flex-column mt-3">
+                    <div class="d-flex gap-2 flex-column mt-3 input-wrapper">
                         <!-- First Name Field -->
                         <mat-form-field class="w-100" color="primary" appearance="outline">
                             <mat-label>First Name</mat-label>
-                            <input matInput formControlName="fname" placeholder="First Name" />
+                            <input matInput formControlName="fname" placeholder="Enter First Name" />
 
                               <!-- Error shown if pattern validation fails -->
                             <mat-error *ngIf="registrationForm.get('user.fname')?.hasError('pattern')">
@@ -40,7 +39,7 @@
                           <!-- Last Name Field -->
                         <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Last Name</mat-label>
-                            <input matInput formControlName="lname" placeholder="Last Name" />
+                            <input matInput formControlName="lname" placeholder="Enter Last Name" />
                              <!-- Error shown if pattern validation fails -->
                             <mat-error *ngIf="registrationForm.get('user.lname')?.hasError('pattern')">
                                 Only alphabets are allowed
@@ -50,7 +49,7 @@
                           <!-- Email Field -->
                         <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Email</mat-label>
-                            <input matInput formControlName="email" placeholder="Email" />
+                            <input matInput formControlName="email" placeholder="Enter Email" />
                             <mat-error *ngIf="registrationForm.get('user.email')?.hasError('pattern')">
                                 Invalid email format
                             </mat-error>
@@ -63,11 +62,11 @@
                     </div>
 
                      <!-- Mobile number and OTP section -->
-                    <div class="d-flex flex-column gap-2" style="width:400px">
+                    <div class="d-flex flex-column gap-2 input-wrapper" >
 
                          <!-- Phone number input with custom validation logic using intlPhone instance -->
                         <div class="input-wrapper d-flex gap-4 align-items-baseline">
-                            <mat-form-field appearance="outline" class="w-100" style="position: relative; z-index: 2;">
+                            <mat-form-field appearance="outline" class="w-100">
                                 <input matInput type="tel" formControlName="mobile" placeholder="Mobile Number"
                                     id="mobile-input-wrapper"
                                     (keydown.enter)="!intlPhone?.isRequiredValidNumber ? null : sendotp()"
@@ -80,7 +79,7 @@
                                     }" />
 
                               <!-- Error message for invalid phone number -->
-                                <div style="position: absolute; bottom: -23px;">
+                                <div style="position: absolute; bottom: -10px;">
                                     <mat-error
                                         *ngIf="registrationForm.get('user.mobile')?.touched && intlPhone && !intlPhone?.isRequiredValidNumber">Please
                                         Enter a valid mobile Number</mat-error>
@@ -96,7 +95,7 @@
                         <div *ngIf="otpSent" class="d-flex gap-4 align-items-baseline">
 
                               <!-- OTP Field -->
-                            <mat-form-field class="w-100" appearance="outline">
+                            <mat-form-field appearance="outline" class="input-wrapper">
                                 <input matInput formControlName="otp" placeholder="OTP" />
                             </mat-form-field>
 

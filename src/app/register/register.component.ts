@@ -14,6 +14,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { IntlPhoneLib } from "../../libs/intl-phone-lib.class";
 import { LoaderButtonDirective } from "../../libs/loader-button/directives-loader-button.module";
 import { MatIconModule } from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 
 @Component({
   selector: "app-register",
@@ -28,7 +30,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatCardModule,
     MatButtonModule,
     LoaderButtonDirective,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule
   ]
 })
 export class RegisterComponent {

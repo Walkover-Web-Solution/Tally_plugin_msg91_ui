@@ -1,8 +1,8 @@
-body{
-    height: 100vh;
-    margin: 0px;
-    background-color: aquamarine;
-}
+// body{
+//     height: 100vh;
+//     margin: 0px;
+//     background-color: aquamarine;
+// }
 .app-content {
     background-color: #ffffff;
 }
@@ -27,8 +27,9 @@ button {
 }
 
 .input-wrapper{
-    width: 100%;
+    width: 496px;
 }
+
 @media (max-width: 768px) { 
     .reg-form {
         min-width: 80%;

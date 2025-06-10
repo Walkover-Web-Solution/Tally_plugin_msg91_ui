@@ -4,13 +4,13 @@ import { catchError, exhaustMap, map, mergeMap, of, switchMap } from "rxjs";
 import {Actions, createEffect, ofType} from '@ngrx/effects'
 import { ServicesProxyLogsService } from "../../../../services/services-proxy-logs.service";
 import { getAllFlow, getAllFlowFailure, getAllFlowSuccess, getCampaignFields, getCampaignFieldsFailure, getCampaignFieldsSuccess, getUserAction, getUserFailure, getUserSuccess, getWalletBalanceAction, getWalletBalanceFailure, getWalletBalanceSuccess, rechargeWalletAction, rechargeWalletError, rechargeWalletSuccess, registerAction, registerFailure, registerSuccess } from "../actions/otp.action";
-import { PrimeNgToastService } from "../../../../../libs/prime-ng-toast.service";
 import { BaseResponse } from "../../../../models/root-models";
+import { SnackBarService } from "../../../../../libs/ui/snack-bar.service";
 
 
 @Injectable()
 export class OtpEffects {
-     constructor( private toast: PrimeNgToastService) {}
+     constructor(  private _snackBarService: SnackBarService ) {}
 
      actions$ = inject(Actions)       
      service: ServicesProxyLogsService = inject(ServicesProxyLogsService)   // method to inject the service
@@ -26,11 +26,16 @@ export class OtpEffects {
         switchMap(({ mobile }) =>
           this.service.sendOtp(mobile).pipe(
             map((response) => {
-              this.toast.success('OTP sent successfully'); 
+              if (response.status === 'success' && !response.hasError) {
+                // Show success message
+                this._snackBarService.openSnackBar('OTP sent successfully', 'success',2, '✖', 'bottom', 'start');
+              } else {
+                // Show error message
+                this._snackBarService.openSnackBar(response.errors?.[0] || 'Failed to send OTP', 'error',4, '✖', 'bottom', 'start');
+              } 
               return otpActions.sendOtpSuccess({ response });
             }),
             catchError((error) => {
-              this.toast.error(error); // ✅ toast error
               return of(otpActions.sendOtpFailure({ error }));
             })
           )
@@ -46,15 +51,19 @@ export class OtpEffects {
    * On failure: returns error messages or defaults.
    */
     verifyOtp$ = createEffect(() =>
-  this.actions$.pipe(
+      this.actions$.pipe(
     ofType(otpActions.getOtpVerifyAction),
     switchMap(({ request }) =>
       this.service.verfiyOtp(request.mobile, request.otp).pipe(
         map((res: any) => {
           if (res.status === 'success' && !res.hasError) {
-            return otpActions.getOtpVerifyActionComplete({ response: res });
-          }
+            // Show success message
+            this._snackBarService.openSnackBar('OTP verified successfully', 'success', 2, '✖', 'bottom', 'start');
 
+            return otpActions.getOtpVerifyActionComplete({ response: res });    
+          }
+          // Show error message
+          this._snackBarService.openSnackBar(res.errors?.[0] || 'OTP verification failed', 'error', 4, '✖', 'bottom', 'start');
           return otpActions.getOtpVerifyActionError({
             errors: res.errors.length ? res.errors : ['OTP verification failed'],
             errorResponse: res,
@@ -85,7 +94,12 @@ export class OtpEffects {
         this.service.existinguser(request.mobile, request.otp).pipe(
           map((res: any) => {
             if (res.status === 'success' && !res.hasError) {
+              // Show success message
+              this._snackBarService.openSnackBar('OTP verified successfully', 'success', 3, '✖', 'bottom', 'start');
               return otpActions.existOtpVerifyActionComplete({ response: res });
+            } else{
+              // Show error message
+              this._snackBarService.openSnackBar(res.errors?.[0] || 'OTP verification failed', 'error', 4, '✖', 'bottom', 'start');    
             }
 
             return otpActions.existOtpVerifyActionError({
@@ -119,6 +133,11 @@ export class OtpEffects {
             this.service.registerUser(action.name, action.email, action.mobile).pipe(
               map((response) => {
                 const token = response.data.proxy_auth_token;
+                if(response.status === 'success'  && !response.hasError) {
+                  this._snackBarService.openSnackBar('Registration successful', 'success', 2, '✖', 'bottom', 'start');
+                } else {
+                  this._snackBarService.openSnackBar(response.errors?.[0] || 'Registration failed', 'error', 4, '✖', 'bottom', 'start');
+                }
                 return registerSuccess({token});
               }),
               catchError((error) => of(registerFailure({ error })))
@@ -200,6 +219,7 @@ export class OtpEffects {
             switchMap(({ param, authkey }) =>
               this.service.getAllCampaignFlowFromApi( param, authkey ).pipe(
                 map((flow: BaseResponse<any, void>) => {
+                  this._snackBarService.openSnackBar('Authentication verification completed', 'success', 2, '✖', 'bottom', 'start');
                   return getAllFlowSuccess({
                       campaigns: flow.data.data,
                       pagination: {
@@ -211,6 +231,7 @@ export class OtpEffects {
                   });
               }),
                 catchError((error) => {
+                  this._snackBarService.openSnackBar('Authentication verification failed', 'error', 4, '✖', 'bottom', 'start');
                   return of(getAllFlowFailure({ error }));
                 })
               )

@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideState, provideStore, StoreModule } from '@ngrx/store';
 import { routes } from './app.routes';
@@ -10,9 +10,8 @@ import { otpReducer } from './otp/send-otp/store/reducers/otp.reducer';
 import { provideStoreDevtools } from '@ngrx/store-devtools'
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { ProxyLogsComponentStore } from './logs/log/logs.store';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { providePrimeNG } from 'primeng/config';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SnackBarService } from '../libs/ui/snack-bar.service';
 
 
 export const appConfig: ApplicationConfig = {
@@ -25,11 +24,9 @@ export const appConfig: ApplicationConfig = {
     provideEffects([OtpEffects]),                             //NGRX store effects
     provideStoreDevtools(),                                    //Devtools for debugging
     provideAnimations(),                                       // provide animation
-    ProxyLogsComponentStore,                                   // Logs 
-    MessageService,                                            //Prime Ng Service
-    ToastModule,                                               // ToastModule
-    providePrimeNG({ ripple: true })                           // PrimeNg Config
-
+    ProxyLogsComponentStore,                                   // Logs component store
+    SnackBarService,                                          // SnackBar service for notifications
+    importProvidersFrom(MatSnackBarModule)                  // Angular Material SnackBar module
   ]
 };
 
