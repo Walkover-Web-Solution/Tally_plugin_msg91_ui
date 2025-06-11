@@ -1,83 +1,71 @@
-   <!-- Login with OTP Section --START-- -->
+<!-- Login with OTP Section --START-- -->
 <div class="content w-100 h-100 d-flex justify-content-between align-items-center">
   <div class="align-items-center first">
     <div class="align-items-center">
       <p class="ml-5 fw-bolder font-32">Welcome Back!</p>
-      <p class="login-content1">Start Managing your finance better and faster</p>
+      <p class="login-content1">Start Managing your Finance Better and Faster</p>
     </div>
 
     <div class="mt-4">
       <form [formGroup]="loginform">
-         <!-- Mobile number input section - shown only if OTP is not yet sent -->
+        <!-- Mobile number input section - shown only if OTP is not yet sent -->
         <ng-container *ngIf="mobilefield">
-             <!-- Phone input field  -->
+          <!-- Phone input field  -->
           <mat-form-field appearance="outline" class="w-100 position-relative intl-phone">
-              <input
-                #mobileInput
-                matInput
-                formControlName="mobileNumber"
-                placeholder="mobile number"
-                type="tel"
-                (keydown.enter)="!intlPhone?.isRequiredValidNumber ? null : sendOtp()"
-                (keypress)="intlPhone?.onlyPhoneNumber($event)"  
-                (input)="loginform.get('mobileNumber')?.setValue(intlPhone.phoneNumber);
+            <input #mobileInput matInput formControlName="mobileNumber" placeholder="mobile number" type="tel"
+              (keydown.enter)="!intlPhone?.isRequiredValidNumber ? null : sendOtp()"
+              (keypress)="intlPhone?.onlyPhoneNumber($event)" (input)="loginform.get('mobileNumber')?.setValue(intlPhone.phoneNumber);
                 !intlPhone?.isValidNumber ? loginform.get('mobileNumber')?.setErrors({ 'invalidNumber': true }) : null
-                "
-                (blur)="loginform.get('mobileNumber')?.markAsTouched()"
-                [ngClass]="{
+                " (blur)="loginform.get('mobileNumber')?.markAsTouched()" [ngClass]="{
                   'invalid-input': loginform.get('mobileNumber')?.touched && !intlPhone?.isRequiredValidNumber
-                 }"
-                id="mobile-input-wrapper"
-              />
-       
-             <!-- Error message for invalid phone number -->
+                 }" id="mobile-input-wrapper" />
+
+            <!-- Error message for invalid phone number -->
             <div class="position-absolute mt-2">
-              <mat-error *ngIf="loginform.get('mobileNumber')?.touched && intlPhone && !intlPhone?.isRequiredValidNumber">Please enter a valid Mobile Number</mat-error>
+              <mat-error
+                *ngIf="loginform.get('mobileNumber')?.touched && intlPhone && !intlPhone?.isRequiredValidNumber">Please
+                enter valid mobile number</mat-error>
             </div>
           </mat-form-field>
 
-           <!-- Send OTP button - only enabled when phone number is valid -->
-          <button mat-flat-button color="primary" (click)="sendOtp()"
-                class="w-100 mt-1"
-                [disabled]="
+          <!-- Send OTP button - only enabled when phone number is valid -->
+          <button mat-flat-button color="primary" (click)="sendOtp()" class="w-100 mt-1" [disabled]="
                 !intlPhone?.isRequiredValidNumber ||
                 loginform.get('mobileNumber')?.invalid ||
                 !loginform.get('mobileNumber')?.value
-              ">  
-          Send</button>
+              ">
+            Send</button>
 
         </ng-container>
 
 
-         <!-- OTP input section - shown only after OTP is sent -->
+        <!-- OTP input section - shown only after OTP is sent -->
         <div *ngIf="isOtpSent">
-           <!-- Back button to return to mobile number input -->
-          <button mat-button (click)="backtoMobile()"><mat-icon>keyboard_backspace</mat-icon>Back</button>
+            <!-- Back button to return to mobile number input -->
+             <button mat-button (click)="backtoMobile()"><mat-icon>keyboard_backspace</mat-icon>Back</button>
 
-           <!-- OTP entry field -->
-          <div class="mt-2">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>OTP</mat-label>
-              <input matInput formControlName="otp" placeholder="Enter OTP">
-            </mat-form-field>
-          </div>
+            <!-- OTP entry field -->
+              <div class="mt-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>OTP</mat-label>
+                  <input matInput formControlName="otp" placeholder="Enter OTP">
+                </mat-form-field>
+              </div>
 
-           <!-- Verify OTP button - enabled only when OTP field is valid -->
+          <!-- Verify OTP button - enabled only when OTP field is valid -->
           <div class="justify-content-center">
             <button mat-flat-button color="primary" (click)="verifyOtp()" class="w-100"
-                    [disabled]="loginform.get('otp')?.invalid"
-            >Verify</button>
+              [disabled]="loginform.get('otp')?.invalid">Verify</button>
           </div>
 
         </div>
       </form>
     </div>
-      <p  *ngIf="!isOtpSent" class="ml-4 mt-4 account">
-               Doesn't have an account? <a (click)="register()"
-               class="cursor-pointer text-underline link">Register Here</a></p>
+    <p *ngIf="!isOtpSent" class="ml-4 mt-4 account">
+      Doesn't have an account? <a (click)="register()" class="cursor-pointer text-underline link">Register Here</a></p>
   </div>
-   <!-- Login with OTP Section --END-- -->
- 
+  <!-- Login with OTP Section --END-- -->
+
   <!-- Side Card Details -- START -- -->
   <div>
     <mat-card class="card">
@@ -94,6 +82,6 @@
       </mat-card-content>
     </mat-card>
   </div>
-   <!-- Side Card Details -- END -- -->
+  <!-- Side Card Details -- END -- -->
 
 </div>

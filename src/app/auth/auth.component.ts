@@ -51,8 +51,7 @@ export class AuthComponent extends BaseComponent {
   //  @ViewChild('mobileInput', { static: false }) mobileInputRef!: ElementRef;
    
     constructor(private store:Store,
-                private router:Router,
-                private _snackBarService: SnackBarService,  // Service to show snack bar messages
+                private router:Router
                ) {
          super();  // Calls BaseComponent to setup destroy$ observable     
         this.existotpverify$ = this.store.pipe(select(selectexistOtpVerified),distinctUntilChanged(isEqual),takeUntil(this.destroy$))        // Subscribes to OTP verification result from NgRx store 
@@ -89,7 +88,7 @@ export class AuthComponent extends BaseComponent {
     */
     public loginform = new FormGroup({
           mobileNumber: new FormControl('',[Validators.required,Validators.pattern(PHONE_NUMBER_REGEX)]),
-          otp: new FormControl('',[Validators.required,Validators.pattern(PHONE_NUMBER_REGEX)])
+          otp: new FormControl('',[Validators.pattern(PHONE_NUMBER_REGEX)])
     })
 
      /**

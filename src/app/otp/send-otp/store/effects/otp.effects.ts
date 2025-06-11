@@ -28,10 +28,10 @@ export class OtpEffects {
             map((response) => {
               if (response.status === 'success' && !response.hasError) {
                 // Show success message
-                this._snackBarService.openSnackBar('OTP sent successfully', 'success',2, '✖', 'bottom', 'start');
+                this._snackBarService.openSnackBar('OTP sent successfully.', 'success',2, '✖', 'bottom', 'start');
               } else {
                 // Show error message
-                this._snackBarService.openSnackBar(response.errors?.[0] || 'Failed to send OTP', 'error',4, '✖', 'bottom', 'start');
+                this._snackBarService.openSnackBar('Failed to send OTP.', 'error',4, '✖', 'bottom', 'start');
               } 
               return otpActions.sendOtpSuccess({ response });
             }),
@@ -58,12 +58,12 @@ export class OtpEffects {
         map((res: any) => {
           if (res.status === 'success' && !res.hasError) {
             // Show success message
-            this._snackBarService.openSnackBar('OTP verified successfully', 'success', 2, '✖', 'bottom', 'start');
+            this._snackBarService.openSnackBar('OTP verified successfully.', 'success', 2, '✖', 'bottom', 'start');
 
             return otpActions.getOtpVerifyActionComplete({ response: res });    
           }
           // Show error message
-          this._snackBarService.openSnackBar(res.errors?.[0] || 'OTP verification failed', 'error', 4, '✖', 'bottom', 'start');
+          this._snackBarService.openSnackBar('OTP verification failed.', 'error', 4, '✖', 'bottom', 'start');
           return otpActions.getOtpVerifyActionError({
             errors: res.errors.length ? res.errors : ['OTP verification failed'],
             errorResponse: res,
@@ -95,11 +95,11 @@ export class OtpEffects {
           map((res: any) => {
             if (res.status === 'success' && !res.hasError) {
               // Show success message
-              this._snackBarService.openSnackBar('OTP verified successfully', 'success', 3, '✖', 'bottom', 'start');
+              this._snackBarService.openSnackBar('OTP verified successfully.', 'success', 3, '✖', 'bottom', 'start');
               return otpActions.existOtpVerifyActionComplete({ response: res });
             } else{
               // Show error message
-              this._snackBarService.openSnackBar(res.errors?.[0] || 'OTP verification failed', 'error', 4, '✖', 'bottom', 'start');    
+              this._snackBarService.openSnackBar('OTP verification failed.', 'error', 4, '✖', 'bottom', 'start');    
             }
 
             return otpActions.existOtpVerifyActionError({
@@ -134,9 +134,9 @@ export class OtpEffects {
               map((response) => {
                 const token = response.data.proxy_auth_token;
                 if(response.status === 'success'  && !response.hasError) {
-                  this._snackBarService.openSnackBar('Registration successful', 'success', 2, '✖', 'bottom', 'start');
+                  this._snackBarService.openSnackBar('Registration successful.', 'success', 2, '✖', 'bottom', 'start');
                 } else {
-                  this._snackBarService.openSnackBar(response.errors?.[0] || 'Registration failed', 'error', 4, '✖', 'bottom', 'start');
+                  this._snackBarService.openSnackBar('Registration failed.', 'error', 4, '✖', 'bottom', 'start');
                 }
                 return registerSuccess({token});
               }),
@@ -219,7 +219,7 @@ export class OtpEffects {
             switchMap(({ param, authkey }) =>
               this.service.getAllCampaignFlowFromApi( param, authkey ).pipe(
                 map((flow: BaseResponse<any, void>) => {
-                  this._snackBarService.openSnackBar('Authkey verified successfully', 'success', 2, '✖', 'bottom', 'start');
+                  this._snackBarService.openSnackBar('Authkey verified successfully.', 'success', 2, '✖', 'bottom', 'start');
                   return getAllFlowSuccess({
                       campaigns: flow.data.data,
                       pagination: {
@@ -231,7 +231,7 @@ export class OtpEffects {
                   });
               }),
                 catchError((error) => {
-                  this._snackBarService.openSnackBar('Authkey verification failed', 'error', 4, '✖', 'bottom', 'start');
+                  this._snackBarService.openSnackBar('Authkey verification failed.', 'error', 4, '✖', 'bottom', 'start');
                   return of(getAllFlowFailure({ error }));
                 })
               )

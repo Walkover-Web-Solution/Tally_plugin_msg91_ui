@@ -18,6 +18,10 @@
     z-index: 2;
 }
 
+mat-error {
+    font-weight: 500;
+}
+
 @media (max-width: 768px) { 
     .reg-form {
         min-width: 80%;

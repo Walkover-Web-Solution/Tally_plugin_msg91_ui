@@ -15,6 +15,7 @@ import { IntlPhoneLib } from "../../libs/intl-phone-lib.class";
 import { LoaderButtonDirective } from "../../libs/loader-button/directives-loader-button.module";
 import { MatIconModule } from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { EMAIL_REGEX, NAME_REGEX } from "../regex";
 
 
 @Component({
@@ -85,15 +86,18 @@ export class RegisterComponent {
     user: new FormGroup({
       fname: new FormControl<string>("", [
         Validators.required,
+        Validators.pattern(NAME_REGEX),
         Validators.minLength(3),
         Validators.maxLength(24),
       ]),
       lname: new FormControl<string>("", [
+        Validators.pattern(NAME_REGEX),
         Validators.minLength(3),
         Validators.maxLength(25),
       ]),
       email: new FormControl<string>("", [
-        Validators.required
+        Validators.required,
+        Validators.pattern(EMAIL_REGEX)
       ]),
       mobile: new FormControl<string>("", [Validators.required]),
       otp: new FormControl<string>("", [
