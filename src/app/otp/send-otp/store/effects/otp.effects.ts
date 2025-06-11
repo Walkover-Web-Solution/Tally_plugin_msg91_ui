@@ -219,7 +219,7 @@ export class OtpEffects {
             switchMap(({ param, authkey }) =>
               this.service.getAllCampaignFlowFromApi( param, authkey ).pipe(
                 map((flow: BaseResponse<any, void>) => {
-                  this._snackBarService.openSnackBar('Auth key verified successfully', 'success', 2, '✖', 'bottom', 'start');
+                  this._snackBarService.openSnackBar('Authkey verified successfully', 'success', 2, '✖', 'bottom', 'start');
                   return getAllFlowSuccess({
                       campaigns: flow.data.data,
                       pagination: {

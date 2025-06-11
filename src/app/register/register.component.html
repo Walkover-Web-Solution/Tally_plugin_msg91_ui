@@ -66,7 +66,7 @@
 
                          <!-- Phone number input with custom validation logic using intlPhone instance -->
                         <div class="input-wrapper d-flex gap-4 align-items-baseline">
-                            <mat-form-field appearance="outline" class="w-100">
+                            <mat-form-field appearance="outline" class="w-100 position-relative intl-phone">
                                 <input matInput type="tel" formControlName="mobile" placeholder="Mobile Number"
                                     id="mobile-input-wrapper"
                                     (keydown.enter)="!intlPhone?.isRequiredValidNumber ? null : sendotp()"
@@ -79,7 +79,7 @@
                                     }" />
 
                               <!-- Error message for invalid phone number -->
-                                <div style="position: absolute; bottom: -10px;">
+                                <div class="position-absolute mt-2">
                                     <mat-error
                                         *ngIf="registrationForm.get('user.mobile')?.touched && intlPhone && !intlPhone?.isRequiredValidNumber">Please
                                         Enter a valid mobile Number</mat-error>

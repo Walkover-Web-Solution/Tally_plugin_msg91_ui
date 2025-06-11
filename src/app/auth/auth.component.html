@@ -11,7 +11,7 @@
          <!-- Mobile number input section - shown only if OTP is not yet sent -->
         <ng-container *ngIf="mobilefield">
              <!-- Phone input field  -->
-          <mat-form-field appearance="outline" class="w-100">
+          <mat-form-field appearance="outline" class="w-100 position-relative intl-phone">
               <input
                 #mobileInput
                 matInput
@@ -31,7 +31,7 @@
               />
        
              <!-- Error message for invalid phone number -->
-            <div style="position: absolute; bottom: -10px;">
+            <div class="position-absolute mt-2">
               <mat-error *ngIf="loginform.get('mobileNumber')?.touched && intlPhone && !intlPhone?.isRequiredValidNumber">Please enter a valid Mobile Number</mat-error>
             </div>
           </mat-form-field>

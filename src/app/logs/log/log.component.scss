@@ -36,6 +36,10 @@ table{
 .rotate {
     animation: rotateAnim 1s linear infinite;
   }
+
+.search-icon {
+    color: #808080;
+}  
   
   @keyframes rotateAnim {
     from {

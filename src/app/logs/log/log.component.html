@@ -6,7 +6,7 @@
         <div>
             <mat-form-field appearance="outline">
                 <div class="d-flex gap-3">
-                    <mat-icon style="color: #808080;">search</mat-icon>
+                    <mat-icon class="search-icon">search</mat-icon>
                      <!-- Search input (currently non-functional, implement filtering logic if needed) -->
                     <input matInput placeholder="Search">
                 </div>
@@ -48,7 +48,7 @@
     <!-- Logs Table Section -->
     <mat-card class="p-0 responsive-card flex-grow-1" appearance="outlined">
         <mat-card-content>
-            <div class="table-scroll" style="height: calc(100vh - 180px)">
+            <div class="table-scroll">
                 <table mat-table
                        [dataSource]="(logs$ | async)?.data" 
                        class="default-table responsive-table"
