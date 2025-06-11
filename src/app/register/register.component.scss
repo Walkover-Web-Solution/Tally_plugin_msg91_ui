@@ -1,15 +1,5 @@
-body{
-    height: 100vh;
-    margin: 0px;
-    background-color: aquamarine;
-}
 .app-content {
     background-color: #ffffff;
-}
-
-button {
-    font-size: 16px;
-    width: 100px;
 }
 
 .reg-form {
@@ -21,14 +11,17 @@ button {
     margin-top: 30px;
 }
 
-.field{
-    display: flex;
-    flex-direction: column;
+.input-wrapper{
+    width: 496px;
+}
+.intl-phone {
+    z-index: 2;
 }
 
-.input-wrapper{
-    width: 100%;
+mat-error {
+    font-weight: 500;
 }
+
 @media (max-width: 768px) { 
     .reg-form {
         min-width: 80%;

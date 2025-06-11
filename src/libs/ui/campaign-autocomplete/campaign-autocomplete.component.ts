@@ -74,6 +74,7 @@ export class CampaignAutocompleteComponent extends BaseComponent  {
         }
       }
 
+      
     public fetchNextCampaignPage(): void {
         this.campaigns$.pipe(take(1)).subscribe((res) => {
             if (res.length === this.params.itemsPerPage * this.params.pageNo) {
@@ -83,6 +84,7 @@ export class CampaignAutocompleteComponent extends BaseComponent  {
         });
     }
 
+    // Fetching Campaign list     
     public fetchCampaign(params: any, authkey:string, nextPage?: boolean): void {
        
         this.fetchCampaignInProgressEmit.emit(of(true));

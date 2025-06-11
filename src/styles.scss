@@ -40,8 +40,91 @@
 
 @use 'assets/scss/utils/mixins/common-utils' as common-utils;
 
+// Global Style for International Telephone Input
 .iti__country-list{
-    top: 42px !important;
+    top: 36px !important;
     margin-left: -16px !important;
-    width: 360px !important;
+    width: 374px !important;
 }
+
+// Global Style for Snackbar --> Snackbar Success, Error, and Info
+
+// Global Style for Snackbar Success
+.snackbar-success {
+    --mdc-snackbar-container-color: #e8f7e8 !important;
+    --mdc-snackbar-supporting-text-color: #307368 !important;
+
+    button .mdc-button__label {
+        color: #307368 !important; /* Green for success */
+      }
+  }
+  
+  // Global Style for Snackbar Error
+  .snackbar-error {
+    --mdc-snackbar-container-color: #fdecea !important;
+    --mdc-snackbar-supporting-text-color: #b71c1c !important;
+      
+    button .mdc-button__label {
+        color: #b71c1c !important; /* Red for error */
+      }
+  }
+
+  // Global Style for Snackbar Info
+  .snackbar-info {
+    --mdc-snackbar-container-color: #e8f4fd !important;
+    --mdc-snackbar-supporting-text-color: #01579b !important;
+  
+  }
+   
+  // Global Style for Snackbar Container
+  .mat-mdc-snack-bar-container .mdc-snackbar__label {
+    font-size: 16px !important; /* Adjust font size */
+    font-family: Arial, sans-serif !important; /* Adjust font family */
+    font-weight: 700 !important; /* Adjust font weight */
+    line-height: 1.5 !important; /* Adjust line height */
+  }
+
+
+  
+  // Form Field Global Styles
+
+  // Form Field Styles for Outlined Text Fields
+  .mat-mdc-form-field {
+    &:not(.initial-height) {
+      --mat-form-field-container-height: 42px;
+      .mdc-text-field--outlined {
+          height: var(--mat-form-field-container-height);
+      }
+    .mdc-text-field--outlined {
+      .mat-mdc-form-field-infix {
+          --mat-form-field-container-vertical-padding: 10px;
+      }
+    }
+    }
+  }
+  
+  // Form Field Styles for Outlined Text Fields
+  .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding-top: 10px;
+    padding-bottom: 16px;
+  }
+
+  // Form field Floating Label Styles
+  .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+    top: 20px;
+  }   
+  
+  // Form field Floating Label Styles for Textarea
+  .mat-mdc-form-field .mat-mdc-floating-label.mdc-floating-label {
+      font-size: 14px;
+      font-weight: 500;
+  }
+  
+  // Form field Floating Label Styles for Textarea with no label
+  .mdc-text-field--no-label:not(.mdc-text-field--textarea)
+  .mat-mdc-form-field-input-control.mdc-text-field__input,
+  .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+    font-size: 14px;
+    font-weight: 500;
+}
+  
