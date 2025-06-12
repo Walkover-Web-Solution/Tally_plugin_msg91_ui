@@ -9,10 +9,6 @@ ul {
     font-family: "Lato", sans-serif;
 }
 
-// .custom-shadow {
-//     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-//   }
-
 .mat-toolbar {
     height: 65px;
     padding: 0 20px;
@@ -40,7 +36,6 @@ ul {
      font-weight: bold;
 }
 .paragraph{
-     font-size: 1.2rem;
      line-height: 1.6;
      color: #808080;
 }
@@ -159,8 +154,9 @@ mdc-button__label{
     z-index: 1000;
     background: #ffffff;
 }
-
-.tool-content{
-     font-weight: 400;
-
-}
+.fw-bold.cursor-pointer {
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    &:hover {
+      color: #1b69a7; /* Change text color on hover */
+    }
+  }

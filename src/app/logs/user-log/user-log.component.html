@@ -74,8 +74,8 @@
         <ng-container *ngIf="campaignFields as fields">
           <div *ngIf="fields.length > 0; else noVariables" class=mt-4>
             <!-- Headers for variable mapping -->
-            <div class="d-flex flex-row gap-7">
-              <div class="mb-2 font-12 fw-bolder ">Campaign Variable</div>
+            <div class="d-flex flex-row gap-8">
+              <div class="mb-2 font-12 fw-bolder variable">Campaign Variable</div>
               <div class="mb-2 font-12 fw-bolder">Tally Variables</div>
             </div>
 
@@ -84,14 +84,14 @@
               <div class="d-flex justify-content-between gap-7" *ngFor="let variable of campaignFields">
 
                     <!-- Campaign Variable Name -->
-                  <div class="ml-4 fw-bold">
+                  <div class="ml-4 fw-bold variable">
                     {{ variable }}
                   </div>
 
                    <!-- Tally Variable Selection -->
                 <div class="tally-variable flex-grow-1">
                   
-                  <mat-form-field appearance="outline" class="w-full">
+                  <mat-form-field appearance="outline" class="w-25">
                     <mat-label>Tally Variable</mat-label>
                     <input type="text" placeholder="Pick one" matInput [formControl]="tallyControl" [matAutocomplete]="tally">
                         <mat-autocomplete  #tally="matAutocomplete">

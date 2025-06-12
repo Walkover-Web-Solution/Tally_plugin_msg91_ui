@@ -50,8 +50,8 @@
         <mat-card-content>
             <div class="table-scroll">
                 <table mat-table
-                       [dataSource]="(logs$ | async)?.data" 
-                       class="default-table responsive-table"
+                       [dataSource]="(logs$ | async) || []" 
+                       class="default-table responsive-table h-100"
                     >
                     <!-- Project Name Column -->
                     <ng-container matColumnDef="request_type">
