@@ -1,27 +1,27 @@
 <!-- Tally Panel --START-->
 
 <!-- Top Navigation Bar -->
-<mat-toolbar class="d-flex flex-row justify-content-between mat-elevation-z4 custom-shadow">
+<mat-toolbar class="d-flex flex-row justify-content-between position-sticky mat-elevation-z4">
     <img src="https://msg91.com/assets/brand/msg91.svg" alt="Logo" class="img">
 
     <!-- Navigation links -->
-    <div class="d-flex flex-row gap-4">  
-        <div class="tool-content cursor-pointer">Services</div>
-        <div class="tool-content cursor-pointer">Pricing</div>
-        <div class="tool-content cursor-pointer">Contact</div>
-        <div class="tool-content cursor-pointer" (click)="redirectTologin()">Login</div>
+    <div class="d-flex flex-row gap-6">   
+        <div class="fw-bold cursor-pointer d-flex text-hover-primary"><mat-icon>construction</mat-icon><span class="ml-1">Services</span></div>
+        <div class="fw-bold cursor-pointer d-flex text-hover-primary"><mat-icon>currency_rupee</mat-icon><span class="ml-1">Pricing</span></div>
+        <div class="fw-bold cursor-pointer d-flex text-hover-primary"><mat-icon>call</mat-icon><span class="ml-1">Contact</span></div>
+        <div class="fw-bold cursor-pointer d-flex text-hover-primary" (click)="redirectTologin()"><mat-icon>login</mat-icon><span class="ml-1">Login</span></div>
     </div>
 </mat-toolbar>
 
 <!-- Main Content Section -->
-<div class="w-100 d-flex flex-row align-items-center justify-content-center position-relative gap-5 main-content"> 
-    <div class="position-relative content">
+<div class="w-100 d-flex flex-row align-items-center justify-content-center position-relative gap-6 main-content"> 
+    <div class="position-relative content">  
         <!-- Heading with highlighted 'Tally' -->
-        <h1 class="heading">
+        <h1 class="font-40 fw-bolder">
             <span>Send Invoices on WhatsApp and Email via <span class="header2">Tally</span></span>
         </h1>
         <!-- Paragraph describing the service -->
-        <p class="paragraph mt-4">
+        <p class="paragraph font-20 mt-4">
             Automate your financial processes effortlessly with Tally.
             Streamline invoicing, effortlessly share ledgers, and efficiently recover outstanding amounts,
             all within the Tally platform.
@@ -34,7 +34,7 @@
 
     <!-- Illustration/Image next to main content -->
     <div class="d-flex align-items-center justify-content-center mt-5">
-        <img src="https://msg91.com/assets/integrations/graphics/tally-graphics.svg" alt="video-icon" class="image">
+        <img src="https://msg91.com/assets/integrations/graphics/tally-graphics.svg" alt="video-icon" class="image fw-bolder font-20">
     </div>
 </div>   
 
@@ -80,9 +80,9 @@
 <div class="d-flex flex-row">
     <div class="container">
         <!-- Headline and description -->
-        <h4 class="mb-4 super"><span class="headline">SUPERCHARGE</span> Your Tally Prime Experience</h4>
+        <h4 class="mb-4 font-24 fw-bolder super"><span class="headline">SUPERCHARGE</span> Your Tally Prime Experience</h4>
         <h3 class="mb-4 heading">Unlock Unparalleled Features with <span class="headline">MSG91 Tally Prime Plugin</span></h3>
-        <p class="description">
+        <p class="description font-20">
             The MSG91 Tally Prime Plugin enhances your Tally experience with advanced automation
             features, real-time data syncing, and simplified workflow management. Save time, enhance
             communication, and gain precise control over financial transactions for streamlined invoicing and
@@ -100,14 +100,14 @@
 
 <!-- Video Section -->
 <section class="text-center video-section">
-    <h2 class="video-heading">Watch This Video to Learn More</h2>
+    <h2 class="font-24 mb-20">Watch This Video to Learn More</h2>
     <div class="video-container">
         <video class="video" controls>
             <source src="yzeokyfz.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
-    <p class="video-description">
+    <p class="video-description font-20 mt-20 fw-bolder">
         Watch this video to understand how our powerful integration works seamlessly with
         Tally and how it helps you automate invoicing and financial processes.
     </p>
@@ -116,9 +116,9 @@
 <!-- Customization Call-to-Action Section -->
 <section>
     <div class="requirement text-center">
-        <p class="para">Customize your workflow to fit your specific requirement</p>
+        <p class="font-24">Customize your workflow to fit your specific requirement</p>
         <div>
-            <div class="para1">
+            <div class="font-24 fw-bolder">
                 Enhance your communication capabilities and automate your engagement tasks
             </div>
             <button mat-flat-button color="primary">Get the MSG91 Tally Plugin</button>
