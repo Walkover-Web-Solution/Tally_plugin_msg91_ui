@@ -4,6 +4,8 @@
     border-radius: var(--border-common-radius-4);
     font-weight: 500;
     font-size: 14px;
+    gap: 20px;
+    height: 38px;
 }
 
 .refresh {
@@ -39,6 +41,9 @@ table{
 
 .search-icon {
     color: #808080;
+}
+.mt-2 {
+    margin-top: 1.2rem !important;
 }  
   
   @keyframes rotateAnim {
