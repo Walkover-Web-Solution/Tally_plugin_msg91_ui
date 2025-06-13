@@ -2,7 +2,7 @@
 Main Wrapper Div: Adjusts layout based on sidebar state.
 If sidebar is collapsed, 'collapsed-sidebar' class is applied.
 -->
-<div class="d-flex w-100 h-100 gap-2" [ngClass]="!(isSideNavOpen | async) ? 'collapsed-sidebar' : ''">
+<div class="d-flex w-100 h-100 gap-3" [ngClass]="!(isSideNavOpen | async) ? 'collapsed-sidebar' : ''">
      <!-- Sidebar & Header Section -->
     <div
         class="d-flex flex-column mat-drawer mat-drawer-content"
