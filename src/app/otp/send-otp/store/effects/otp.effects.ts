@@ -97,8 +97,16 @@ export class OtpEffects {
               // Show success message
               this._snackBarService.openSnackBar('OTP verified successfully.', 'success', 3, '✖', 'bottom', 'start');
               return otpActions.existOtpVerifyActionComplete({ response: res });
-            } else{
+            } else if(res.status === 'error'  && res.errors.message === 'No user found. Invalid Mobile no given !') {
+              // If no user found, show registration prompt
               // Show error message
+              this._snackBarService.openSnackBar('User not found. Please register first.', 'error', 4, '✖', 'bottom', 'start');
+               return otpActions.existOtpVerifyActionError({
+                errors: res.errors.length ? res.errors : ['No user found. Invalid Mobile number given!'],
+                errorResponse: res,
+              });
+            } else if(res.status === 'error' && res.errors?.[0] === 'OTP not match') {
+              // If OTP is invalid, show error message
               this._snackBarService.openSnackBar('OTP verification failed.', 'error', 4, '✖', 'bottom', 'start');    
             }
 
