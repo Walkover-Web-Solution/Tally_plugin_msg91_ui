@@ -36,11 +36,20 @@ export const routes: Routes = [
         redirectTo: 'logs',
         pathMatch: 'full'
       },
+      {
+         path: '',
+         redirectTo: 'user-log',
+         pathMatch: 'full'
+      },
 
       // Logs child route under layout
       {
         path: 'logs',
         loadComponent: () => import('./logs/log/log.component').then((p) => p.LogComponent)
+      },
+      {
+         path: 'user-log',
+         loadComponent: () => import('./logs/user-log/user-log.component').then((p) => p.UserLogComponent),
       }
     ]
   },
@@ -64,6 +73,18 @@ export const routes: Routes = [
       }
     ]
   },
+
+  // Pricing route
+  {
+      path: 'pricing',
+      loadComponent: () => import('./pricing/pricing.component').then((p) => p.PricingComponent)
+  },
+
+  // Contact route
+  {
+     path: 'contact',
+     loadComponent: () => import('./contact/contact.component').then((p) => p.ContactComponent) 
+  }, 
 
   // Wildcard route redirects to 'app'
   {

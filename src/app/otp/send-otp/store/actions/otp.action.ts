@@ -244,3 +244,30 @@ export const getCampaignFieldsFailure = createAction(
   '[Campaign Fields] Load All Campaign Fields',
   props<{ error: any }>()
 );
+
+/**
+ * Logs out the user by clearing authentication tokens and session data.
+ */
+export const logoutuser = createAction('[Auth] Logout');
+
+/**
+ * Dispatched when logout is successful.
+ */
+export const logoutuserSuccess = createAction(
+  '[Auth] Logout Success',
+  props<{ message: string }>()
+);
+
+/**
+ * Dispatched when there's an error during logout.
+ */
+export const logoutuserFailure = createAction(
+  '[Auth] Logout Failure',
+  props<{ error: any }>()
+);
+
+// /**
+//  * Clears the current state of the OTP module.
+//  */
+// export const clearOtpState = createAction('[OTP] Clear OTP State');
+// /**                     

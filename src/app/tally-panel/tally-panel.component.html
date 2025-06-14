@@ -6,8 +6,8 @@
 
     <!-- Navigation links -->
     <div class="d-flex flex-row gap-6">   
-        <div class="fw-bold cursor-pointer d-flex text-hover-primary"><mat-icon>currency_rupee</mat-icon><span class="ml-1">Pricing</span></div>
-        <div class="fw-bold cursor-pointer d-flex text-hover-primary"><mat-icon>call</mat-icon><span class="ml-1">Contact</span></div>
+        <div class="fw-bold cursor-pointer d-flex text-hover-primary" (click)="pricing()"><mat-icon>currency_rupee</mat-icon><span class="ml-1">Pricing</span></div>
+        <div class="fw-bold cursor-pointer d-flex text-hover-primary" (click)="contact()"><mat-icon>call</mat-icon><span class="ml-1">Contact</span></div>
         <div class="fw-bold cursor-pointer d-flex text-hover-primary" (click)="redirectTologin()"><mat-icon>login</mat-icon><span class="ml-1">Login</span></div>
     </div>
 </mat-toolbar>

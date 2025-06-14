@@ -7,11 +7,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
 import { MainLeftSideNavComponent } from './main-left-side-nav/main-left-side-nav.component';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { IUserModel } from '../models/root-models';
-import { selectUser } from '../otp/send-otp/store/selectors';
-import { getUserAction } from '../otp/send-otp/store/actions/otp.action';
+import { selectlogoutuser, selectUser } from '../otp/send-otp/store/selectors';
+import { getUserAction, logoutuser } from '../otp/send-otp/store/actions/otp.action';
 
 @Component({
   selector: 'app-layout',
@@ -39,8 +39,11 @@ export class LayoutComponent  implements OnInit {
     // Observable to hold current logged-in user data from the store
     public logInData$: Observable<any>
 
-    constructor(private store:Store) {
-      this.logInData$ = this.store.pipe(select(selectUser))
+    public logout$: Observable<any>;
+
+    constructor(private store:Store, private router: Router) {
+      this.logInData$ = this.store.pipe(select(selectUser)),
+      this.logout$ = this.store.pipe(select(selectlogoutuser))
      
     }
 
@@ -57,5 +60,17 @@ export class LayoutComponent  implements OnInit {
      // Toggles the sidebar open/closed state
     public toggleSideNav(): void {
         this.isSideNavOpen.next(!this.isSideNavOpen.getValue());
+    }
+
+    // Logs out the user by dispatching the logout action and navigates to the login page
+    public logout() {
+        // Dispatches the logout action to the store
+        this.store.dispatch(logoutuser());
+        this.logout$.subscribe((res) => {
+           if(res) {
+                // If logout is successful, navigate to the login page
+                this.router.navigate(['/login']);
+           }
+       })
     }
 }
