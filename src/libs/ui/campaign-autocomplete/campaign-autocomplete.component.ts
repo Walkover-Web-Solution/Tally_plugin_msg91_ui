@@ -11,6 +11,9 @@ import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/ma
 import { CDKScrollComponent } from "../../../libs/ui/cdk-scroll/cdk-scroll.component";
 import { Store } from "@ngrx/store";
 import { BaseComponent } from '../base-component/base.component';
+import { MatIconModule } from '@angular/material/icon';
+import { LoaderButtonDirective } from "../../../libs/loader-button/directives-loader-button.module";
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-campaign-autocomplete',
@@ -23,7 +26,10 @@ import { BaseComponent } from '../base-component/base.component';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        CDKScrollComponent
+        CDKScrollComponent,
+        MatIconModule,
+        LoaderButtonDirective,
+        MatButtonModule
     ],
     standalone: true
 })
@@ -42,6 +48,7 @@ export class CampaignAutocompleteComponent extends BaseComponent  {
     @Input() setFormValueForSingleCampaign!: boolean;
     @Input() campaignForm!: UntypedFormControl;
     @Input() authkey!: string;
+    @Input() fetchCampaignInProcess$: Observable<boolean> | null = null;
     @Output() fetchCampaignInProgressEmit: EventEmitter<Observable<boolean>> = new EventEmitter();
     @Output() createCampaignEmitter: EventEmitter<any> = new EventEmitter();
     @Output() campaignSelected = new EventEmitter<any>();
@@ -68,13 +75,16 @@ export class CampaignAutocompleteComponent extends BaseComponent  {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes['authkey'] && this.authkey) {
-          this.params.pageNo = 1;
-          this.fetchCampaign(this.params, this.authkey);
+        if (changes['authkey']) {
+            this.campaigns$ = of([]);
+            this.campaignForm.setValue('');
+            this.params.pageNo = 1;
+            if(this.authkey) {
+            this.fetchCampaign(this.params, this.authkey);
         }
       }
-
-      
+    }
+    
     public fetchNextCampaignPage(): void {
         this.campaigns$.pipe(take(1)).subscribe((res) => {
             if (res.length === this.params.itemsPerPage * this.params.pageNo) {
@@ -144,5 +154,11 @@ export class CampaignAutocompleteComponent extends BaseComponent  {
     public onCampaignSelected(event: MatAutocompleteSelectedEvent): void {
         const selectedCampaign = event.option.value;
         this.campaignSelected.emit(selectedCampaign);
-      }
+    }
+    
+    public refreshCampaigns(): void {
+        this.campaigns$ = of([]);
+        this.campaignForm.setValue('');
+        this.fetchCampaign(this.params, this.authkey);
+    }  
 }

@@ -1,6 +1,6 @@
 <div>
       <!-- Search and Wallet Controls Section -->
-    <div class="d-flex justify-content-between mt-2">
+    <div class="d-flex justify-content-between mt-1">
 
          <!-- Search Field -->
         <div>
@@ -20,9 +20,9 @@
                   <!-- Wallet Balance Display -->
                     <div class="cursor-pointer">
                         <div class="d-flex align-items-center w-100 balance-wallet">
-                             <div class="d-flex flex-row align-items-center gap-3 mb-1">
-                                <mat-icon class="mt-1">account_balance_wallet</mat-icon>
-                                <p class="mt-2">{{walletBalance$ | async}}</p> <!-- Async pipe for live balance -->
+                             <div class="d-flex flex-row align-items-center gap-3">
+                                <mat-icon >account_balance_wallet</mat-icon>
+                                <p class="wb">{{walletBalance$ | async}}</p> <!-- Async pipe for live balance -->
                              </div>
                         </div>
                     </div>

@@ -38,7 +38,7 @@ export const routes: Routes = [
       },
       {
          path: '',
-         redirectTo: 'user-log',
+         redirectTo: 'configuration',
          pathMatch: 'full'
       },
 
@@ -48,8 +48,8 @@ export const routes: Routes = [
         loadComponent: () => import('./logs/log/log.component').then((p) => p.LogComponent)
       },
       {
-         path: 'user-log',
-         loadComponent: () => import('./logs/user-log/user-log.component').then((p) => p.UserLogComponent),
+         path: 'configuration',
+         loadComponent: () => import('./logs/configuration/configuration.component').then((p) => p.ConfigurationComponent),
       }
     ]
   },

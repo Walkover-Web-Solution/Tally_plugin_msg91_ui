@@ -1,9 +1,3 @@
-
-.active-list-item {
-        background-color: #4a58a8;
-        color: #ffff;
-}
-
 .active-list-item .mat-icon,
 .active-list-item .menu-label {
   color: #ffffff !important;
@@ -11,11 +5,32 @@
 
 /* Inactive/default state */
 .mat-list-item {
-  background-color: #ffffff !important;
+  background-color: #888bc8e1 !important;
   color: #000000 !important;
 }
 
 .mat-list-item .mat-icon,
 .mat-list-item .menu-label {
   color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+/* Logs active state */
+.logs-active {
+  background-color: #485dd0 !important; 
+  color: #fff !important;
+}
+.logs-active .mat-icon,
+.logs-active .menu-label {
+  color: #fff !important;
+}
+
+/* Logs inactive state */
+.logs-inactive {
+  background-color: #7d7fcc !important; // Silver
+  color: #000 !important;
+}
+.logs-inactive .mat-icon,
+.logs-inactive .menu-label {
+  color: #000 !important;
 }

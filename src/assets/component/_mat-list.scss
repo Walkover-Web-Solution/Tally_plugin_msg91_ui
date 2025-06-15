@@ -41,3 +41,13 @@
         }
     }
 }
+.mdc-list {
+     padding: 0 !important;
+}
+.mdc-list-item.mdc-list-item--with-one-line {
+    height: 42px !important;
+    padding: 0px 12px !important;
+}
+.mdc-list-item:hover {
+  background-color: #b6c3ff54 !important;
+}
