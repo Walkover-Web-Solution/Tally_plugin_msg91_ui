@@ -18,7 +18,8 @@ export class ServicesProxyLogsService {
   readonly getLogsById = 'https://apitest.msg91.com/api/c/proxyLogDetails/:id';
   readonly getUserDetails = 'https://routes.msg91.com/api/c/getDetails';
   readonly getAllCampaignFlow = 'https://test.msg91.com/api/v5/campaign/api/campaigns';
-  readonly getCampaignFields = 'https://test.msg91.com/api/v5/campaign/api/campaigns/:slug/fields';  
+  readonly getCampaignFields = 'https://test.msg91.com/api/v5/campaign/api/campaigns/:slug/fields';
+  readonly logout = 'https://routes.msg91.com/api/c/logout';  
 
   constructor(private http: HttpClient) { }
 
@@ -27,7 +28,7 @@ export class ServicesProxyLogsService {
    * @param params Optional key-value pairs for query params
    * @returns Observable of logs data
    */
-  getProxyLogs(params?: Record<string, string | number>): Observable<any> {
+  public getProxyLogs(params?: Record<string, string | number>): Observable<any> {
       const httpParams = new HttpParams({ fromObject: params || {} });
       return this.http.get<any>(this.getLogs, { params: httpParams });
   }
@@ -37,7 +38,7 @@ export class ServicesProxyLogsService {
    * @param id Unique identifier of the log
    * @returns Observable of single log data
    */
-  getProxyLogsById(id: string): Observable<any> {
+  public getProxyLogsById(id: string): Observable<any> {
     const url = this.getLogsById.replace(':id', id);
       return this.http.get<any>(url);
   }
@@ -48,7 +49,7 @@ export class ServicesProxyLogsService {
    * @param mobile Phone number to send OTP to
    * @returns Observable of API response
    */
-  sendOtp(mobile: string): Observable<any> {
+  public sendOtp(mobile: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'authkey': 'dbc2b79e90d5ee493948fcf6556c2c9a'
@@ -65,7 +66,7 @@ export class ServicesProxyLogsService {
    * @param otp OTP code entered by user
    * @returns Observable of API response
    */
-  verfiyOtp(mobile:string, otp:string): Observable<any> {
+  public verfiyOtp(mobile:string, otp:string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'authkey': 'dbc2b79e90d5ee493948fcf6556c2c9a'
@@ -82,7 +83,7 @@ export class ServicesProxyLogsService {
    * @param otp OTP code
    * @returns Observable of response containing auth token
    */
-  existinguser(mobile:string, otp:string): Observable<any> {
+  public existinguser(mobile:string, otp:string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'authkey': 'dbc2b79e90d5ee493948fcf6556c2c9a'
@@ -113,7 +114,7 @@ export class ServicesProxyLogsService {
    * @param mobile User's mobile number
    * @returns Observable of registration response
    */
-  registerUser(name:string, email:string, mobile:string): Observable<any>{
+  public registerUser(name:string, email:string, mobile:string): Observable<any>{
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'authkey': 'dbc2b79e90d5ee493948fcf6556c2c9a'
@@ -144,7 +145,7 @@ export class ServicesProxyLogsService {
    * Adds 'proxy_auth_token' in request headers.
    * @returns Observable with wallet balance data
    */
-  getWalletBalance(): Observable<any> {
+  public getWalletBalance(): Observable<any> {
     const token = this.getAuthToken(); 
   
     const headers = new HttpHeaders({
@@ -161,7 +162,7 @@ export class ServicesProxyLogsService {
    * @param amount Amount to recharge wallet with
    * @returns Observable of recharge response
    */
-  rechargeWallet(amount:string): Observable<string | any> {
+  public rechargeWallet(amount:string): Observable<string | any> {
     const token = this.getAuthToken();
 
     const headers = new HttpHeaders({
@@ -227,6 +228,25 @@ export class ServicesProxyLogsService {
       this.getCampaignFields.replace(':slug', request.slug),
       {headers, params:param}
     );
+  }
+
+  /**
+   * Logout the user by clearing the stored authentication token.
+   * @returns Observable of logout response
+   */
+  public logoutuser(): Observable<any> {
+    const token = this.getAuthToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'proxy_auth_token': token
+    });
+    return this.http.delete(this.logout, { headers }).pipe(
+      tap(() => {
+        // Clear stored authentication token on logout
+        localStorage.removeItem('proxy_auth_token');
+        sessionStorage.removeItem('proxy_auth_token');
+      }),
+    )
   }
   
   /**

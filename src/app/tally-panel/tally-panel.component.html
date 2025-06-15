@@ -6,9 +6,8 @@
 
     <!-- Navigation links -->
     <div class="d-flex flex-row gap-6">   
-        <div class="fw-bold cursor-pointer d-flex text-hover-primary"><mat-icon>construction</mat-icon><span class="ml-1">Services</span></div>
-        <div class="fw-bold cursor-pointer d-flex text-hover-primary"><mat-icon>currency_rupee</mat-icon><span class="ml-1">Pricing</span></div>
-        <div class="fw-bold cursor-pointer d-flex text-hover-primary"><mat-icon>call</mat-icon><span class="ml-1">Contact</span></div>
+        <div class="fw-bold cursor-pointer d-flex text-hover-primary" (click)="pricing()"><mat-icon>currency_rupee</mat-icon><span class="ml-1">Pricing</span></div>
+        <div class="fw-bold cursor-pointer d-flex text-hover-primary" (click)="contact()"><mat-icon>call</mat-icon><span class="ml-1">Contact</span></div>
         <div class="fw-bold cursor-pointer d-flex text-hover-primary" (click)="redirectTologin()"><mat-icon>login</mat-icon><span class="ml-1">Login</span></div>
     </div>
 </mat-toolbar>
@@ -82,7 +81,7 @@
         <!-- Headline and description -->
         <h4 class="mb-4 font-24 fw-bolder super"><span class="headline">SUPERCHARGE</span> Your Tally Prime Experience</h4>
         <h3 class="mb-4 heading">Unlock Unparalleled Features with <span class="headline">MSG91 Tally Prime Plugin</span></h3>
-        <p class="description font-20">
+        <p class="description font-20 mb-1">
             The MSG91 Tally Prime Plugin enhances your Tally experience with advanced automation
             features, real-time data syncing, and simplified workflow management. Save time, enhance
             communication, and gain precise control over financial transactions for streamlined invoicing and
@@ -99,7 +98,7 @@
 </div>
 
 <!-- Video Section -->
-<section class="text-center video-section">
+<section class="text-center mt-3 video-section">
     <h2 class="font-24 mb-20">Watch This Video to Learn More</h2>
     <div class="video-container">
         <video class="video" controls>

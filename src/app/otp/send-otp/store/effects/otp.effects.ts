@@ -97,8 +97,16 @@ export class OtpEffects {
               // Show success message
               this._snackBarService.openSnackBar('OTP verified successfully.', 'success', 3, '✖', 'bottom', 'start');
               return otpActions.existOtpVerifyActionComplete({ response: res });
-            } else{
+            } else if(res.status === 'error'  && res.errors.message === 'No user found. Invalid Mobile no given !') {
+              // If no user found, show registration prompt
               // Show error message
+              this._snackBarService.openSnackBar('User not found. Please register first.', 'error', 4, '✖', 'bottom', 'start');
+               return otpActions.existOtpVerifyActionError({
+                errors: res.errors.length ? res.errors : ['No user found. Invalid Mobile number given!'],
+                errorResponse: res,
+              });
+            } else if(res.status === 'error' && res.errors?.[0] === 'OTP not match') {
+              // If OTP is invalid, show error message
               this._snackBarService.openSnackBar('OTP verification failed.', 'error', 4, '✖', 'bottom', 'start');    
             }
 
@@ -262,6 +270,29 @@ export class OtpEffects {
           )
         )
       );
+
+  /**
+   * Effect: Logout User
+   * Clears user session and authentication tokens.
+   */
+      logout$ = createEffect(() =>
+        this.actions$.pipe(
+           ofType(otpActions.logoutuser),
+             switchMap(() => 
+                this.service.logoutuser().pipe(
+                    map((response) => {
+                        this._snackBarService.openSnackBar('Logged out successfully.', 'success', 2, '✖', 'bottom', 'start');
+                        return otpActions.logoutuserSuccess({ message: response.message || 'Logout successful' });
+
+                    }),
+                    catchError((error) => {
+                        this._snackBarService.openSnackBar('Logout failed.', 'error', 4, '✖', 'bottom', 'start');
+                        return of(otpActions.logoutuserFailure({ error }));
+                    })
+                )
+            )
+         )
+      )
     
       
 }

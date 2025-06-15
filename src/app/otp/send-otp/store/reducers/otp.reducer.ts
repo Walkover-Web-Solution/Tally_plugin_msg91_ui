@@ -29,6 +29,10 @@ export interface IOtpState {
     campaignFields: any;
     getCampaignFieldInProcess: boolean;
     campaignFieldsError: any | null;
+
+    logoutuser: any;
+    logoutuserSuccess: boolean | null;
+    logoutuserFailure: boolean | null;
 }
 
 export const initialState: IOtpState = {
@@ -55,7 +59,11 @@ export const initialState: IOtpState = {
 
     campaignFields: [],
     getCampaignFieldInProcess: false,
-    campaignFieldsError: null
+    campaignFieldsError: null,
+
+    logoutuser: null,
+    logoutuserSuccess: null,
+    logoutuserFailure: null,
     
 };
 
@@ -305,7 +313,27 @@ const _otpReducer = createReducer(
       ...state,
       getCampaignFieldInProcess: false,
       campaignFieldsError: error,
-  }))
+  })),
+
+    // -------------------- User Logout --------------------
+    on(otpActions.logoutuser, (state) => ({
+        ...state,
+        user: null,
+        token: null, 
+        walletBalance: 0,
+    })),
+
+    // -------------------- User Logout Success --------------------    
+    on(otpActions.logoutuserSuccess, (state) => ({
+        ...state,
+        loading: true,
+    })),
+    // -------------------- User Logout Failure --------------------
+    on(otpActions.logoutuserFailure, (state, { error }) => ({
+        ...state,
+        loading: false,
+        error: error
+    }))
 );
 
 

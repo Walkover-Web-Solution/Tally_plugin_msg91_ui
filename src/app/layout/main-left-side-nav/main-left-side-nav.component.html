@@ -9,7 +9,7 @@
         <a
             mat-list-item
             [routerLink]="['logs']"
-            class="active-list-item"
+             routerLinkActive="logs-active"
             [matTooltipPosition]="'right'"
             [matTooltip]="isSideNavOpen ? 'Logs' : ''"
         >
@@ -18,6 +18,22 @@
                 >
                  <!-- Menu Label (Only visible if sidebar is expanded) -->
                 <span matLine class="menu-list-span menu-label mt-3 ml-4">Logs</span>
+        </a>
+    </mat-nav-list>
+
+    <mat-nav-list>
+        <a
+            mat-list-item
+            [routerLink]="['configuration']"
+             routerLinkActive="logs-active"
+            [matTooltipPosition]="'right'"
+            [matTooltip]="isSideNavOpen ? 'Configuration' : ''"
+        >
+                <mat-icon matListIcon class="mat-icon-20 material-icons-outlined p-0" aria-hidden="false"
+                >tune</mat-icon
+                >
+                 <!-- Menu Label (Only visible if sidebar is expanded) -->
+                <span matLine class="menu-list-span menu-label mt-3 ml-4">Configuration</span>
         </a>
     </mat-nav-list>
 </div>

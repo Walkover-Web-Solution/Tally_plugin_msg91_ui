@@ -1,48 +1,38 @@
 <!-- Campaign list autocomplete field :: START -->
-<mat-form-field appearance="outline" class="w-25">
-            <mat-label>Select Campaign</mat-label>
-            <input 
-              type="text"
-              matInput
-              [matAutocomplete]="campaignAutoComplete"  
-            >
-            <mat-autocomplete
-                #campaignAutoComplete="matAutocomplete"
-                [displayWith]="campaignDisplayFunction"
-                (optionSelected)="onCampaignSelected($event)"
-            >
-           <!-- Cdk-scroll :: START -->
-            <msg91-cdk-scroll (fetchNextPage)="fetchNextCampaignPage()">
-                <a
-                    class="mat-option text-primary fw-bold d-flex align-items-center"
-                    href="javascript:void(0);"
-                    ></a
-                >
-                <a
-                    class="mat-option text-primary fw-bold d-flex align-items-center"
-                    href="javascript:void(0);"
-                >
-                </a>
-                <ng-container *ngIf="(campaigns$ | async) as campaigns">
-    
-                    <!-- No Campaign Found -->
-                    <mat-option *ngIf="campaigns.length === 0" disabled value="">
-                      No Campaign Found
-                    </mat-option>
-                
-                    <!-- Campaigns List -->
-                    <mat-option
-                      *ngFor="let campaign of campaigns"
-                      [value]="campaign"
-                    >
-                      <div class="d-flex justify-content-between">
-                        <span>{{ campaign.name }}</span>
-                      </div>
-                    </mat-option>
-                
-                  </ng-container>
-            </msg91-cdk-scroll>
+ <div class="d-flex flex-row gap-3">
+      <mat-form-field appearance="outline" class="w-25">
+  <mat-label>Select Campaign</mat-label>
+  <input type="text" matInput [matAutocomplete]="campaignAutoComplete" [formControl]="campaignForm">
+  <mat-autocomplete #campaignAutoComplete="matAutocomplete" [displayWith]="campaignDisplayFunction"
+    (optionSelected)="onCampaignSelected($event)">
+    <!-- Cdk-scroll :: START -->
+    <msg91-cdk-scroll (fetchNextPage)="fetchNextCampaignPage()">
+      <a class="mat-option text-primary fw-bold d-flex align-items-center" href="javascript:void(0);"></a>
+      <a class="mat-option text-primary fw-bold d-flex align-items-center" href="javascript:void(0);">
+      </a>
+      <ng-container *ngIf="(campaigns$ | async) as campaigns">
 
-            </mat-autocomplete>
+        <!-- No Campaign Found -->
+        <mat-option *ngIf="campaigns.length === 0" disabled value="">
+          No Campaign Found
+        </mat-option>
+
+        <!-- Campaigns List -->
+        <mat-option *ngFor="let campaign of campaigns" [value]="campaign">
+          <div class="d-flex justify-content-between">
+            <span>{{ campaign.name }}</span>
+          </div>
+        </mat-option>
+
+      </ng-container>
+    </msg91-cdk-scroll>
+
+  </mat-autocomplete>
 </mat-form-field>
+<button mat-icon-button color="primary" (click)="refreshCampaigns()" matTooltip="Refresh Campaigns"
+  class="cursor-pointer" [msg91ButtonLoader]="(fetchCampaignInProcess$ | async) || false">
+  <mat-icon>refresh</mat-icon>
+</button>
+
+ </div>
 <!-- Campaign list autocomplete field :: END -->

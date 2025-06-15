@@ -174,3 +174,8 @@ export const selectCampaignFieldsError = createSelector(
   selectOtpState,
   (state) => state.campaignFieldsError
 );
+
+export const selectlogoutuser = createSelector(
+  selectOtpState,
+  (state) => state.loading
+);
