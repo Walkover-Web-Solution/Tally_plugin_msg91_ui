@@ -1,0 +1,27 @@
+<!--
+  This 404.html file is used to support Angular's client-side routing.
+
+  Purpose:
+  When a user navigates directly to a deep route (e.g., /dashboard or /login),
+  static hosting platforms (like Firebase, GitHub Pages, Netlify) may return a 404 error 
+  because the server doesn't recognize the path.
+
+  Why declared here:
+  By using this file, we ensure that unknown paths still load the Angular app
+  (by rendering <app-root>), allowing Angular to handle the routing and show the correct view.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tally App</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <app-root></app-root>
+</body>
+</html>
