@@ -15,8 +15,6 @@ import { CommonModule } from '@angular/common';
 })
 export class ContactComponent {
 
-  public activeLink: string = 'contact'; // Default active link
-  
   constructor(private router: Router) { }
   
       // Method to navigate user to the login page when called
@@ -33,9 +31,5 @@ export class ContactComponent {
       // Method to navigate user to the contact page when called
       this.router.navigate(['/contact']); 
     }
-
-    public setActiveLink(link: string): void {
-      this.activeLink = link;
-  }
 
 }

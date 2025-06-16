@@ -17,8 +17,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './pricing.component.scss'
 })
 export class PricingComponent {
-  
-  public activeLink: string = 'pricing'; // Default active link
 
   constructor(private router: Router) { }
 
@@ -37,7 +35,4 @@ export class PricingComponent {
     this.router.navigate(['/contact']); 
   }
 
-  public setActiveLink(link: string): void {
-    this.activeLink = link;
-}
 }
