@@ -132,12 +132,10 @@ export class ConfigurationComponent extends BaseComponent {
       this.campaignForm.setValue('');
       this.myControl.setValue('');
       this.tallyControl.setValue('');
-      this.refreshCampaigns();
     });
 
     this.auth.get('authkey')?.valueChanges.subscribe(() => {
     this.campaignForm.setValue('');
-    this.refreshCampaigns();
   });
 
     this.getCampaignField$
@@ -147,12 +145,6 @@ export class ConfigurationComponent extends BaseComponent {
           this.campaignFields = Array.isArray(res.variables) ? res.variables : [];
         }
       });
-
-
-  }
-
-  public refreshCampaigns(): void {
-    this.verify();
   }
 
   // Method to fetch campaign fields based on authkey

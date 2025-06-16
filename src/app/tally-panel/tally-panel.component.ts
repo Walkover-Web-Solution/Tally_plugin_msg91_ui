@@ -35,4 +35,8 @@ export class TallyPanelComponent {
     // Method to navigate user to the contact page when called
     this.router.navigate(['/contact']); 
   }
+
+  public openPluginLink(): void {
+    window.location.href = 'https://drive.google.com/drive/folders/1wG-qh38G8RRWrkyUuSnDjeYYucrPeTMM?usp=sharing';
+}
 }

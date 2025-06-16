@@ -27,7 +27,9 @@
         </p>
         <!-- Call to action button -->
         <div class="mt-4">
-            <button mat-flat-button color="primary">Get the Plugin</button>
+            <button mat-flat-button color="primary"
+            (click)="openPluginLink()">  
+            Get the Plugin</button>
         </div> 
     </div>
 
@@ -88,7 +90,7 @@
             ledger management today.
         </p>
         <!-- Call to action button -->
-        <button mat-flat-button color="primary">Learn More</button> 
+        <button mat-flat-button color="primary" (click)="openPluginLink()">Learn More</button> 
     </div>
 
     <!-- Image next to plugin description -->
@@ -120,7 +122,9 @@
             <div class="font-24 fw-bolder">
                 Enhance your communication capabilities and automate your engagement tasks
             </div>
-            <button mat-flat-button color="primary">Get the MSG91 Tally Plugin</button>
+            <button mat-flat-button color="primary"
+                    (click)="openPluginLink()"
+            >Get the MSG91 Tally Plugin</button>
         </div>
     </div>
 </section>

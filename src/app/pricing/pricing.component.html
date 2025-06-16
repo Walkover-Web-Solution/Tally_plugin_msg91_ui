@@ -1,3 +1,14 @@
+<mat-toolbar class="d-flex flex-row justify-content-between position-sticky mat-elevation-z4">
+        <img src="https://msg91.com/assets/brand/msg91.svg" alt="Logo" class="img">
+    
+        <!-- Navigation links -->
+        <div class="d-flex flex-row gap-6">   
+            <div class="fw-bold cursor-pointer d-flex text-hover-primary" (click)="pricing()"><mat-icon>currency_rupee</mat-icon><span class="ml-1">Pricing</span></div>
+            <div class="fw-bold cursor-pointer d-flex text-hover-primary" (click)="contact()"><mat-icon>call</mat-icon><span class="ml-1">Contact</span></div>
+            <div class="fw-bold cursor-pointer d-flex text-hover-primary" (click)="redirectTologin()"><mat-icon>login</mat-icon><span class="ml-1">Login</span></div>
+        </div>
+    </mat-toolbar>
+    
 <div class="w-100 h-100 ml-5 mt-5">
      <div class="font-24 fw-bolder">
             WhatsApp Pricing
