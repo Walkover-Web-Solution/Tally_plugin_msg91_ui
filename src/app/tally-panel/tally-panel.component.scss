@@ -29,6 +29,7 @@ ul {
 }
 .main-content{
     height: 72vh;
+    background-color: #ffffff;
 }
 .paragraph{
      line-height: 1.6;
@@ -132,20 +133,20 @@ mdc-button__label{
 .mat-mdc-card {
     position: relative;
     width: 396px !important;
-    height: 135px !important;
+    height: 142px !important;
 }
 .section{
-    background-color: #f1f1f1;
-    margin: 20px 0;
+    background-color: #fafafa;
     border-radius: 8px;
 }
 .section2 {
     background-color: #ffffff;
-    margin: 20px 0;
     border-radius: 8px;
 }
 .section3 {
-    background-color: #f1f1f1;
-    margin: 20px 0;
+    background-color: #fafafa;
     border-radius: 8px;
+}
+.promo {
+    background-color: #ffffff;
 }
