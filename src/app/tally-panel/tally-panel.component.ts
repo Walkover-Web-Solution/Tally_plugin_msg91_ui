@@ -4,6 +4,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { footerComponent } from '../footer/footer.component';
 import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-tally-panel',
@@ -12,6 +13,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatToolbarModule,
     footerComponent,
     MatButtonModule,
+    MatCardModule,
     RouterModule
   ],
   templateUrl: './tally-panel.component.html',
@@ -35,8 +37,9 @@ export class TallyPanelComponent {
     // Method to navigate user to the contact page when called
     this.router.navigate(['/contact']); 
   }
-
+ 
+  // Method to navigate user to the about page when called 
   public openPluginLink(): void {
     window.location.href = 'https://drive.google.com/drive/folders/1wG-qh38G8RRWrkyUuSnDjeYYucrPeTMM?usp=sharing';
-}
+  }
 }
