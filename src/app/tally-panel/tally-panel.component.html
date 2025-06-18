@@ -5,7 +5,7 @@
     <img src="https://msg91.com/assets/brand/msg91.svg" alt="Logo" class="img">
 
     <!-- Navigation links -->
-    <div class="d-flex flex-row gap-6">   
+    <div class="d-flex flex-row gap-6">
         <div class="fw-bold cursor-pointer d-flex text-hover-primary" (click)="pricing()"><mat-icon>currency_rupee</mat-icon><span class="ml-1">Pricing</span></div>
         <div class="fw-bold cursor-pointer d-flex text-hover-primary" (click)="contact()"><mat-icon>call</mat-icon><span class="ml-1">Contact</span></div>
         <div class="fw-bold cursor-pointer d-flex text-hover-primary" (click)="redirectTologin()"><mat-icon>login</mat-icon><span class="ml-1">Login</span></div>
@@ -13,84 +13,185 @@
 </mat-toolbar>
 
 <!-- Main Content Section -->
-<div class="w-100 d-flex flex-row align-items-center justify-content-center position-relative gap-6 main-content"> 
-    <div class="position-relative content">  
+<div class="w-100 d-flex flex-row align-items-center justify-content-center position-relative gap-6 main-content">
+    <div class="position-relative mt-5 content">
         <!-- Heading with highlighted 'Tally' -->
         <h1 class="font-40 fw-bolder">
-            <span>Send Invoices on WhatsApp and Email via <span class="header2">Tally</span></span>
+            <span>Send Invoices on WhatsApp via <span class="header2">Tally</span></span>
         </h1>
         <!-- Paragraph describing the service -->
         <p class="paragraph font-20 mt-4">
-            Automate your financial processes effortlessly with Tally.
-            Streamline invoicing, effortlessly share ledgers, and efficiently recover outstanding amounts,
-            all within the Tally platform.
+            Automate and simplify your financial operations with the MSG91 Tally Plugin.
+            Instantly send and resend vouchers via WhatsApp,
+            and effortlessly share ledgers—all without the need for a separate MSG91 account.
+            Designed for seamless integration, this plugin lets you manage communication and recovery directly within
+            Tally,
+            saving you time and effort.
         </p>
         <!-- Call to action button -->
         <div class="mt-4">
-            <button mat-flat-button color="primary"
-            (click)="openPluginLink()">  
-            Get the Plugin</button>
-        </div> 
+            <button mat-flat-button color="primary" (click)="openPluginLink()">
+                Get the Plugin</button>
+        </div>
     </div>
 
     <!-- Illustration/Image next to main content -->
     <div class="d-flex align-items-center justify-content-center mt-5">
-        <img src="https://msg91.com/assets/integrations/graphics/tally-graphics.svg" alt="video-icon" class="image fw-bolder font-20">
+        <img src="https://msg91.com/assets/integrations/graphics/tally-graphics.svg" alt="video-icon"
+            class="image fw-bolder font-20">
     </div>
-</div>   
+</div>
 
 <!-- Features Section -->
-<div class="text-center p-5 d-flex">
-    <div class="d-flex justify-content-center gap-3">
-        <!-- Feature Card 1 -->
-        <div class="p-5 cursor-pointer w-75 feature-card">
-            <div class="icons">
-                <i class="fas fa-paper-plane feature-icon"></i> <!-- Icon -->
-                <h3 class="mb-3 mt-3 fw-bold card-text">Automatically Send Vouchers</h3>
-            </div>
-            <p class="ml-5 card-para">
-                Send vouchers instantly via WhatsApp, Email, or SMS to keep your transactions seamless.
-            </p>
-        </div>
+<div class="section pt-1 pb-6">
+    <div class="cards mt-5">
+         <!-- Heading and description for the features section -->
+        <h2 class="align-items-center">Automatically Send Vouchers via WhatsApp</h2>
+        <p class="paragraph">With the MSG91 Tally Plugin, vouchers can be sent automatically through WhatsApp
+            the moment they're generated—saving time, reducing manual work,
+            and ensuring faster communication with customers or vendors.
+        </p>
+    </div>
 
-        <!-- Feature Card 2 -->
-        <div class="p-5 cursor-pointer w-75 feature-card">
-            <div class="icons">
-                <i class="fas fa-paper-plane feature-icon"></i> <!-- Icon -->
-                <h3 class="mb-3 mt-3 fw-bold card-text">Update and Re-share Invoices</h3>
-            </div>
-            <p class="ml-5 card-para">
-                Easily modify invoices and share them again without any hassle.
-            </p>
-        </div>
+     <!-- Cards displaying different features of the plugin -->
+    <div class="d-flex flex-row flex-wrap justify-content-center col-gap-12 gap-4 mt-5 w-100">
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <mat-card-title class="text-center font-20 fw-bolder">Instant Invoice Sharing with
+                    Clients</mat-card-title>
+                <p class="text-center font-14 mt-2 paragraph"> Send sales vouchers immediately after billing,
+                    ensuring clients receive their invoices in real-time
+                    and reducing payment delays.
+                </p>
+            </mat-card-content>
+        </mat-card>
 
-        <!-- Feature Card 3 -->
-        <div class="p-5 cursor-pointer w-75 feature-card">
-            <div class="icons">
-                <i class="fas fa-paper-plane feature-icon"></i> <!-- Icon -->
-                <h3 class="mb-3 mt-3 fw-bold card-text">Share Ledgers & Recover Dues</h3>
-            </div>
-            <p class="ml-5 card-para">
-                Automatically send ledger reports to clients and recover outstanding payments.
-            </p>
-        </div>
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <mat-card-title class="text-center font-20 fw-bolder">Vendor Payment Confirmation</mat-card-title>
+                <p class="text-center font-14 mt-2 paragraph"> Share payment vouchers automatically with vendors as soon
+                    as
+                    payments are recorded in Tally—building trust and improving transparency.
+                    and improving transparency.
+                </p>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <mat-card-title class="text-center font-20 fw-bolder">Credit Note Sharing with
+                    Customers</mat-card-title>
+                <p class="text-center font-14 mt-2 paragraph">Automatically notify customers when a credit note is
+                    issued,
+                    reducing follow-up calls and improving customer satisfaction.
+                </p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+ <!-- Instant Ledger Sharing Section -->
+<section class="section2 pt-1 pb-6">
+    <div class="cards mt-5">
+         <!-- Heading and description for the ledger sharing section -->
+        <h2 class="align-items-center">Send Party Ledgers Instantly on WhatsApp</h2>
+        <p class="paragraph"> Quickly share customer, vendor, or party ledgers directly from Tally through WhatsApp.
+            This ensures faster communication, reduces reconciliation delays,
+            and eliminates manual export or email hassles.
+        </p>
+    </div>
+
+     <!-- Cards displaying different use cases for ledger sharing -->
+    <div class="d-flex flex-row flex-wrap justify-content-center col-gap-12 gap-4 mt-5 w-100">
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <mat-card-title class="text-center font-20 fw-bolder">Customer Balance Reminders</mat-card-title>
+                <p class="text-center paragraph mt-2 font-14"> Easily share customer ledgers showing pending amounts,
+                    helping prompt payment follow-ups and reduce outstanding receivables.
+                </p>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <mat-card-title class="text-center font-20 fw-bolder">Vendor Reconciliation</mat-card-title>
+                <p class="text-center paragraph mt-2 font-14"> Send ledgers to vendors for transaction verification—speeding
+                    up reconciliation
+                    and avoiding end-of-month disputes.
+                </p>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <mat-card-title class="text-center font-20 fw-bolder">Monthly Account Statements for
+                    Clients</mat-card-title>
+                <p class="text-center paragraph mt-2 font-14">Send updated ledgers at the end of each month to clients,
+                    helping them reconcile their books and stay informed.
+                </p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</section>
+
+<!-- Update and Re-share Invoices Section -->
+<div class="section3 pt-1 pb-6">
+    <div class="cards mt-5">
+        <h2 class="align-items-center">Update and Re-share Invoices</h2>
+        <p class="paragraph">Need to fix an invoice? Once updated in Tally,
+            you can manually re-send the corrected invoice via WhatsApp to the concerned party—quickly
+            and accurately, without re-exporting or switching platforms.
+        </p>
+    </div>
+
+     <!-- Cards displaying different use cases for updating and re-sharing invoices -->
+    <div class="d-flex flex-row flex-wrap justify-content-center col-gap-12 gap-4 mt-5 w-100">
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <mat-card-title class="text-center font-20 fw-bolder">Following Up on Missed Invoices</mat-card-title>
+                <p class="text-center font-14 mt-2 paragraph"> Client didn’t receive or lost the earlier invoice?
+                    Easily re-share the same invoice from Tally via WhatsApp without generating it again.
+                </p>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <mat-card-title class="text-center font-20 fw-bolder">Adjusting Tax or Discount Calculations</mat-card-title>
+                <p class="text-center font-14 mt-2 paragraph"> Spotted a mistake in the tax or discount? Once corrected in Tally,
+                    you can promptly re-send the right version—ensuring transparency and trust.
+                </p>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <mat-card-title class="text-center font-20 fw-bolder">Sending Final Versions Post-Edits</mat-card-title>
+                <p class="text-center font-14 mt-2 paragraph">After internal revisions or approvals,
+                    send the final updated invoice manually to the client—ensuring everyone is aligned with the latest
+                    version.
+                </p>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>
 
 <!-- Plugin Promotion Section -->
-<div class="d-flex flex-row">
+<div class="d-flex flex-row pt-1 pb-5 promo">
     <div class="container">
         <!-- Headline and description -->
-        <h4 class="mb-4 font-24 fw-bolder super"><span class="headline">SUPERCHARGE</span> Your Tally Prime Experience</h4>
-        <h3 class="mb-4 heading">Unlock Unparalleled Features with <span class="headline">MSG91 Tally Prime Plugin</span></h3>
-        <p class="description font-20 mb-1">
+        <h4 class="mb-4 font-24 fw-bolder super"><span class="headline">SUPERCHARGE</span> Your Tally Prime Experience
+        </h4>
+        <h3 class="mb-4 heading">Unlock Unparalleled Features with <span class="headline">MSG91 Tally Prime
+                Plugin</span></h3>
+        <p class="description font-20 mb-4">
             The MSG91 Tally Prime Plugin enhances your Tally experience with advanced automation
             features, real-time data syncing, and simplified workflow management. Save time, enhance
             communication, and gain precise control over financial transactions for streamlined invoicing and
             ledger management today.
         </p>
         <!-- Call to action button -->
-        <button mat-flat-button color="primary" (click)="openPluginLink()">Learn More</button> 
+        <button mat-flat-button color="primary" (click)="openPluginLink()">Learn More</button>
     </div>
 
     <!-- Image next to plugin description -->
@@ -100,7 +201,7 @@
 </div>
 
 <!-- Video Section -->
-<section class="text-center mt-3 video-section">
+<section class="text-center video-section">
     <h2 class="font-24 mb-20">Watch This Video to Learn More</h2>
     <div class="video-container">
         <video class="video" controls>
@@ -122,9 +223,7 @@
             <div class="font-24 fw-bolder">
                 Enhance your communication capabilities and automate your engagement tasks
             </div>
-            <button mat-flat-button color="primary"
-                    (click)="openPluginLink()"
-            >Get the MSG91 Tally Plugin</button>
+            <button mat-flat-button color="primary" (click)="openPluginLink()">Get the MSG91 Tally Plugin</button>
         </div>
     </div>
 </section>

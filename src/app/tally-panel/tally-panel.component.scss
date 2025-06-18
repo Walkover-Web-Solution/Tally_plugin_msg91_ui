@@ -15,7 +15,11 @@ ul {
     display: flex;
     align-items: center;
 }
-
+.cards {
+     width: 1000px;
+     margin-left: 270px;
+     text-align: center;
+}
 .image{
      width: 380px;
 }
@@ -25,6 +29,7 @@ ul {
 }
 .main-content{
     height: 72vh;
+    background-color: #ffffff;
 }
 .paragraph{
      line-height: 1.6;
@@ -124,4 +129,24 @@ mdc-button__label{
     top: 0;
     z-index: 1000;
     background: #ffffff;
+}
+.mat-mdc-card {
+    position: relative;
+    width: 396px !important;
+    height: 142px !important;
+}
+.section{
+    background-color: #fafafa;
+    border-radius: 8px;
+}
+.section2 {
+    background-color: #ffffff;
+    border-radius: 8px;
+}
+.section3 {
+    background-color: #fafafa;
+    border-radius: 8px;
+}
+.promo {
+    background-color: #ffffff;
 }
