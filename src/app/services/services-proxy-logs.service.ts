@@ -17,8 +17,8 @@ export class ServicesProxyLogsService {
   readonly getLogs = 'https://routes.msg91.com/api/c/proxyLogs';
   readonly getLogsById = 'https://apitest.msg91.com/api/c/proxyLogDetails/:id';
   readonly getUserDetails = 'https://routes.msg91.com/api/c/getDetails';
-  readonly getAllCampaignFlow = 'https://test.msg91.com/api/v5/campaign/api/campaigns';
-  readonly getCampaignFields = 'https://test.msg91.com/api/v5/campaign/api/campaigns/:slug/fields';
+  readonly getAllCampaignFlow = 'https://control.msg91.com/api/v5/campaign/api/campaigns';
+  readonly getCampaignFields = 'https://control.msg91.com/api/v5/campaign/api/campaigns/:slug/fields';
   readonly logout = 'https://routes.msg91.com/api/c/logout';  
 
   constructor(private http: HttpClient) { }

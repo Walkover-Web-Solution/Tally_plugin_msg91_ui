@@ -10,15 +10,19 @@ ul {
 }
 
 .mat-toolbar {
-    height: 65px;
-    padding: 0 20px;
+    height: 60px;
+    padding: 0 1rem;
     display: flex;
     align-items: center;
+    top: 0;
+    z-index: 1000;
+    background: #ffffff;
 }
 .cards {
-     width: 1000px;
-     margin-left: 270px;
+     width: 100%;
+     max-width: 1000px;
      text-align: center;
+     margin: 0 auto;
 }
 .image{
      width: 380px;
@@ -28,7 +32,7 @@ ul {
     z-index: 1;
 }
 .main-content{
-    height: 72vh;
+    min-height: 72vh;
     background-color: #ffffff;
 }
 .paragraph{
@@ -44,37 +48,38 @@ ul {
 .description{
     color: #666;
     line-height: 1.6;
-    max-width: 900px;
+    max-width: 100%;
     margin: 0 auto;
 }
 .image1{
-    width: 435px;
-    margin-left: 240px;
-    margin-top: 24px;
+    max-width: 100%;
+    height: auto;
 }
 .container{
-     width: 378px;
-     margin-left: 200px;
+     width: 100%;
+     max-width: 378px;
 }
 .heading{
-    font-size: 36px;
+    font-size: 2.5rem;
     font-weight: 600;
     color: #1c1c1c;
     margin-bottom: 30px;
 }
 .image-container{
-    margin-right: 220px;
+    margin: 0 auto;
 }
 .video-section{
-    padding: 50px 20px;
     background-color: #f1f1f1;
+    padding: 2rem 0;
 }
 .video-container{
-    max-width: 100%;
+    position: relative;
+    width: 100%;
+    max-width: 800px;
     margin: 0 auto;
 }
 .video{
-    width: 80%;
+    width: 100%;
     max-width: 800px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -87,20 +92,7 @@ ul {
     line-height: 1.6;
 }
 .requirement {
-    padding: 21px 29px 22px 10px;
     line-height: 42px;
-}
-
-.feature-card {
-    border-radius: 8px;
-    padding: 20px;
-    width: 340px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 .card-text {
     font-weight: 100;
@@ -125,15 +117,13 @@ mdc-button__label{
 .header2{
     color: #1b69a7;
 }
-.mat-toolbar {
-    top: 0;
-    z-index: 1000;
-    background: #ffffff;
-}
 .mat-mdc-card {
     position: relative;
-    width: 396px !important;
-    height: 142px !important;
+    width: 100%;
+    max-width: 396px !important;
+    height: auto !important;
+    min-height: 142px !important;
+    cursor: pointer;
 }
 .section{
     background-color: #fafafa;
@@ -149,4 +139,101 @@ mdc-button__label{
 }
 .promo {
     background-color: #ffffff;
+}
+
+/* Media queries for different screen sizes */
+@media (min-width: 992px) {
+    .cards {
+        margin-left: 270px;  
+    }
+    
+    .container {
+        margin-left: 200px;
+    }
+    
+    .image-container {
+        margin-right: 220px;
+    }
+}
+
+@media (max-width: 991px) {
+    .cards {
+        margin-left: 0;
+        width: 90%; /* Reduce width on smaller screens */
+    }
+    
+    .promo {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .container, .image-container {
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .image-container {
+        margin-top: 2rem;
+    }
+}
+// Specific fix for 768ox width
+@media (max-width: 768px) {
+    .promo {
+        text-align: center;
+    }
+    
+    h2, h3, h4 {
+        font-size: 1.5rem;
+    }
+    
+    .font-20 {
+        font-size: 16px;
+    }
+    
+    .font-24 {
+        font-size: 18px;
+    }
+    
+    .video-container {
+        width: 90%;
+    }
+}
+
+/* Specific fix for 650px width */
+@media (max-width: 650px) {
+    .main-content {
+        overflow-y: hidden;
+    }
+    
+    .cards {
+        width: 95%;
+        padding: 0 10px;
+    }
+    
+    .container {
+        max-width: 95%;
+    }
+    
+    .mat-mdc-card {
+        max-width: 100% !important;
+    }
+}
+
+//Specific fix for 576px width
+@media (max-width: 576px) {
+    .section, .section2, .section3 {
+        padding: 1rem 0.5rem;
+    }
+    
+    .cards {
+        margin-top: 1rem;
+    }
+    
+    .heading {
+        font-size: 28px;
+    }
+    
+    .video {
+        width: 100%;
+    }
 }
