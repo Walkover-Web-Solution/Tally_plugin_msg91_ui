@@ -1,6 +1,7 @@
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { AlertCircle, Wallet } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,15 +9,26 @@ interface LayoutProps {
 }
 
 export function Layout({ children, currentPage }: LayoutProps) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const currentBalance = 3.50; // This would come from app state/context in real app
   const isLowBalance = currentBalance < 10;
+  
   const menuItems = [
-    "Dashboard",
-    "Voucher Mapping", 
-    "Campaigns",
-    "Pricing",
-    "Profile"
+    { name: "Dashboard", route: "/dashboard" },
+    { name: "Voucher Mapping", route: "/voucher-mapping" }, 
+    { name: "Campaigns", route: "/campaigns" },
+    { name: "Pricing", route: "/subscription" },
+    { name: "Profile", route: "/profile" }
   ];
+
+  const handleMenuClick = (route: string) => {
+    navigate(route);
+  };
+
+  const isActiveRoute = (route: string) => {
+    return location.pathname === route;
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -55,13 +67,14 @@ export function Layout({ children, currentPage }: LayoutProps) {
               {menuItems.map((item, index) => (
                 <li key={index}>
                   <div
+                    onClick={() => handleMenuClick(item.route)}
                     className={`px-3 py-2 rounded cursor-pointer transition-colors ${
-                      currentPage === item
+                      isActiveRoute(item.route)
                         ? "bg-gray-200 text-gray-900"
                         : "text-gray-600 hover:bg-gray-100"
                     }`}
                   >
-                    {item}
+                    {item.name}
                   </div>
                 </li>
               ))}

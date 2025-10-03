@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { LandingPage } from './components/LandingPage';
 import { LoginPage } from './components/LoginPage';
 import { RegistrationPage } from './components/RegistrationPage';
@@ -11,12 +12,13 @@ import { NewUserFlow } from './components/NewUserFlow';
 import { Dashboard } from './components/Dashboard';
 import { UserProfilePage } from './components/UserProfilePage';
 import { Button } from './components/ui/button';
+import { Toaster } from './components/ui/sonner';
 
-type Screen = 'landing' | 'login' | 'registration' | 'subscription' | 'voucher-setup-choice' | 'voucher-mapping' | 'default-templates' | 'plugin-setup' | 'new-user' | 'dashboard' | 'profile';
 type UserType = 'existing' | 'new' | null;
 
 export default function App() {
-  const [currentScreen, setCurrentScreen] = useState<Screen>('landing');
+  const navigate = useNavigate();
+  const location = useLocation();
   const [userType, setUserType] = useState<UserType>(null);
   const [isLoggedInWithMSG91, setIsLoggedInWithMSG91] = useState<boolean>(false);
 
@@ -24,65 +26,65 @@ export default function App() {
     if (loginType === 'msg91') {
       setUserType('existing');
       setIsLoggedInWithMSG91(true);
-      setCurrentScreen('subscription');
+      navigate('/subscription');
     } else {
       setUserType('new');
-      setCurrentScreen('registration');
+      navigate('/registration');
     }
   };
 
   const handleRegistrationNext = () => {
-    setCurrentScreen('subscription');
+    navigate('/subscription');
   };
 
   const handleSubscriptionNext = () => {
     if (userType === 'new') {
-      setCurrentScreen('new-user');
+      navigate('/new-user');
     } else {
-      setCurrentScreen('voucher-setup-choice');
+      navigate('/voucher-setup-choice');
     }
   };
 
   const handleUseDefaults = () => {
-    setCurrentScreen('default-templates');
+    navigate('/default-templates');
   };
 
   const handleCustomMapping = () => {
-    setCurrentScreen('voucher-mapping');
+    navigate('/voucher-mapping');
   };
 
   const handleBackToChoice = () => {
-    setCurrentScreen('voucher-setup-choice');
+    navigate('/voucher-setup-choice');
   };
 
   const handleDefaultTemplatesNext = () => {
-    setCurrentScreen('plugin-setup');
+    navigate('/plugin-setup');
   };
 
   const handleMSG91LoginFromProfile = () => {
     setUserType('existing');
     setIsLoggedInWithMSG91(true);
-    setCurrentScreen('voucher-mapping');
+    navigate('/voucher-mapping');
   };
 
   const handleVoucherMappingNext = () => {
-    setCurrentScreen('plugin-setup');
+    navigate('/plugin-setup');
   };
 
   const handlePluginSetupComplete = () => {
-    setCurrentScreen('dashboard');
+    navigate('/dashboard');
   };
 
   const handleNewUserNext = () => {
-    setCurrentScreen('plugin-setup');
+    navigate('/plugin-setup');
   };
 
   const handleGetStarted = () => {
-    setCurrentScreen('login');
+    navigate('/login');
   };
 
   const resetToLogin = () => {
-    setCurrentScreen('login');
+    navigate('/login');
     setUserType(null);
     setIsLoggedInWithMSG91(false);
   };
@@ -93,6 +95,10 @@ export default function App() {
 
     const toggleMenu = () => {
       setIsMenuOpen(!isMenuOpen);
+    };
+
+    const isActiveRoute = (path: string) => {
+      return location.pathname === path;
     };
 
     return (
@@ -119,10 +125,10 @@ export default function App() {
                 variant="ghost" 
                 size="sm" 
                 onClick={() => {
-                  setCurrentScreen('landing');
+                  navigate('/');
                   setIsMenuOpen(false);
                 }}
-                className={currentScreen === 'landing' ? 'bg-gray-200' : ''}
+                className={isActiveRoute('/') ? 'bg-gray-200' : ''}
               >
                 0. Landing Page
               </Button>
@@ -130,10 +136,10 @@ export default function App() {
                 variant="ghost" 
                 size="sm" 
                 onClick={() => {
-                  setCurrentScreen('login');
+                  navigate('/login');
                   setIsMenuOpen(false);
                 }}
-                className={currentScreen === 'login' ? 'bg-gray-200' : ''}
+                className={isActiveRoute('/login') ? 'bg-gray-200' : ''}
               >
                 1. Login
               </Button>
@@ -142,10 +148,10 @@ export default function App() {
                 size="sm" 
                 onClick={() => {
                   setUserType('new');
-                  setCurrentScreen('registration');
+                  navigate('/registration');
                   setIsMenuOpen(false);
                 }}
-                className={currentScreen === 'registration' ? 'bg-gray-200' : ''}
+                className={isActiveRoute('/registration') ? 'bg-gray-200' : ''}
               >
                 2a. Registration
               </Button>
@@ -153,10 +159,10 @@ export default function App() {
                 variant="ghost" 
                 size="sm" 
                 onClick={() => {
-                  setCurrentScreen('subscription');
+                  navigate('/subscription');
                   setIsMenuOpen(false);
                 }}
-                className={currentScreen === 'subscription' ? 'bg-gray-200' : ''}
+                className={isActiveRoute('/subscription') ? 'bg-gray-200' : ''}
               >
                 2b. Pricing
               </Button>
@@ -165,10 +171,10 @@ export default function App() {
                 size="sm" 
                 onClick={() => {
                   setUserType('existing');
-                  setCurrentScreen('voucher-setup-choice');
+                  navigate('/voucher-setup-choice');
                   setIsMenuOpen(false);
                 }}
-                className={currentScreen === 'voucher-setup-choice' ? 'bg-gray-200' : ''}
+                className={isActiveRoute('/voucher-setup-choice') ? 'bg-gray-200' : ''}
               >
                 3a. Setup Choice
               </Button>
@@ -177,10 +183,10 @@ export default function App() {
                 size="sm" 
                 onClick={() => {
                   setUserType('existing');
-                  setCurrentScreen('voucher-mapping');
+                  navigate('/voucher-mapping');
                   setIsMenuOpen(false);
                 }}
-                className={currentScreen === 'voucher-mapping' ? 'bg-gray-200' : ''}
+                className={isActiveRoute('/voucher-mapping') ? 'bg-gray-200' : ''}
               >
                 3b. Custom Mapping
               </Button>
@@ -189,10 +195,10 @@ export default function App() {
                 size="sm" 
                 onClick={() => {
                   setUserType('existing');
-                  setCurrentScreen('default-templates');
+                  navigate('/default-templates');
                   setIsMenuOpen(false);
                 }}
-                className={currentScreen === 'default-templates' ? 'bg-gray-200' : ''}
+                className={isActiveRoute('/default-templates') ? 'bg-gray-200' : ''}
               >
                 3c. Default Templates
               </Button>
@@ -201,10 +207,10 @@ export default function App() {
                 size="sm" 
                 onClick={() => {
                   setUserType('new');
-                  setCurrentScreen('new-user');
+                  navigate('/new-user');
                   setIsMenuOpen(false);
                 }}
-                className={currentScreen === 'new-user' ? 'bg-gray-200' : ''}
+                className={isActiveRoute('/new-user') ? 'bg-gray-200' : ''}
               >
                 3d. New User Flow
               </Button>
@@ -212,10 +218,10 @@ export default function App() {
                 variant="ghost" 
                 size="sm" 
                 onClick={() => {
-                  setCurrentScreen('plugin-setup');
+                  navigate('/plugin-setup');
                   setIsMenuOpen(false);
                 }}
-                className={currentScreen === 'plugin-setup' ? 'bg-gray-200' : ''}
+                className={isActiveRoute('/plugin-setup') ? 'bg-gray-200' : ''}
               >
                 4. Plugin Setup
               </Button>
@@ -223,10 +229,10 @@ export default function App() {
                 variant="ghost" 
                 size="sm" 
                 onClick={() => {
-                  setCurrentScreen('dashboard');
+                  navigate('/dashboard');
                   setIsMenuOpen(false);
                 }}
-                className={currentScreen === 'dashboard' ? 'bg-gray-200' : ''}
+                className={isActiveRoute('/dashboard') ? 'bg-gray-200' : ''}
               >
                 5. Dashboard
               </Button>
@@ -234,10 +240,10 @@ export default function App() {
                 variant="ghost" 
                 size="sm" 
                 onClick={() => {
-                  setCurrentScreen('profile');
+                  navigate('/profile');
                   setIsMenuOpen(false);
                 }}
-                className={currentScreen === 'profile' ? 'bg-gray-200' : ''}
+                className={isActiveRoute('/profile') ? 'bg-gray-200' : ''}
               >
                 6. Profile & Settings
               </Button>
@@ -259,65 +265,21 @@ export default function App() {
     <div className="min-h-screen">
       <NavigationBar />
       
-      {currentScreen === 'landing' && (
-        <LandingPage onGetStarted={handleGetStarted} />
-      )}
+      <Routes>
+        <Route path="/" element={<LandingPage onGetStarted={handleGetStarted} />} />
+        <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+        <Route path="/registration" element={<RegistrationPage onNext={handleRegistrationNext} />} />
+        <Route path="/subscription" element={<SubscriptionPage userType={userType || 'new'} onNext={handleSubscriptionNext} />} />
+        <Route path="/voucher-setup-choice" element={<VoucherSetupChoice onUseDefaults={handleUseDefaults} onCustomMapping={handleCustomMapping} />} />
+        <Route path="/voucher-mapping" element={<VoucherMappingPage onNext={handleVoucherMappingNext} onUseDefaults={handleUseDefaults} />} />
+        <Route path="/default-templates" element={<DefaultTemplatesPage onNext={handleDefaultTemplatesNext} onCustomize={handleBackToChoice} />} />
+        <Route path="/new-user" element={<NewUserFlow onNext={handleNewUserNext} />} />
+        <Route path="/plugin-setup" element={<PluginSetupPage onComplete={handlePluginSetupComplete} />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<UserProfilePage isLoggedInWithMSG91={isLoggedInWithMSG91} onMSG91Login={handleMSG91LoginFromProfile} onUseDefaults={handleUseDefaults} />} />
+      </Routes>
       
-      {currentScreen === 'login' && (
-        <LoginPage onLogin={handleLogin} />
-      )}
-      
-      {currentScreen === 'registration' && userType === 'new' && (
-        <RegistrationPage onNext={handleRegistrationNext} />
-      )}
-      
-      {currentScreen === 'subscription' && (
-        <SubscriptionPage 
-          userType={userType || 'new'} 
-          onNext={handleSubscriptionNext} 
-        />
-      )}
-      
-      {currentScreen === 'voucher-setup-choice' && userType === 'existing' && (
-        <VoucherSetupChoice 
-          onUseDefaults={handleUseDefaults}
-          onCustomMapping={handleCustomMapping}
-        />
-      )}
-      
-      {currentScreen === 'voucher-mapping' && userType === 'existing' && (
-        <VoucherMappingPage 
-          onNext={handleVoucherMappingNext} 
-          onUseDefaults={handleUseDefaults}
-        />
-      )}
-      
-      {currentScreen === 'default-templates' && userType === 'existing' && (
-        <DefaultTemplatesPage 
-          onNext={handleDefaultTemplatesNext}
-          onCustomize={handleBackToChoice}
-        />
-      )}
-      
-      {currentScreen === 'new-user' && userType === 'new' && (
-        <NewUserFlow onNext={handleNewUserNext} />
-      )}
-      
-      {currentScreen === 'plugin-setup' && (
-        <PluginSetupPage onComplete={handlePluginSetupComplete} />
-      )}
-      
-      {currentScreen === 'dashboard' && (
-        <Dashboard />
-      )}
-      
-      {currentScreen === 'profile' && (
-        <UserProfilePage 
-          isLoggedInWithMSG91={isLoggedInWithMSG91}
-          onMSG91Login={handleMSG91LoginFromProfile}
-          onUseDefaults={handleUseDefaults}
-        />
-      )}
+      <Toaster />
     </div>
   );
 }
